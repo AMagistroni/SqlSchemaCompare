@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TSql\old\ITSqlParserListener.cs" />
+    <Compile Remove="TSql\old\TSqlLexer.cs" />
+    <Compile Remove="TSql\old\TSqlObjectFactory.cs" />
+    <Compile Remove="TSql\old\TSqlParser.cs" />
+    <Compile Remove="TSql\old\TSqlParserBase.cs" />
+    <Compile Remove="TSql\old\TSqlParserBaseListener.cs" />
+    <Compile Remove="TSql\old\TSqlParserListener.cs" />
+    <Compile Remove="TSql\old\TSqlSchemaBuilder.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Antlr4" Version="4.6.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Antlr4.Runtime" Version="4.6.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Factory\" />
+    <Folder Include="TSql\old\" />
+  </ItemGroup>
+
+</Project>
