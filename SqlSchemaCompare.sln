@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlSchemaCompare.WindowsFor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlSchemaCompare.Test", "SqlSchemaCompare.Test\SqlSchemaCompare.Test.csproj", "{112A6539-A729-4797-9FBB-8C8AB009B30B}"
 EndProject
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "SqlCompare.Packaging", "SqlCompare.Packaging\SqlCompare.Packaging.wapproj", "{D173BB9E-9DBF-418F-98F9-DCFAE128801E}"
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "SqlSchemaCompare.Packaging", "SqlSchemaCompare.Packaging\SqlSchemaCompare.Packaging.wapproj", "{D173BB9E-9DBF-418F-98F9-DCFAE128801E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
