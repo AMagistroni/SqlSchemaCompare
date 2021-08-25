@@ -5,14 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="TSql\old\ITSqlParserListener.cs" />
-    <Compile Remove="TSql\old\TSqlLexer.cs" />
-    <Compile Remove="TSql\old\TSqlObjectFactory.cs" />
-    <Compile Remove="TSql\old\TSqlParser.cs" />
-    <Compile Remove="TSql\old\TSqlParserBase.cs" />
-    <Compile Remove="TSql\old\TSqlParserBaseListener.cs" />
-    <Compile Remove="TSql\old\TSqlParserListener.cs" />
-    <Compile Remove="TSql\old\TSqlSchemaBuilder.cs" />
+    <Antlr4 Remove="TSql\old\**" />
+    <Compile Remove="TSql\old\**" />
+    <EmbeddedResource Remove="TSql\old\**" />
+    <None Remove="TSql\old\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Factory\" />
-    <Folder Include="TSql\old\" />
   </ItemGroup>
 
 </Project>
