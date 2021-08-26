@@ -50,20 +50,12 @@ jobs:
 
     strategy:
       matrix:
-        kind: ['linux', 'windows', 'macOS']
+        kind: ['windows']
         include:
-          - kind: linux
-            os: ubuntu-latest
-            target: linux-x64
-            friendly-name: linux-x64
           - kind: windows
             os: windows-latest
             target: win-x64
             friendly-name: windows-x64
-          - kind: macOS
-            os: macos-latest
-            target: osx-x64
-            friendly-name: macos-x64
     runs-on: ${{ matrix.os }}
 
     env:
