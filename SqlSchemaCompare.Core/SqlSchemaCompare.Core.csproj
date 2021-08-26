@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Antlr4 Remove="Factory\**" />
     <Antlr4 Remove="TSql\old\**" />
+    <Compile Remove="Factory\**" />
     <Compile Remove="TSql\old\**" />
+    <EmbeddedResource Remove="Factory\**" />
     <EmbeddedResource Remove="TSql\old\**" />
+    <None Remove="Factory\**" />
     <None Remove="TSql\old\**" />
   </ItemGroup>
 
@@ -17,10 +21,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Antlr4.Runtime" Version="4.6.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Factory\" />
   </ItemGroup>
 
 </Project>
