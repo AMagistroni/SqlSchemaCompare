@@ -14,6 +14,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="MainForm.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="images\change.png" />
+    <None Remove="images\Database-Datas.ico" />
+    <None Remove="images\folder.png" />
+    <None Remove="images\gear.png" />
+    <None Remove="images\IconaProgramma.png" />
+    <None Remove="images\info.ico" />
+    <None Remove="images\info.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="images\change.png" />
+    <EmbeddedResource Include="images\Database-Datas.ico" />
+    <EmbeddedResource Include="images\folder.png" />
+    <EmbeddedResource Include="images\gear.png" />
+    <EmbeddedResource Include="images\IconaProgramma.png" />
+    <EmbeddedResource Include="images\info.ico" />
+    <EmbeddedResource Include="images\info.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="MainForm.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SqlSchemaCompare.Core\SqlSchemaCompare.Core.csproj" />
   </ItemGroup>
 

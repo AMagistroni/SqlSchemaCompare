@@ -81,7 +81,7 @@ namespace SqlSchemaCompare.Core.TSql
         {
             DbObjects.Add(_roleFactory.Create(context, _stream));
         }
-
+        
         public override void ExitEnable_trigger([NotNull] TSqlParser.Enable_triggerContext context)
         {
             var enabled = _triggerFactory.CreateEnable(context, _stream);
