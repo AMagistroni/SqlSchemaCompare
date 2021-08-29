@@ -1,6 +1,4 @@
 ﻿using Shouldly;
-using SqlSchemaCompare.Core;
-using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
 using System.Linq;
@@ -56,11 +54,7 @@ BEGIN
 END
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Function });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -83,11 +77,7 @@ END
 GO";
             const string destination = "";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Function });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -122,11 +112,7 @@ BEGIN
 END
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Function });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -163,11 +149,7 @@ BEGIN
 END
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Function });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -182,6 +164,28 @@ END
 GO
 
 ");
+            errors.ShouldBeEmpty();
+        }
+
+        [Theory]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), DbObjectType.Function, MemberType = typeof(TestDbObjectGenerator))]
+        public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
+        {
+            // When user not select Function db object, update schema is created without Function
+            const string databaseName = "dbName";
+
+            const string origin =
+@"CREATE FUNCTION [dbo].[func1] (@par int)
+RETURNS INT
+AS
+BEGIN
+    RETURN 3
+END
+GO";
+            string destination = string.Empty;
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }
     }

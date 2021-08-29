@@ -1,6 +1,4 @@
 ﻿using Shouldly;
-using SqlSchemaCompare.Core;
-using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
 using System.Linq;
@@ -38,7 +36,8 @@ namespace SqlSchemaCompare.Test.TSql
             var objectFactory = new TSqlObjectFactory();
             (var objects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
 
-            objects.ShouldBeEmpty();
+            objects.Single().DbObjectType.ShouldBe(DbObjectType.Other);
+            objects.Single().Sql.ShouldBe(sql);
             errors.Count().ShouldBe(0);
         }
 
@@ -62,11 +61,7 @@ GO";
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Index });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -87,11 +82,7 @@ GO";
 GO";
             const string destination = "";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Index });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -122,11 +113,7 @@ GO
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Index });
 
             updateSchema.ShouldBe(
     $@"USE [{databaseName}]
@@ -160,11 +147,7 @@ GO";
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Index });
 
             updateSchema.ShouldBe(
     $@"USE [{databaseName}]
@@ -180,6 +163,26 @@ CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
 GO
 
 ");
+            errors.ShouldBeEmpty();
+        }
+
+        [Theory]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), DbObjectType.Index, MemberType = typeof(TestDbObjectGenerator))]
+        public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
+        {
+            // When user not select Index db object, update schema is created without Index
+            const string databaseName = "dbName";
+
+            const string origin =
+@"CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
+GO";
+            string destination = string.Empty;
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }
     }

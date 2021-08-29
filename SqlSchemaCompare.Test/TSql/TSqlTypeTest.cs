@@ -1,6 +1,4 @@
 ﻿using Shouldly;
-using SqlSchemaCompare.Core;
-using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
 using System.Linq;
@@ -47,11 +45,7 @@ GO";
 	[column1] [nvarchar](20) NOT NULL)
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Type });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -71,11 +65,7 @@ GO";
 GO";
             const string destination = "";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Type });
 
             updateSchema.ShouldBe(
     $@"USE [{databaseName}]
@@ -104,11 +94,7 @@ GO
     [column1] [nvarchar](20) NOT NULL)
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Type });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -139,11 +125,7 @@ GO";
     [columnDifferent] [nvarchar](20) NULL)
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Type });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -158,6 +140,25 @@ CREATE TYPE [dbo].[TBL] AS TABLE (
 GO
 
 ");
+            errors.ShouldBeEmpty();
+        }
+
+        [Theory]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), DbObjectType.Type, MemberType = typeof(TestDbObjectGenerator))]
+        public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
+        {
+            // When user not select type db object, update schema is created without type
+            const string databaseName = "dbName";
+
+            const string origin =
+@"CREATE TYPE [dbo].[TBL] AS TABLE (
+    [ID] [int] NOT NULL,
+    [columnDifferent] [nvarchar](20) NOT NULL)
+GO";
+            string destination = string.Empty;
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }
     }

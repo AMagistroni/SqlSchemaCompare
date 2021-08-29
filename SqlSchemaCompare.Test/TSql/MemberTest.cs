@@ -1,6 +1,4 @@
 ﻿using Shouldly;
-using SqlSchemaCompare.Core;
-using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
 using System.Linq;
@@ -37,11 +35,7 @@ namespace SqlSchemaCompare.Test.TSql
             const string origin = "ALTER ROLE [role] ADD MEMBER [member1]";
             const string destination = "ALTER ROLE [role] ADD MEMBER [member1]";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Member });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -57,11 +51,7 @@ namespace SqlSchemaCompare.Test.TSql
             const string origin = "ALTER ROLE [role] ADD MEMBER [member1]";
             const string destination = "";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Member });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -84,11 +74,7 @@ GO
             const string origin = "";
             const string destination = "ALTER ROLE [role] ADD MEMBER [member1]";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Member });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -98,6 +84,21 @@ ALTER ROLE [role] DROP MEMBER [member1]
 GO
 
 ");
+            errors.ShouldBeEmpty();
+        }
+
+        [Theory]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), DbObjectType.Member, MemberType = typeof(TestDbObjectGenerator))]
+        public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
+        {
+            // When user not select Member db object, update schema is created without Member            
+            const string databaseName = "dbName";
+
+            const string origin = "ALTER ROLE [role] ADD MEMBER [member1]";
+            string destination = string.Empty;
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }
     }

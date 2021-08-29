@@ -1,6 +1,4 @@
 ﻿using Shouldly;
-using SqlSchemaCompare.Core;
-using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
 using System.Linq;
@@ -49,11 +47,7 @@ AS
 SELECT * FROM [dbo].[tbl1]
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.View });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -73,11 +67,7 @@ AS
 GO";
             const string destination = "";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.View });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -106,11 +96,7 @@ AS
     SELECT * FROM [dbo].[tbl1]
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.View });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -141,11 +127,7 @@ AS
     SELECT * FROM [dbo].[tbl2]
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.View });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -157,6 +139,25 @@ AS
 GO
 
 ");
+            errors.ShouldBeEmpty();
+        }
+
+        [Theory]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), DbObjectType.View, MemberType = typeof(TestDbObjectGenerator))]
+        public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
+        {
+            // When user not select view db object, update schema is created without view
+            const string databaseName = "dbName";
+
+            const string origin =
+@"CREATE VIEW [dbo].[vw1]
+AS
+    SELECT * FROM [dbo].[tbl1]
+GO";
+            string destination = string.Empty;
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }
     }

@@ -29,8 +29,9 @@ namespace SqlSchemaCompare.WindowsForm
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBoxMain = new System.Windows.Forms.GroupBox();
+            this.BtnClear = new System.Windows.Forms.Button();
+            this.BtnLoadSchema = new System.Windows.Forms.Button();
             this.BtnSwapOriginDestination = new System.Windows.Forms.Button();
             this.btnDestinationSchema = new System.Windows.Forms.Button();
             this.btnOriginSchema = new System.Windows.Forms.Button();
@@ -49,21 +50,36 @@ namespace SqlSchemaCompare.WindowsForm
             this.txtOutputDirectory = new System.Windows.Forms.TextBox();
             this.lblOutputDirectory = new System.Windows.Forms.Label();
             this.fbdOutputDirectory = new System.Windows.Forms.FolderBrowserDialog();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.GrpUpdateSchema = new System.Windows.Forms.GroupBox();
             this.btnUpdateSchema = new System.Windows.Forms.Button();
             this.txtUpdateSchemaFile = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDatabaseName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.GrpCompare = new System.Windows.Forms.GroupBox();
             this.ofdUpdateSchemaFile = new System.Windows.Forms.OpenFileDialog();
+            this.GrpDbObjects = new System.Windows.Forms.GroupBox();
+            this.ChkOther = new System.Windows.Forms.CheckBox();
+            this.ChkIndex = new System.Windows.Forms.CheckBox();
+            this.ChkTrigger = new System.Windows.Forms.CheckBox();
+            this.ChkTableType = new System.Windows.Forms.CheckBox();
+            this.ChkSchema = new System.Windows.Forms.CheckBox();
+            this.ChkUser = new System.Windows.Forms.CheckBox();
+            this.ChkFunction = new System.Windows.Forms.CheckBox();
+            this.ChkStoreProcedure = new System.Windows.Forms.CheckBox();
+            this.ChkView = new System.Windows.Forms.CheckBox();
+            this.ChkTable = new System.Windows.Forms.CheckBox();
+            this.ChkAll = new System.Windows.Forms.CheckBox();
             this.groupBoxMain.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.GrpUpdateSchema.SuspendLayout();
+            this.GrpCompare.SuspendLayout();
+            this.GrpDbObjects.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMain
             // 
+            this.groupBoxMain.Controls.Add(this.BtnClear);
+            this.groupBoxMain.Controls.Add(this.BtnLoadSchema);
             this.groupBoxMain.Controls.Add(this.BtnSwapOriginDestination);
             this.groupBoxMain.Controls.Add(this.btnDestinationSchema);
             this.groupBoxMain.Controls.Add(this.btnOriginSchema);
@@ -75,16 +91,42 @@ namespace SqlSchemaCompare.WindowsForm
             this.groupBoxMain.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.groupBoxMain.Name = "groupBoxMain";
             this.groupBoxMain.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.groupBoxMain.Size = new System.Drawing.Size(494, 168);
+            this.groupBoxMain.Size = new System.Drawing.Size(494, 222);
             this.groupBoxMain.TabIndex = 0;
             this.groupBoxMain.TabStop = false;
             this.groupBoxMain.Text = "Schema";
+            // 
+            // BtnClear
+            // 
+            this.BtnClear.Image = global::SqlSchemaCompare.WindowsForm.Properties.Resources.gear;
+            this.BtnClear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnClear.Location = new System.Drawing.Point(392, 169);
+            this.BtnClear.Name = "BtnClear";
+            this.BtnClear.Size = new System.Drawing.Size(85, 36);
+            this.BtnClear.TabIndex = 8;
+            this.BtnClear.Text = "Clear";
+            this.BtnClear.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnClear.UseVisualStyleBackColor = true;
+            this.BtnClear.Click += new System.EventHandler(this.BtnClear_Click);
+            // 
+            // BtnLoadSchema
+            // 
+            this.BtnLoadSchema.Image = global::SqlSchemaCompare.WindowsForm.Properties.Resources.gear;
+            this.BtnLoadSchema.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnLoadSchema.Location = new System.Drawing.Point(14, 169);
+            this.BtnLoadSchema.Name = "BtnLoadSchema";
+            this.BtnLoadSchema.Size = new System.Drawing.Size(128, 36);
+            this.BtnLoadSchema.TabIndex = 7;
+            this.BtnLoadSchema.Text = "Load schema";
+            this.BtnLoadSchema.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnLoadSchema.UseVisualStyleBackColor = true;
+            this.BtnLoadSchema.Click += new System.EventHandler(this.BtnLoadSchema_Click);
             // 
             // BtnSwapOriginDestination
             // 
             this.BtnSwapOriginDestination.Image = global::SqlSchemaCompare.WindowsForm.Properties.Resources.change;
             this.BtnSwapOriginDestination.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSwapOriginDestination.Location = new System.Drawing.Point(237, 74);
+            this.BtnSwapOriginDestination.Location = new System.Drawing.Point(235, 61);
             this.BtnSwapOriginDestination.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.BtnSwapOriginDestination.Name = "BtnSwapOriginDestination";
             this.BtnSwapOriginDestination.Size = new System.Drawing.Size(86, 40);
@@ -97,7 +139,7 @@ namespace SqlSchemaCompare.WindowsForm
             // btnDestinationSchema
             // 
             this.btnDestinationSchema.Image = global::SqlSchemaCompare.WindowsForm.Properties.Resources.folder;
-            this.btnDestinationSchema.Location = new System.Drawing.Point(437, 122);
+            this.btnDestinationSchema.Location = new System.Drawing.Point(437, 109);
             this.btnDestinationSchema.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnDestinationSchema.Name = "btnDestinationSchema";
             this.btnDestinationSchema.Size = new System.Drawing.Size(40, 36);
@@ -118,7 +160,8 @@ namespace SqlSchemaCompare.WindowsForm
             // 
             // txtDestinationSchema
             // 
-            this.txtDestinationSchema.Location = new System.Drawing.Point(161, 122);
+            this.txtDestinationSchema.Enabled = false;
+            this.txtDestinationSchema.Location = new System.Drawing.Point(161, 109);
             this.txtDestinationSchema.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtDestinationSchema.Name = "txtDestinationSchema";
             this.txtDestinationSchema.Size = new System.Drawing.Size(263, 27);
@@ -126,6 +169,7 @@ namespace SqlSchemaCompare.WindowsForm
             // 
             // txtOriginSchema
             // 
+            this.txtOriginSchema.Enabled = false;
             this.txtOriginSchema.Location = new System.Drawing.Point(161, 26);
             this.txtOriginSchema.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtOriginSchema.Name = "txtOriginSchema";
@@ -135,7 +179,7 @@ namespace SqlSchemaCompare.WindowsForm
             // lblDestinationSchema
             // 
             this.lblDestinationSchema.AutoSize = true;
-            this.lblDestinationSchema.Location = new System.Drawing.Point(14, 122);
+            this.lblDestinationSchema.Location = new System.Drawing.Point(14, 109);
             this.lblDestinationSchema.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblDestinationSchema.Name = "lblDestinationSchema";
             this.lblDestinationSchema.Size = new System.Drawing.Size(139, 20);
@@ -202,7 +246,7 @@ namespace SqlSchemaCompare.WindowsForm
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
-            this.lblInfo.Location = new System.Drawing.Point(17, 581);
+            this.lblInfo.Location = new System.Drawing.Point(17, 626);
             this.lblInfo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(52, 20);
@@ -231,29 +275,29 @@ namespace SqlSchemaCompare.WindowsForm
             // lblOutputDirectory
             // 
             this.lblOutputDirectory.AutoSize = true;
-            this.lblOutputDirectory.Location = new System.Drawing.Point(14, 78);
+            this.lblOutputDirectory.Location = new System.Drawing.Point(14, 73);
             this.lblOutputDirectory.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblOutputDirectory.Name = "lblOutputDirectory";
             this.lblOutputDirectory.Size = new System.Drawing.Size(118, 20);
             this.lblOutputDirectory.TabIndex = 0;
             this.lblOutputDirectory.Text = "Output directory";
             // 
-            // groupBox1
+            // GrpUpdateSchema
             // 
-            this.groupBox1.Controls.Add(this.btnUpdateSchema);
-            this.groupBox1.Controls.Add(this.txtUpdateSchemaFile);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtDatabaseName);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.btnCreateUpdateFile);
-            this.groupBox1.Location = new System.Drawing.Point(17, 378);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(494, 174);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Update schema";
+            this.GrpUpdateSchema.Controls.Add(this.btnUpdateSchema);
+            this.GrpUpdateSchema.Controls.Add(this.txtUpdateSchemaFile);
+            this.GrpUpdateSchema.Controls.Add(this.label2);
+            this.GrpUpdateSchema.Controls.Add(this.txtDatabaseName);
+            this.GrpUpdateSchema.Controls.Add(this.label1);
+            this.GrpUpdateSchema.Controls.Add(this.btnCreateUpdateFile);
+            this.GrpUpdateSchema.Location = new System.Drawing.Point(17, 423);
+            this.GrpUpdateSchema.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.GrpUpdateSchema.Name = "GrpUpdateSchema";
+            this.GrpUpdateSchema.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.GrpUpdateSchema.Size = new System.Drawing.Size(494, 174);
+            this.GrpUpdateSchema.TabIndex = 4;
+            this.GrpUpdateSchema.TabStop = false;
+            this.GrpUpdateSchema.Text = "Update schema";
             // 
             // btnUpdateSchema
             // 
@@ -301,48 +345,204 @@ namespace SqlSchemaCompare.WindowsForm
             this.label1.TabIndex = 10;
             this.label1.Text = "Database name";
             // 
-            // groupBox2
+            // GrpCompare
             // 
-            this.groupBox2.Controls.Add(this.btnOutputDirectory);
-            this.groupBox2.Controls.Add(this.txtSuffix);
-            this.groupBox2.Controls.Add(this.txtOutputDirectory);
-            this.groupBox2.Controls.Add(this.btnCompare);
-            this.groupBox2.Controls.Add(this.lblOutputDirectory);
-            this.groupBox2.Controls.Add(this.lblSuffix);
-            this.groupBox2.Location = new System.Drawing.Point(17, 196);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox2.Size = new System.Drawing.Size(495, 174);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Compare";
+            this.GrpCompare.Controls.Add(this.btnOutputDirectory);
+            this.GrpCompare.Controls.Add(this.txtSuffix);
+            this.GrpCompare.Controls.Add(this.txtOutputDirectory);
+            this.GrpCompare.Controls.Add(this.btnCompare);
+            this.GrpCompare.Controls.Add(this.lblOutputDirectory);
+            this.GrpCompare.Controls.Add(this.lblSuffix);
+            this.GrpCompare.Location = new System.Drawing.Point(17, 241);
+            this.GrpCompare.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.GrpCompare.Name = "GrpCompare";
+            this.GrpCompare.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.GrpCompare.Size = new System.Drawing.Size(495, 174);
+            this.GrpCompare.TabIndex = 5;
+            this.GrpCompare.TabStop = false;
+            this.GrpCompare.Text = "Compare";
             // 
             // ofdUpdateSchemaFile
             // 
             this.ofdUpdateSchemaFile.CheckFileExists = false;
             this.ofdUpdateSchemaFile.FileName = "openFileDialog1";
             // 
+            // GrpDbObjects
+            // 
+            this.GrpDbObjects.Controls.Add(this.ChkOther);
+            this.GrpDbObjects.Controls.Add(this.ChkIndex);
+            this.GrpDbObjects.Controls.Add(this.ChkTrigger);
+            this.GrpDbObjects.Controls.Add(this.ChkTableType);
+            this.GrpDbObjects.Controls.Add(this.ChkSchema);
+            this.GrpDbObjects.Controls.Add(this.ChkUser);
+            this.GrpDbObjects.Controls.Add(this.ChkFunction);
+            this.GrpDbObjects.Controls.Add(this.ChkStoreProcedure);
+            this.GrpDbObjects.Controls.Add(this.ChkView);
+            this.GrpDbObjects.Controls.Add(this.ChkTable);
+            this.GrpDbObjects.Controls.Add(this.ChkAll);
+            this.GrpDbObjects.Location = new System.Drawing.Point(527, 35);
+            this.GrpDbObjects.Name = "GrpDbObjects";
+            this.GrpDbObjects.Size = new System.Drawing.Size(176, 562);
+            this.GrpDbObjects.TabIndex = 6;
+            this.GrpDbObjects.TabStop = false;
+            this.GrpDbObjects.Text = "Db objects";
+            this.GrpDbObjects.UseCompatibleTextRendering = true;
+            // 
+            // ChkOther
+            // 
+            this.ChkOther.AutoSize = true;
+            this.ChkOther.Checked = true;
+            this.ChkOther.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkOther.Location = new System.Drawing.Point(6, 336);
+            this.ChkOther.Name = "ChkOther";
+            this.ChkOther.Size = new System.Drawing.Size(114, 24);
+            this.ChkOther.TabIndex = 10;
+            this.ChkOther.Text = "Other object";
+            this.ChkOther.UseVisualStyleBackColor = true;            
+            // 
+            // ChkIndex
+            // 
+            this.ChkIndex.AutoSize = true;
+            this.ChkIndex.Checked = true;
+            this.ChkIndex.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkIndex.Location = new System.Drawing.Point(6, 306);
+            this.ChkIndex.Name = "ChkIndex";
+            this.ChkIndex.Size = new System.Drawing.Size(67, 24);
+            this.ChkIndex.TabIndex = 8;
+            this.ChkIndex.Text = "Index";
+            this.ChkIndex.UseVisualStyleBackColor = true;            
+            // 
+            // ChkTrigger
+            // 
+            this.ChkTrigger.AutoSize = true;
+            this.ChkTrigger.Checked = true;
+            this.ChkTrigger.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkTrigger.Location = new System.Drawing.Point(5, 276);
+            this.ChkTrigger.Name = "ChkTrigger";
+            this.ChkTrigger.Size = new System.Drawing.Size(78, 24);
+            this.ChkTrigger.TabIndex = 7;
+            this.ChkTrigger.Text = "Trigger";
+            this.ChkTrigger.UseVisualStyleBackColor = true;            
+            // 
+            // ChkTableType
+            // 
+            this.ChkTableType.AutoSize = true;
+            this.ChkTableType.Checked = true;
+            this.ChkTableType.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkTableType.Location = new System.Drawing.Point(6, 91);
+            this.ChkTableType.Name = "ChkTableType";
+            this.ChkTableType.Size = new System.Drawing.Size(100, 24);
+            this.ChkTableType.TabIndex = 7;
+            this.ChkTableType.Text = "Type table";
+            this.ChkTableType.UseVisualStyleBackColor = true;            
+            // 
+            // ChkSchema
+            // 
+            this.ChkSchema.AutoSize = true;
+            this.ChkSchema.Checked = true;
+            this.ChkSchema.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkSchema.Location = new System.Drawing.Point(6, 246);
+            this.ChkSchema.Name = "ChkSchema";
+            this.ChkSchema.Size = new System.Drawing.Size(83, 24);
+            this.ChkSchema.TabIndex = 6;
+            this.ChkSchema.Text = "Schema";
+            this.ChkSchema.UseVisualStyleBackColor = true;            
+            // 
+            // ChkUser
+            // 
+            this.ChkUser.AutoSize = true;
+            this.ChkUser.Checked = true;
+            this.ChkUser.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkUser.Location = new System.Drawing.Point(6, 214);
+            this.ChkUser.Name = "ChkUser";
+            this.ChkUser.Size = new System.Drawing.Size(60, 24);
+            this.ChkUser.TabIndex = 5;
+            this.ChkUser.Text = "User";
+            this.ChkUser.UseVisualStyleBackColor = true;            
+            // 
+            // ChkFunction
+            // 
+            this.ChkFunction.AutoSize = true;
+            this.ChkFunction.Checked = true;
+            this.ChkFunction.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkFunction.Location = new System.Drawing.Point(6, 183);
+            this.ChkFunction.Name = "ChkFunction";
+            this.ChkFunction.Size = new System.Drawing.Size(87, 24);
+            this.ChkFunction.TabIndex = 4;
+            this.ChkFunction.Text = "Function";
+            this.ChkFunction.UseVisualStyleBackColor = true;            
+            // 
+            // ChkStoreProcedure
+            // 
+            this.ChkStoreProcedure.AutoSize = true;
+            this.ChkStoreProcedure.Checked = true;
+            this.ChkStoreProcedure.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkStoreProcedure.Location = new System.Drawing.Point(6, 152);
+            this.ChkStoreProcedure.Name = "ChkStoreProcedure";
+            this.ChkStoreProcedure.Size = new System.Drawing.Size(138, 24);
+            this.ChkStoreProcedure.TabIndex = 3;
+            this.ChkStoreProcedure.Text = "Store procedure";
+            this.ChkStoreProcedure.UseVisualStyleBackColor = true;            
+            // 
+            // ChkView
+            // 
+            this.ChkView.AutoSize = true;
+            this.ChkView.Checked = true;
+            this.ChkView.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkView.Location = new System.Drawing.Point(6, 121);
+            this.ChkView.Name = "ChkView";
+            this.ChkView.Size = new System.Drawing.Size(63, 24);
+            this.ChkView.TabIndex = 2;
+            this.ChkView.Text = "View";
+            this.ChkView.UseVisualStyleBackColor = true;            
+            // 
+            // ChkTable
+            // 
+            this.ChkTable.AutoSize = true;
+            this.ChkTable.Checked = true;
+            this.ChkTable.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkTable.Location = new System.Drawing.Point(7, 58);
+            this.ChkTable.Name = "ChkTable";
+            this.ChkTable.Size = new System.Drawing.Size(66, 24);
+            this.ChkTable.TabIndex = 1;
+            this.ChkTable.Text = "Table";
+            this.ChkTable.UseVisualStyleBackColor = true;            
+            // 
+            // ChkAll
+            // 
+            this.ChkAll.AutoSize = true;
+            this.ChkAll.Checked = true;
+            this.ChkAll.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkAll.Location = new System.Drawing.Point(7, 27);
+            this.ChkAll.Name = "ChkAll";
+            this.ChkAll.Size = new System.Drawing.Size(49, 24);
+            this.ChkAll.TabIndex = 0;
+            this.ChkAll.Text = "All";
+            this.ChkAll.UseVisualStyleBackColor = true;
+            this.ChkAll.CheckedChanged += new System.EventHandler(this.ChkAll_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(529, 608);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(724, 655);
+            this.Controls.Add(this.GrpDbObjects);
+            this.Controls.Add(this.GrpCompare);
+            this.Controls.Add(this.GrpUpdateSchema);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.groupBoxMain);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "MainForm";
             this.Text = "SqlSchemaCompare";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBoxMain.ResumeLayout(false);
             this.groupBoxMain.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.GrpUpdateSchema.ResumeLayout(false);
+            this.GrpUpdateSchema.PerformLayout();
+            this.GrpCompare.ResumeLayout(false);
+            this.GrpCompare.PerformLayout();
+            this.GrpDbObjects.ResumeLayout(false);
+            this.GrpDbObjects.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -368,8 +568,8 @@ namespace SqlSchemaCompare.WindowsForm
         private System.Windows.Forms.Label lblOutputDirectory;
         private System.Windows.Forms.FolderBrowserDialog fbdOutputDirectory;
         private System.Windows.Forms.Button btnCreateUpdateFile;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox GrpUpdateSchema;
+        private System.Windows.Forms.GroupBox GrpCompare;
         private System.Windows.Forms.TextBox txtDatabaseName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -377,6 +577,20 @@ namespace SqlSchemaCompare.WindowsForm
         private System.Windows.Forms.TextBox txtUpdateSchemaFile;
         private System.Windows.Forms.OpenFileDialog ofdUpdateSchemaFile;
         private System.Windows.Forms.Button BtnSwapOriginDestination;
+        private System.Windows.Forms.Button BtnLoadSchema;
+        private System.Windows.Forms.Button BtnClear;
+        private System.Windows.Forms.GroupBox GrpDbObjects;
+        private System.Windows.Forms.CheckBox ChkUser;
+        private System.Windows.Forms.CheckBox ChkFunction;
+        private System.Windows.Forms.CheckBox ChkStoreProcedure;
+        private System.Windows.Forms.CheckBox ChkView;
+        private System.Windows.Forms.CheckBox ChkTable;
+        private System.Windows.Forms.CheckBox ChkAll;
+        private System.Windows.Forms.CheckBox ChkOther;
+        private System.Windows.Forms.CheckBox ChkIndex;
+        private System.Windows.Forms.CheckBox ChkTrigger;
+        private System.Windows.Forms.CheckBox ChkTableType;
+        private System.Windows.Forms.CheckBox ChkSchema;
     }
 }
 

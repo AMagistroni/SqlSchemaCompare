@@ -1,7 +1,5 @@
 ﻿using Shouldly;
-using SqlSchemaCompare.Core;
-using SqlSchemaCompare.Core.Common;
-using SqlSchemaCompare.Core.TSql;
+using SqlSchemaCompare.Core.DbStructures;
 using Xunit;
 
 namespace SqlSchemaCompare.Test.TSql
@@ -18,11 +16,7 @@ GO
 CREATE TABLE [dbo].[tbl_A]([ID] [int] IDENTITY(0,1) NOT NULL)
 GO
 ";
-            var schemaBuilder = new TSqlSchemaBuilder();
-            var objectFactory = new TSqlObjectFactory();
-            IErrorWriter errorWriter = new ErrorWriter();
-            var compareSchemaManager = new CompareSchemaManager(schemaBuilder, objectFactory, errorWriter);
-            (var file1, _, var errors) = compareSchemaManager.Compare(sql, "");
+            var (file1, file2, errors) = UtilityTest.Compare(sql, "", new DbObjectType[] { DbObjectType.Table});
 
             file1.ShouldBe(
 @"CREATE TABLE [dbo].[tbl_A]([ID] [int] IDENTITY(0,1) NOT NULL)
@@ -32,6 +26,7 @@ CREATE TABLE [dbo].[tbl_Z]([ID] [int] IDENTITY(0,1) NOT NULL)
 GO"
 );
             errors.ShouldBeEmpty();
+            file2.ShouldBeEmpty();
         }
         [Fact]
         public void CompareEqualFile()
@@ -43,11 +38,7 @@ GO
 CREATE TABLE [dbo].[tbl_Z]([ID] [int] IDENTITY(0,1) NOT NULL)
 GO
 ";
-            var schemaBuilder = new TSqlSchemaBuilder();
-            var objectFactory = new TSqlObjectFactory();
-            IErrorWriter errorWriter = new ErrorWriter();
-            var compareSchemaManager = new CompareSchemaManager(schemaBuilder, objectFactory, errorWriter);
-            (var file1, var file2, var errors) = compareSchemaManager.Compare(sql, sql);
+            var (file1, file2, errors) = UtilityTest.Compare(sql, sql, new DbObjectType[] { DbObjectType.Table });
 
             file1.ShouldBeEmpty();
             file2.ShouldBeEmpty();
@@ -65,11 +56,7 @@ GO
 ";
 
             //SET QUOTED_IDENTIFIER ON
-            var schemaBuilder = new TSqlSchemaBuilder();
-            var objectFactory = new TSqlObjectFactory();
-            IErrorWriter errorWriter = new ErrorWriter();
-            var compareSchemaManager = new CompareSchemaManager(schemaBuilder, objectFactory, errorWriter);
-            (var file1, _, var errors) = compareSchemaManager.Compare(sql, "");
+            var (file1, _, errors) = UtilityTest.Compare(sql, "", new DbObjectType[] { DbObjectType.Table });
 
             file1.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -93,11 +80,7 @@ GO
 CREATE TABLE [dbo].[only_file_2]([ID] [int] IDENTITY(0,1) NOT NULL)
 GO
 ";
-            var schemaBuilder = new TSqlSchemaBuilder();
-            var objectFactory = new TSqlObjectFactory();
-            IErrorWriter errorWriter = new ErrorWriter();
-            var compareSchemaManager = new CompareSchemaManager(schemaBuilder, objectFactory, errorWriter);
-            (var file1, var file2, var errors) = compareSchemaManager.Compare(sql1, sql2);
+            var (file1, file2, errors) = UtilityTest.Compare(sql1, sql2, new DbObjectType[] { DbObjectType.Table });
 
             file1.ShouldBe(
 @"CREATE TABLE [dbo].[only_file_1]([ID] [int] IDENTITY(0,1) NOT NULL)

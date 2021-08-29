@@ -1,4 +1,5 @@
 ﻿using SqlSchemaCompare.Core.Common;
+using SqlSchemaCompare.Core.DbStructures;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,29 +9,23 @@ namespace SqlSchemaCompare.Core
     public class CompareSchemaManager
     {
         private readonly ISchemaBuilder _schemaBuilder;
-        private readonly IDbObjectFactory _dbObjectFactory;
-        private readonly IErrorWriter _errorWriter;
-        public CompareSchemaManager(ISchemaBuilder schemaBuilder, IDbObjectFactory dbObjectFactory, IErrorWriter errorWriter)
+        public CompareSchemaManager(ISchemaBuilder schemaBuilder)
         {
             _schemaBuilder = schemaBuilder;
-            _dbObjectFactory = dbObjectFactory;
-            _errorWriter = errorWriter;
         }
 
-        public (string file1, string file2, string errors) Compare(string schema1, string schema2)
+        public (string file1, string file2) Compare(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, IEnumerable<DbObjectType> selectedObjectType)
         {
-            (var sourceObjects, var errorOriginSchema) = _dbObjectFactory.CreateObjectsForCompareOperation(schema1);
-            (var destinationObjects, var errorDestinationSchema) = _dbObjectFactory.CreateObjectsForCompareOperation(schema2);
+            var sourceObjectsFilteredSelected = sourceObjects.Where(x => selectedObjectType.Contains(x.DbObjectType));
+            var destinationObjectsFilteredSelected = destinationObjects.Where(x => selectedObjectType.Contains(x.DbObjectType));
 
-            var objectsSchemaResult1 = sourceObjects.Select(x => x.Sql).ToList();
-            var objectsSchemaResult2 = destinationObjects.Select(x => x.Sql).ToList();
+            var objectsSchemaResult1 = sourceObjectsFilteredSelected.Select(x => x.Sql).ToList();
+            var objectsSchemaResult2 = destinationObjectsFilteredSelected.Select(x => x.Sql).ToList();
 
             StringBuilder stringBuilder1 = BuildStringBuilder(objectsSchemaResult1, objectsSchemaResult2);
             StringBuilder stringBuilder2 = BuildStringBuilder(objectsSchemaResult2, objectsSchemaResult1);
 
-            var errors = _errorWriter.GetErrors(errorOriginSchema, errorDestinationSchema);
-
-            return (stringBuilder1.ToString().Trim(), stringBuilder2.ToString().Trim(), errors.ToString());
+            return (stringBuilder1.ToString().Trim(), stringBuilder2.ToString().Trim());
         }
 
         private StringBuilder BuildStringBuilder(List<string> objectsSchema1, List<string> objectsSchema2)

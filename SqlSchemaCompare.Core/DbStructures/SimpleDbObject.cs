@@ -1,7 +1,7 @@
 ﻿namespace SqlSchemaCompare.Core.DbStructures
 {
-    public class SimpleDbObject
+    public class SimpleDbObject : DbObject
     {
-        public string Sql { get; set; }
+        public override DbObjectType DbObjectType => DbObjectType.Other;
     }
 }

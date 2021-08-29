@@ -15,6 +15,7 @@
         Index,
         TableContraint,
         Column,
-        EnableTrigger
+        EnableTrigger,
+        Other
     }
 }

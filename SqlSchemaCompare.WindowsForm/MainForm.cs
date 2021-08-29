@@ -1,7 +1,9 @@
 ﻿using SqlSchemaCompare.Core;
 using SqlSchemaCompare.Core.Common;
+using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -14,14 +16,25 @@ namespace SqlSchemaCompare.WindowsForm
         private const string PleaseWait = "Please wait...";
         private const string FileCompareCreated = "Files for compare created";
         private const string FileUpdateCreated = "File update schema created";
-        private const string FileUpdateCreatedWithErrors = "File update schema created with errors";
-        private const string FileCompareCreatedWithErrors = "File compare created with errors";
         private const string ApplicationName = "Sql compare";
+        private const string SchemaLoaded = "The schemas are loaded.";
+        private const string SchemaLoadedWithErrors = "The schemas are loaded with errors";
+        private const string ChooseCompareUpdate = "Choose compare or update";
+
         private IErrorWriter errorWriter;
+
+        private IEnumerable<DbObject> currentOriginDbObjects;
+        private IEnumerable<DbObject> currentDestinationDbObjects;
         public MainForm()
         {
             InitializeComponent();
             lblInfo.Text = "";
+
+            GrpCompare.Enabled = false;
+            GrpUpdateSchema.Enabled = false;
+            GrpDbObjects.Enabled = false;
+
+            BtnClear.Enabled = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -127,20 +140,18 @@ namespace SqlSchemaCompare.WindowsForm
 
                 var errorFile = $"{txtOutputDirectory.Text}\\ErrorCompare.txt";
                 if (File.Exists(errorFile))
-                    File.Delete(errorFile);
-
-                var (origin, destination) = GetSchema();
+                    File.Delete(errorFile);                
 
                 ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
                 IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
 
-                CompareSchemaManager schemaCompare = new(schemaBuilder, dbObjectFactory, errorWriter);
-                (var file1, var file2, var errors) = schemaCompare.Compare(origin, destination);
+                CompareSchemaManager schemaCompare = new(schemaBuilder);
+                (var file1, var file2) = schemaCompare.Compare(currentOriginDbObjects, currentDestinationDbObjects, SelectedObjectType());
 
                 File.WriteAllText(fileNameDiffOrigin, file1);
                 File.WriteAllText(fileNameDiffDestination, file2);
-                File.WriteAllText(errorFile, errors);
-                EnableMainForm(string.IsNullOrEmpty(errors) ? FileCompareCreated : FileCompareCreatedWithErrors);
+                
+                EnableMainForm(FileCompareCreated);
             }
             catch (Exception exc)
             {
@@ -167,6 +178,21 @@ namespace SqlSchemaCompare.WindowsForm
         {
             lblInfo.Text = text;
             this.Enabled = true;
+        }
+
+        private void LoadClearSchemaCompleted(string text, bool isAfterLoad)
+        {
+            lblInfo.Text = text;
+            this.Enabled = true;
+
+            btnOriginSchema.Enabled = !isAfterLoad;
+            btnDestinationSchema.Enabled = !isAfterLoad;
+            BtnSwapOriginDestination.Enabled = !isAfterLoad;
+            BtnLoadSchema.Enabled = !isAfterLoad;
+            BtnClear.Enabled = isAfterLoad;
+            GrpCompare.Enabled = isAfterLoad;
+            GrpDbObjects.Enabled = isAfterLoad;
+            GrpUpdateSchema.Enabled = isAfterLoad;
         }
 
         private void BtnUpdateSchema_Click(object sender, EventArgs e)
@@ -227,16 +253,15 @@ namespace SqlSchemaCompare.WindowsForm
                 IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
                 ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
                 UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-                (var updateSchema, var errors) = updateSchemaManager.UpdateSchema(origin, destination, txtDatabaseName.Text);
+                var updateSchema = updateSchemaManager.UpdateSchema(currentOriginDbObjects, currentDestinationDbObjects, txtDatabaseName.Text, SelectedObjectType());
 
                 StringBuilder stringResult = new();
                 stringResult.AppendLine($"{schemaBuilder.GetStartCommentInLine()} Update Schema {txtOriginSchema.Text} --> {txtDestinationSchema.Text}");
                 stringResult.AppendLine(updateSchema);
 
                 File.WriteAllText(txtUpdateSchemaFile.Text, stringResult.ToString());
-                File.WriteAllText(errorFile, errors);
 
-                EnableMainForm(string.IsNullOrEmpty(errors) ? FileUpdateCreated : FileUpdateCreatedWithErrors);
+                EnableMainForm(FileUpdateCreated);
             }
             catch (Exception exc)
             {
@@ -259,6 +284,85 @@ namespace SqlSchemaCompare.WindowsForm
             var swap = txtOriginSchema.Text;
             txtOriginSchema.Text = txtDestinationSchema.Text;
             txtDestinationSchema.Text = swap;
+        }
+
+        private void BtnLoadSchema_Click(object sender, EventArgs e)
+        {
+            if (!MandatoryFieldArePresent())
+                return;
+
+            var errorFile = GetErrorFileName();
+            if (File.Exists(errorFile))
+                File.Delete(errorFile);
+
+            DisableMainForm(PleaseWait);
+            var (origin, destination) = GetSchema();
+            
+            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
+            var loadSchemaManager = new LoadSchemaManager(dbObjectFactory, errorWriter);
+            string errors;
+            (currentOriginDbObjects, currentDestinationDbObjects, errors) = loadSchemaManager.LoadSchema(origin, destination);
+
+            File.WriteAllText(errorFile, errors);
+
+            LoadClearSchemaCompleted(string.IsNullOrEmpty(errors) ? SchemaLoaded : SchemaLoadedWithErrors, true);
+        }
+
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            LoadClearSchemaCompleted(ChooseCompareUpdate, false);
+        }
+
+        private void ChkAll_CheckedChanged(object sender, EventArgs e)
+        {
+            ChkFunction.Checked = ChkAll.Checked;
+            ChkStoreProcedure.Checked = ChkAll.Checked;
+            ChkTable.Checked = ChkAll.Checked;
+            ChkUser.Checked = ChkAll.Checked;
+            ChkView.Checked = ChkAll.Checked;
+            ChkSchema.Checked = ChkAll.Checked;
+            ChkTrigger.Checked = ChkAll.Checked;
+            ChkTableType.Checked = ChkAll.Checked;
+            ChkOther.Checked = ChkAll.Checked;
+            ChkIndex.Checked = ChkAll.Checked;
+        }
+
+        private IEnumerable<DbObjectType> SelectedObjectType()
+        {
+            var selectedObjectType = new List<DbObjectType>();
+            if (ChkFunction.Checked)
+                selectedObjectType.Add(DbObjectType.Function);
+            if (ChkStoreProcedure.Checked)
+                selectedObjectType.Add(DbObjectType.StoreProcedure);
+            if (ChkTable.Checked)
+            {
+                selectedObjectType.Add(DbObjectType.Table);
+                selectedObjectType.Add(DbObjectType.TableContraint);
+                selectedObjectType.Add(DbObjectType.Column);
+            }
+            if (ChkUser.Checked)
+            {
+                selectedObjectType.Add(DbObjectType.User);
+                selectedObjectType.Add(DbObjectType.Role);
+                selectedObjectType.Add(DbObjectType.Member);
+            }
+                if (ChkView.Checked)
+                selectedObjectType.Add(DbObjectType.View);
+            if (ChkSchema.Checked)
+                selectedObjectType.Add(DbObjectType.Schema);
+            if (ChkTrigger.Checked)
+            {
+                selectedObjectType.Add(DbObjectType.Trigger);
+                selectedObjectType.Add(DbObjectType.EnableTrigger);
+            }
+            if (ChkTableType.Checked)
+                selectedObjectType.Add(DbObjectType.Type);
+            if (ChkOther.Checked)
+                selectedObjectType.Add(DbObjectType.Other);
+            if (ChkIndex.Checked)
+                selectedObjectType.Add(DbObjectType.Index);
+
+            return selectedObjectType;
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using Shouldly;
-using SqlSchemaCompare.Core;
-using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
 using System.Linq;
 using Xunit;
+using SqlSchemaCompare.Core.Common;
+using System;
+using System.Collections.Generic;
 
 namespace SqlSchemaCompare.Test.TSql
 {
@@ -56,11 +57,7 @@ GO";
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.User });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -78,11 +75,7 @@ GO";
 GO";
             const string destination = "";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.User });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -107,11 +100,7 @@ GO
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.User });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -138,11 +127,7 @@ GO";
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[sch1]
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.User });
 
             updateSchema.ShouldBe(
 $@"USE [{databaseName}]
@@ -153,6 +138,23 @@ GO
 
 ");
             errors.ShouldBeEmpty();
+        }
+
+        [Theory]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), DbObjectType.User, MemberType = typeof(TestDbObjectGenerator))]
+        public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
+        {
+            // When user not select user db object, update schema is created without user
+            const string databaseName = "dbName";
+
+            const string origin =
+@"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
+GO";
+            string destination = string.Empty;
+            
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            updateSchema.ShouldBeEmpty();
+            errors.ShouldBeEmpty();                 
         }
     }
 }

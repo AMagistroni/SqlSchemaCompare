@@ -1,6 +1,4 @@
 ﻿using Shouldly;
-using SqlSchemaCompare.Core;
-using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
 using System.Linq;
@@ -91,11 +89,7 @@ GO
 ENABLE TRIGGER [trg1] ON DATABASE
 GO";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Trigger });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -127,11 +121,7 @@ DISABLE TRIGGER [trg1] ON DATABASE
 GO";
             const string destination = "";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Trigger });
 
             updateSchema.ShouldBe(
     $@"USE [{databaseName}]
@@ -185,11 +175,7 @@ ENABLE TRIGGER [trg1] ON DATABASE
 GO
 ";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Trigger });
 
             updateSchema.ShouldBe(
     $@"USE [{databaseName}]
@@ -245,11 +231,7 @@ DISABLE TRIGGER [trg1] ON DATABASE
 GO
 ";
 
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
-            ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-            IErrorWriter errorWriter = new ErrorWriter();
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            (string updateSchema, string errors) = updateSchemaManager.UpdateSchema(origin, destination, databaseName);
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Trigger });
 
             updateSchema.ShouldBe(
     $@"USE [{databaseName}]
@@ -273,6 +255,38 @@ ENABLE TRIGGER [trg1] ON DATABASE
 GO
 
 ");
+            errors.ShouldBeEmpty();
+        }
+
+        [Theory]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), DbObjectType.Trigger, MemberType = typeof(TestDbObjectGenerator))]
+        public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
+        {
+            // When user not select trigger db object, update schema is created without trigger
+            const string databaseName = "dbName";
+
+            const string origin =
+    @"CREATE TRIGGER [trg1]
+ON DATABASE 
+for create_procedure, alter_procedure, drop_procedure,
+	create_table, alter_table, drop_table,
+	create_trigger, alter_trigger, drop_trigger,
+	create_view, alter_view, drop_view,
+	create_function, alter_function, drop_function,
+	create_index, alter_index, drop_index
+AS 
+begin
+	declare @variable int	
+end
+GO
+
+ENABLE TRIGGER [trg1] ON DATABASE
+GO
+";
+            string destination = string.Empty;
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }
     }

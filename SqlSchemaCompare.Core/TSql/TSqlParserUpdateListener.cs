@@ -42,6 +42,15 @@ namespace SqlSchemaCompare.Core.TSql
             _memberFactory = new TSqlMemberFactory();
         }
         public List<DbObject> DbObjects { get; } = new();
+        public override void ExitAlter_database([NotNull] Alter_databaseContext context)
+        {
+            DbObjects.Add(new SimpleDbObject { Sql = context.Start.InputStream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)) });
+        }
+
+        public override void ExitCreate_columnstore_index([NotNull] Create_columnstore_indexContext context)
+        {
+            DbObjects.Add(new SimpleDbObject { Sql = context.Start.InputStream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)) });
+        }
         public override void ExitCreate_table([NotNull] TSqlParser.Create_tableContext context)
         {
             if (!ObjectInsideDDL(context))
@@ -116,8 +125,19 @@ namespace SqlSchemaCompare.Core.TSql
             var constraint = _tableFactory.CreateAlterTable(context);
             var role = DbObjects.OfType<Table>().Single(x => x.Identifier == constraint.ParentName);
             role.AddConstraint(constraint);
-            
         }
+
+        public override void ExitCreate_nonclustered_columnstore_index([NotNull] Create_nonclustered_columnstore_indexContext context)
+        {
+            DbObjects.Add(new SimpleDbObject { Sql = context.Start.InputStream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)) });
+        }
+
+        public override void ExitCreate_sequence([NotNull] Create_sequenceContext context)
+        {
+            DbObjects.Add(new SimpleDbObject { Sql = context.Start.InputStream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)) });
+        }
+        
+
         private bool ObjectInsideDDL(RuleContext context)
         {
             if (context.parent is null)
