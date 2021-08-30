@@ -52,7 +52,7 @@ BEGIN
 END 
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.StoreProcedure });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.StoreProcedure });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -63,7 +63,6 @@ GO";
         {
             // When present db object in origin absent from destination
             // Expect updateSchema contains create statement
-            const string databaseName = "dbName";
 
             const string origin =
 @"CREATE PROCEDURE [dbo].[proc]
@@ -75,13 +74,10 @@ END
 GO";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.StoreProcedure });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.StoreProcedure });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-CREATE PROCEDURE [dbo].[proc]
+@"CREATE PROCEDURE [dbo].[proc]
 @par as bit = 0
 AS
 BEGIN
@@ -98,7 +94,6 @@ GO
         {
             // When present db object in destination absent from origin
             // Expect updateSchema contains drop statement
-            const string databaseName = "dbName";
 
             const string origin = "";
             const string destination =
@@ -110,13 +105,10 @@ BEGIN
 END 
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.StoreProcedure });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.StoreProcedure });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-DROP PROCEDURE [dbo].[proc]
+@"DROP PROCEDURE [dbo].[proc]
 GO
 
 ");
@@ -128,7 +120,6 @@ GO
         {
             // When present db object in destination and in origin and are different
             // Expect updateSchema contains alter statement
-            const string databaseName = "dbName";
 
             const string origin =
 @"CREATE PROCEDURE [dbo].[proc]	
@@ -147,13 +138,10 @@ BEGIN
 END
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.StoreProcedure });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.StoreProcedure });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-ALTER PROCEDURE [dbo].[proc]	
+@"ALTER PROCEDURE [dbo].[proc]	
 @par as bit = 0
 AS
 BEGIN
@@ -194,12 +182,9 @@ GO";
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select StoreProcedure db object, update schema is created without StoreProcedure
-            const string databaseName = "dbName";
+        
             string origin =
-$@"USE [{databaseName}]
-GO
-
-CREATE PROCEDURE [dbo].[proc]	
+@"CREATE PROCEDURE [dbo].[proc]	
 @par as bit = 0
 AS
 BEGIN
@@ -209,7 +194,7 @@ GO";
 
             string destination = string.Empty;
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }

@@ -37,13 +37,6 @@ namespace SqlSchemaCompare.WindowsForm
         }
 
         [UserScopedSettingAttribute()]
-        public String DatabaseName
-        {
-            get { return (String)this["DatabaseName"]; }
-            set { this["DatabaseName"] = value; }
-        }
-
-        [UserScopedSettingAttribute()]
         [DefaultSettingValueAttribute("_diff")]
         public String Suffix
         {

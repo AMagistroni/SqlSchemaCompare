@@ -29,12 +29,6 @@ namespace SqlSchemaCompare.WindowsForm
         {
             InitializeComponent();
             lblInfo.Text = "";
-
-            GrpCompare.Enabled = false;
-            GrpUpdateSchema.Enabled = false;
-            GrpDbObjects.Enabled = false;
-
-            BtnClear.Enabled = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -46,7 +40,6 @@ namespace SqlSchemaCompare.WindowsForm
             txtSuffix.Text = formSettings.Suffix;
             txtOutputDirectory.Text = formSettings.OutputDirectory;
             txtUpdateSchemaFile.Text = formSettings.UpdateSchemaFile;
-            txtDatabaseName.Text = formSettings.DatabaseName;
 
             errorWriter = new ErrorWriter();
         }
@@ -171,7 +164,7 @@ namespace SqlSchemaCompare.WindowsForm
         private void EnableDisableMainForm(string text, bool enable)
         {
             lblInfo.Text = text;
-            groupBoxMain.Enabled = enable;
+            
             GrpCompare.Enabled = enable;
             GrpDbObjects.Enabled = enable;
             GrpUpdateSchema.Enabled = enable;
@@ -185,16 +178,16 @@ namespace SqlSchemaCompare.WindowsForm
         private void LoadClearSchemaCompleted(string text, bool isAfterLoad)
         {
             lblInfo.Text = text;
-            this.Enabled = true;
 
             btnOriginSchema.Enabled = !isAfterLoad;
             btnDestinationSchema.Enabled = !isAfterLoad;
             BtnSwapOriginDestination.Enabled = !isAfterLoad;
             BtnLoadSchema.Enabled = !isAfterLoad;
-            BtnClear.Enabled = isAfterLoad;
+
             GrpCompare.Enabled = isAfterLoad;
             GrpDbObjects.Enabled = isAfterLoad;
             GrpUpdateSchema.Enabled = isAfterLoad;
+            BtnClear.Enabled = isAfterLoad;
         }
 
         private void BtnUpdateSchema_Click(object sender, EventArgs e)
@@ -206,12 +199,6 @@ namespace SqlSchemaCompare.WindowsForm
                 formSettings.UpdateSchemaFile = txtUpdateSchemaFile.Text;
                 formSettings.Save();
             }
-        }
-
-        private void TxtDatabaseName_TextChanged(object sender, EventArgs e)
-        {
-            formSettings.DatabaseName = txtDatabaseName.Text;
-            formSettings.Save();
         }
 
         private void TxtSuffix_TextChanged(object sender, EventArgs e)
@@ -234,12 +221,6 @@ namespace SqlSchemaCompare.WindowsForm
                     return;
                 }
 
-                txtDatabaseName.Text = txtDatabaseName.Text.Trim();
-                if (txtDatabaseName.Text == string.Empty)
-                {
-                    MessageBox.Show("Select a database name", ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
-                }
 
                 if (File.Exists(txtUpdateSchemaFile.Text))
                     File.Delete(txtUpdateSchemaFile.Text);
@@ -255,7 +236,7 @@ namespace SqlSchemaCompare.WindowsForm
                 IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
                 ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
                 UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-                var updateSchema = updateSchemaManager.UpdateSchema(currentOriginDbObjects, currentDestinationDbObjects, txtDatabaseName.Text, SelectedObjectType());
+                var updateSchema = updateSchemaManager.UpdateSchema(currentOriginDbObjects, currentDestinationDbObjects, SelectedObjectType());
 
                 StringBuilder stringResult = new();
                 stringResult.AppendLine($"{schemaBuilder.GetStartCommentInLine()} Update Schema {txtOriginSchema.Text} --> {txtDestinationSchema.Text}");
@@ -321,12 +302,6 @@ namespace SqlSchemaCompare.WindowsForm
             ProgressBar.Hide();
             LoadClearSchemaCompleted(string.IsNullOrEmpty(e.Result as string) ? SchemaLoaded : SchemaLoadedWithErrors, true);            
         }
-
-        private void BtnClear_Click(object sender, EventArgs e)
-        {
-            LoadClearSchemaCompleted(ChooseCompareUpdate, false);
-        }
-
         private void ChkAll_CheckedChanged(object sender, EventArgs e)
         {
             ChkFunction.Checked = ChkAll.Checked;
@@ -378,7 +353,12 @@ namespace SqlSchemaCompare.WindowsForm
 
             return selectedObjectType;
         }
-        
+
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            LoadClearSchemaCompleted(ChooseCompareUpdate, false);
+        }
+
         public record ParametersLoad(string ErrorFile, string Origin, string Destination);
     }    
 }

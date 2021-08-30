@@ -3,9 +3,6 @@ using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
 using System.Linq;
 using Xunit;
-using SqlSchemaCompare.Core.Common;
-using System;
-using System.Collections.Generic;
 
 namespace SqlSchemaCompare.Test.TSql
 {
@@ -48,7 +45,6 @@ namespace SqlSchemaCompare.Test.TSql
         {
             // When origin equals destination 
             // Expect updateSchema should be empty
-            const string databaseName = "dbName";
 
             const string origin =
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
@@ -57,7 +53,7 @@ GO";
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.User });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.User });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -68,20 +64,16 @@ GO";
         {
             // When present db object in origin absent from destination
             // Expect updateSchema contains create statement
-            const string databaseName = "dbName";
 
             const string origin =
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
 GO";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.User });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.User });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
+@"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
 GO
 
 ");
@@ -93,20 +85,16 @@ GO
         {
             // When present db object in destination absent from origin
             // Expect updateSchema contains drop statement
-            const string databaseName = "dbName";
-
+           
             const string origin = "";
             const string destination =
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.User });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.User });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-DROP USER [user]
+@"DROP USER [user]
 GO
 
 ");
@@ -118,8 +106,6 @@ GO
         {
             // When present db object in destination and in origin and are different
             // Expect updateSchema contains alter statement
-            const string databaseName = "dbName";
-
             const string origin =
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
 GO";
@@ -127,13 +113,10 @@ GO";
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[sch1]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.User });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.User });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-ALTER USER [user] WITH DEFAULT_SCHEMA=[dbo]
+@"ALTER USER [user] WITH DEFAULT_SCHEMA=[dbo]
 GO
 
 ");
@@ -145,14 +128,13 @@ GO
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select user db object, update schema is created without user
-            const string databaseName = "dbName";
 
             const string origin =
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
 GO";
             string destination = string.Empty;
             
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();                 
         }

@@ -32,7 +32,6 @@ namespace SqlSchemaCompare.Test.TSql
         {
             // When origin equals destination 
             // Expect updateSchema should be empty
-            const string databaseName = "dbName";
 
             const string origin =
     @"CREATE TYPE [schema].[type1] AS TABLE (
@@ -45,7 +44,7 @@ GO";
 	[column1] [nvarchar](20) NOT NULL)
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Type });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Type });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -65,13 +64,10 @@ GO";
 GO";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Type });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Type });
 
             updateSchema.ShouldBe(
-    $@"USE [{databaseName}]
-GO
-
-CREATE TYPE [schema].[type1] AS TABLE (
+@"CREATE TYPE [schema].[type1] AS TABLE (
     [ID] [int] IDENTITY(1,1) NOT NULL,
     [column1] [nvarchar](20) NOT NULL)
 GO
@@ -85,7 +81,6 @@ GO
         {
             // When present db object in destination absent from origin
             // Expect updateSchema contains drop statement
-            const string databaseName = "dbName";
 
             const string origin = "";
             const string destination =
@@ -94,13 +89,10 @@ GO
     [column1] [nvarchar](20) NOT NULL)
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Type });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Type });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-DROP TYPE [schema].[type1]
+@"DROP TYPE [schema].[type1]
 GO
 
 ");
@@ -125,13 +117,10 @@ GO";
     [columnDifferent] [nvarchar](20) NULL)
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Type });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Type });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-DROP TYPE [dbo].[TBL]
+@"DROP TYPE [dbo].[TBL]
 GO
 
 CREATE TYPE [dbo].[TBL] AS TABLE (
@@ -148,7 +137,6 @@ GO
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select type db object, update schema is created without type
-            const string databaseName = "dbName";
 
             const string origin =
 @"CREATE TYPE [dbo].[TBL] AS TABLE (
@@ -157,7 +145,7 @@ GO
 GO";
             string destination = string.Empty;
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }
