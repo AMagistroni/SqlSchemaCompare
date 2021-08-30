@@ -70,6 +70,8 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkView = new System.Windows.Forms.CheckBox();
             this.ChkTable = new System.Windows.Forms.CheckBox();
             this.ChkAll = new System.Windows.Forms.CheckBox();
+            this.BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.ProgressBar = new System.Windows.Forms.ProgressBar();
             this.groupBoxMain.SuspendLayout();
             this.GrpUpdateSchema.SuspendLayout();
             this.GrpCompare.SuspendLayout();
@@ -398,7 +400,7 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkOther.Size = new System.Drawing.Size(114, 24);
             this.ChkOther.TabIndex = 10;
             this.ChkOther.Text = "Other object";
-            this.ChkOther.UseVisualStyleBackColor = true;            
+            this.ChkOther.UseVisualStyleBackColor = true;
             // 
             // ChkIndex
             // 
@@ -410,7 +412,7 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkIndex.Size = new System.Drawing.Size(67, 24);
             this.ChkIndex.TabIndex = 8;
             this.ChkIndex.Text = "Index";
-            this.ChkIndex.UseVisualStyleBackColor = true;            
+            this.ChkIndex.UseVisualStyleBackColor = true;
             // 
             // ChkTrigger
             // 
@@ -422,7 +424,7 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkTrigger.Size = new System.Drawing.Size(78, 24);
             this.ChkTrigger.TabIndex = 7;
             this.ChkTrigger.Text = "Trigger";
-            this.ChkTrigger.UseVisualStyleBackColor = true;            
+            this.ChkTrigger.UseVisualStyleBackColor = true;
             // 
             // ChkTableType
             // 
@@ -434,7 +436,7 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkTableType.Size = new System.Drawing.Size(100, 24);
             this.ChkTableType.TabIndex = 7;
             this.ChkTableType.Text = "Type table";
-            this.ChkTableType.UseVisualStyleBackColor = true;            
+            this.ChkTableType.UseVisualStyleBackColor = true;
             // 
             // ChkSchema
             // 
@@ -446,7 +448,7 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkSchema.Size = new System.Drawing.Size(83, 24);
             this.ChkSchema.TabIndex = 6;
             this.ChkSchema.Text = "Schema";
-            this.ChkSchema.UseVisualStyleBackColor = true;            
+            this.ChkSchema.UseVisualStyleBackColor = true;
             // 
             // ChkUser
             // 
@@ -458,7 +460,7 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkUser.Size = new System.Drawing.Size(60, 24);
             this.ChkUser.TabIndex = 5;
             this.ChkUser.Text = "User";
-            this.ChkUser.UseVisualStyleBackColor = true;            
+            this.ChkUser.UseVisualStyleBackColor = true;
             // 
             // ChkFunction
             // 
@@ -470,7 +472,7 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkFunction.Size = new System.Drawing.Size(87, 24);
             this.ChkFunction.TabIndex = 4;
             this.ChkFunction.Text = "Function";
-            this.ChkFunction.UseVisualStyleBackColor = true;            
+            this.ChkFunction.UseVisualStyleBackColor = true;
             // 
             // ChkStoreProcedure
             // 
@@ -482,7 +484,7 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkStoreProcedure.Size = new System.Drawing.Size(138, 24);
             this.ChkStoreProcedure.TabIndex = 3;
             this.ChkStoreProcedure.Text = "Store procedure";
-            this.ChkStoreProcedure.UseVisualStyleBackColor = true;            
+            this.ChkStoreProcedure.UseVisualStyleBackColor = true;
             // 
             // ChkView
             // 
@@ -494,7 +496,7 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkView.Size = new System.Drawing.Size(63, 24);
             this.ChkView.TabIndex = 2;
             this.ChkView.Text = "View";
-            this.ChkView.UseVisualStyleBackColor = true;            
+            this.ChkView.UseVisualStyleBackColor = true;
             // 
             // ChkTable
             // 
@@ -506,7 +508,7 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkTable.Size = new System.Drawing.Size(66, 24);
             this.ChkTable.TabIndex = 1;
             this.ChkTable.Text = "Table";
-            this.ChkTable.UseVisualStyleBackColor = true;            
+            this.ChkTable.UseVisualStyleBackColor = true;
             // 
             // ChkAll
             // 
@@ -521,11 +523,26 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkAll.UseVisualStyleBackColor = true;
             this.ChkAll.CheckedChanged += new System.EventHandler(this.ChkAll_CheckedChanged);
             // 
+            // BackgroundWorker
+            // 
+            this.BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.LoadSchema);
+            this.BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.LoadSchemaCompleted);
+            // 
+            // ProgressBar
+            // 
+            this.ProgressBar.Location = new System.Drawing.Point(527, 628);
+            this.ProgressBar.Name = "ProgressBar";
+            this.ProgressBar.Size = new System.Drawing.Size(176, 29);
+            this.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.ProgressBar.TabIndex = 15;
+            this.ProgressBar.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(724, 655);
+            this.ClientSize = new System.Drawing.Size(724, 669);
+            this.Controls.Add(this.ProgressBar);
             this.Controls.Add(this.GrpDbObjects);
             this.Controls.Add(this.GrpCompare);
             this.Controls.Add(this.GrpUpdateSchema);
@@ -591,6 +608,8 @@ namespace SqlSchemaCompare.WindowsForm
         private System.Windows.Forms.CheckBox ChkTrigger;
         private System.Windows.Forms.CheckBox ChkTableType;
         private System.Windows.Forms.CheckBox ChkSchema;
+        private System.ComponentModel.BackgroundWorker BackgroundWorker;
+        private System.Windows.Forms.ProgressBar ProgressBar;
     }
 }
 

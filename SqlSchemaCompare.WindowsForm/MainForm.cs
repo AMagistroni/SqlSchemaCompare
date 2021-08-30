@@ -127,7 +127,7 @@ namespace SqlSchemaCompare.WindowsForm
                     return;
                 }
 
-                DisableMainForm(PleaseWait);
+                EnableDisableMainForm(PleaseWait, false);
 
                 string fileNameDiffOrigin = GetFileNameDiff(txtOriginSchema.Text);
                 string fileNameDiffDestination = GetFileNameDiff(txtDestinationSchema.Text);
@@ -151,12 +151,12 @@ namespace SqlSchemaCompare.WindowsForm
                 File.WriteAllText(fileNameDiffOrigin, file1);
                 File.WriteAllText(fileNameDiffDestination, file2);
                 
-                EnableMainForm(FileCompareCreated);
+                EnableDisableMainForm(FileCompareCreated, true);
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message + exc.StackTrace);
-                EnableMainForm("");
+                EnableDisableMainForm(string.Empty, true);
             }
         }
         private string GetFileNameDiff(string fileName)
@@ -168,16 +168,18 @@ namespace SqlSchemaCompare.WindowsForm
                 return $"{fileName.Substring(0, indexDot)}{formSettings.Suffix}{fileName.Substring(indexDot)}";
         }
 
-        private void DisableMainForm(string text)
+        private void EnableDisableMainForm(string text, bool enable)
         {
             lblInfo.Text = text;
-            this.Enabled = false;
-        }
+            groupBoxMain.Enabled = enable;
+            GrpCompare.Enabled = enable;
+            GrpDbObjects.Enabled = enable;
+            GrpUpdateSchema.Enabled = enable;
 
-        private void EnableMainForm(string text)
-        {
-            lblInfo.Text = text;
-            this.Enabled = true;
+            if (enable)                            
+                ProgressBar.Hide();
+            else
+                ProgressBar.Show();
         }
 
         private void LoadClearSchemaCompleted(string text, bool isAfterLoad)
@@ -246,7 +248,7 @@ namespace SqlSchemaCompare.WindowsForm
                 if (File.Exists(errorFile))
                     File.Delete(errorFile);
 
-                DisableMainForm(PleaseWait);
+                EnableDisableMainForm(PleaseWait, false);
 
                 var (origin, destination) = GetSchema();
 
@@ -261,12 +263,12 @@ namespace SqlSchemaCompare.WindowsForm
 
                 File.WriteAllText(txtUpdateSchemaFile.Text, stringResult.ToString());
 
-                EnableMainForm(FileUpdateCreated);
+                EnableDisableMainForm(FileUpdateCreated, true);
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message + exc.StackTrace);
-                EnableMainForm("");
+                EnableDisableMainForm(string.Empty, true);
             }
         }
 
@@ -285,27 +287,39 @@ namespace SqlSchemaCompare.WindowsForm
             txtOriginSchema.Text = txtDestinationSchema.Text;
             txtDestinationSchema.Text = swap;
         }
-
+                
         private void BtnLoadSchema_Click(object sender, EventArgs e)
         {
             if (!MandatoryFieldArePresent())
                 return;
-
+            
             var errorFile = GetErrorFileName();
             if (File.Exists(errorFile))
                 File.Delete(errorFile);
 
-            DisableMainForm(PleaseWait);
+            EnableDisableMainForm(PleaseWait, false);
             var (origin, destination) = GetSchema();
-            
+
+            ParametersLoad parameters = new(errorFile, origin, destination);
+            BackgroundWorker.RunWorkerAsync(parameters);
+        }
+
+        private void LoadSchema(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            ParametersLoad parameters = e.Argument as ParametersLoad;
             IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
             var loadSchemaManager = new LoadSchemaManager(dbObjectFactory, errorWriter);
+
             string errors;
-            (currentOriginDbObjects, currentDestinationDbObjects, errors) = loadSchemaManager.LoadSchema(origin, destination);
+            (currentOriginDbObjects, currentDestinationDbObjects, errors) = loadSchemaManager.LoadSchema(parameters.Origin, parameters.Destination);
+            File.WriteAllText(parameters.ErrorFile, errors);
+            e.Result = errors;
+        }
 
-            File.WriteAllText(errorFile, errors);
-
-            LoadClearSchemaCompleted(string.IsNullOrEmpty(errors) ? SchemaLoaded : SchemaLoadedWithErrors, true);
+        private void LoadSchemaCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            ProgressBar.Hide();
+            LoadClearSchemaCompleted(string.IsNullOrEmpty(e.Result as string) ? SchemaLoaded : SchemaLoadedWithErrors, true);            
         }
 
         private void BtnClear_Click(object sender, EventArgs e)
@@ -364,5 +378,7 @@ namespace SqlSchemaCompare.WindowsForm
 
             return selectedObjectType;
         }
-    }
+        
+        public record ParametersLoad(string ErrorFile, string Origin, string Destination);
+    }    
 }
