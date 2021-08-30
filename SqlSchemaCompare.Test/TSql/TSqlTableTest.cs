@@ -8,7 +8,6 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlTableTest
     {
-        private const string databaseName = "dbName";
         [Fact]
         public void CreateTable()
         {
@@ -100,7 +99,7 @@ ALTER TABLE [dbo].[TBL] CHECK CONSTRAINT [FK_Name2]
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Table });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -128,13 +127,10 @@ GO
 ";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Table });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-CREATE TABLE [dbo].[TBL] (
+@"CREATE TABLE [dbo].[TBL] (
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[column1] [Date] NOT NULL)
 GO
@@ -183,13 +179,10 @@ ALTER TABLE [schema].[table] CHECK CONSTRAINT [FK_Name1]
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Table, DbObjectType.Schema });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.Schema });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-DROP TABLE [schema].[table]
+@"DROP TABLE [schema].[table]
 GO
 
 DROP SCHEMA [schema]
@@ -218,13 +211,10 @@ GO";
     [columnToAlter] [nvarchar](20) NULL)
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Table, DbObjectType.Column });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.Column });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-ALTER TABLE [dbo].[TBL] ADD COLUMN [columnToAdd] [nvarchar](20) NOT NULL
+@"ALTER TABLE [dbo].[TBL] ADD COLUMN [columnToAdd] [nvarchar](20) NOT NULL
 GO
 
 ALTER TABLE [dbo].[TBL] DROP COLUMN [columnToDrop]
@@ -262,13 +252,10 @@ GO
 ALTER TABLE [dbo].[TBL] CHECK CONSTRAINT [FK_Name1]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Table });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-ALTER TABLE [dbo].[TBL] DROP CONSTRAINT [FK_Name1]
+@"ALTER TABLE [dbo].[TBL] DROP CONSTRAINT [FK_Name1]
 GO
 
 ");
@@ -324,13 +311,10 @@ ALTER TABLE [dbo].[TBL] ADD  CONSTRAINT [constraintName]  DEFAULT ((1)) FOR [col
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Table });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-ALTER TABLE [dbo].[TBL] DROP CONSTRAINT [constraintName]
+@"ALTER TABLE [dbo].[TBL] DROP CONSTRAINT [constraintName]
 GO
 
 ALTER TABLE [dbo].[TBL] ADD  CONSTRAINT [constraintName]  DEFAULT ((0)) FOR [column1]
@@ -357,7 +341,7 @@ GO
 
             string destination = string.Empty;
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }

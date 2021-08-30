@@ -26,7 +26,7 @@ namespace SqlSchemaCompare.Test
             return (file1, file2, errors);
         }
 
-        public static (string updateFile, string errors) UpdateSchema(string originSchema, string destinationSchema, string databaseName, IEnumerable<DbObjectType> dbObjectTypes)
+        public static (string updateFile, string errors) UpdateSchema(string originSchema, string destinationSchema, IEnumerable<DbObjectType> dbObjectTypes)
         {
             IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
             ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
@@ -36,7 +36,7 @@ namespace SqlSchemaCompare.Test
             var (originDbObjects, destinationDbObjects, errors) = loadSchemaManager.LoadSchema(originSchema, destinationSchema);
 
             UpdateSchemaManager updateSchemaManager = new(schemaBuilder, dbObjectFactory, errorWriter);
-            string updateSchema= updateSchemaManager.UpdateSchema(originDbObjects, destinationDbObjects, databaseName, dbObjectTypes);
+            string updateSchema= updateSchemaManager.UpdateSchema(originDbObjects, destinationDbObjects, dbObjectTypes);
 
             return (updateSchema, errors);
         }        

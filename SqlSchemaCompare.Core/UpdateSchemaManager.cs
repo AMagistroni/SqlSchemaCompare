@@ -19,7 +19,7 @@ namespace SqlSchemaCompare.Core
             _dbObjectFactory = dbObjectFactory;
             _errorWriter = errorWriter;
         }
-        public string UpdateSchema(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, string databaseName, IEnumerable<DbObjectType> selectedObjectType)
+        public string UpdateSchema(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, IEnumerable<DbObjectType> selectedObjectType)
         {
             _selectedObjectType = selectedObjectType;
             TSqlResultProcessDbObject resultProcessDbObject = new();
@@ -43,10 +43,13 @@ namespace SqlSchemaCompare.Core
             }
             else
             {
+                var destinationDb = destinationObjects.OfType<UseDbObject>();
                 StringBuilder useDb = new();
-                useDb.AppendLine(_schemaBuilder.BuildUse(databaseName));
-                useDb.AppendLine(_schemaBuilder.BuildSeparator());
-
+                if (destinationDb.Any())
+                {
+                    useDb.AppendLine(destinationDb.First().Sql);
+                    useDb.AppendLine(_schemaBuilder.BuildSeparator());
+                }
                 return $"{useDb}{resultProcessDbObject.UpdateSchemaStringBuild}";
             }
         }        

@@ -29,12 +29,11 @@ namespace SqlSchemaCompare.Test.TSql
         {
             // When origin equals destination 
             // Expect updateSchema should be empty
-            const string databaseName = "dbName";
 
             const string origin = "CREATE SCHEMA [sch1]";
             const string destination = "CREATE SCHEMA [sch1]";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Schema });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Schema });
 
             updateSchema.ShouldBeEmpty();
         }
@@ -44,18 +43,14 @@ namespace SqlSchemaCompare.Test.TSql
         {
             // When present db object in origin absent from destination
             // Expect updateSchema contains create statement
-            const string databaseName = "dbName";
 
             const string origin = "CREATE SCHEMA [sch1]";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Schema });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Schema });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-CREATE SCHEMA [sch1]
+@"CREATE SCHEMA [sch1]
 GO
 
 ");
@@ -67,18 +62,14 @@ GO
         {
             // When present db object in destination absent from origin
             // Expect updateSchema contains drop statement
-            const string databaseName = "dbName";
-
+       
             const string origin = "";
             const string destination = "CREATE SCHEMA [sch1]";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Schema });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Schema });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-DROP SCHEMA [sch1]
+@"DROP SCHEMA [sch1]
 GO
 
 ");
@@ -90,12 +81,11 @@ GO
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select schema db object, update schema is created without schema            
-            const string databaseName = "dbName";
 
             const string origin = "CREATE SCHEMA [sch1]";
             string destination = string.Empty;
             
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();     
         }

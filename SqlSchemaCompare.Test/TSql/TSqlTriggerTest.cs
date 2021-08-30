@@ -52,10 +52,9 @@ GO"
         {
             // When origin equals destination 
             // Expect updateSchema should be empty
-            const string databaseName = "dbName";
 
             const string origin =
-    @"CREATE TRIGGER [trg1]
+@"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
 	create_table, alter_table, drop_table,
@@ -72,7 +71,7 @@ GO
 ENABLE TRIGGER [trg1] ON DATABASE
 GO";
             const string destination =
-    @"CREATE TRIGGER [trg1]
+@"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
 	create_table, alter_table, drop_table,
@@ -89,7 +88,7 @@ GO
 ENABLE TRIGGER [trg1] ON DATABASE
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Trigger });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -100,7 +99,6 @@ GO";
         {
             // When present db object in origin absent from destination
             // Expect updateSchema contains create statement
-            const string databaseName = "dbName";
 
             const string origin =
 @"CREATE TRIGGER [trg1]
@@ -121,13 +119,10 @@ DISABLE TRIGGER [trg1] ON DATABASE
 GO";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Trigger });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger });
 
             updateSchema.ShouldBe(
-    $@"USE [{databaseName}]
-GO
-
-CREATE TRIGGER [trg1]
+@"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
 	create_table, alter_table, drop_table,
@@ -153,11 +148,9 @@ GO
         {
             // When present db object in destination absent from origin
             // Expect updateSchema contains drop statement
-            const string databaseName = "dbName";
-
             const string origin = "";
             const string destination =
-    @"CREATE TRIGGER [trg1]
+@"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
 	create_table, alter_table, drop_table,
@@ -175,13 +168,10 @@ ENABLE TRIGGER [trg1] ON DATABASE
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Trigger });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger });
 
             updateSchema.ShouldBe(
-    $@"USE [{databaseName}]
-GO
-
-DROP TRIGGER [trg1]
+@"DROP TRIGGER [trg1]
 GO
 
 ");
@@ -193,8 +183,7 @@ GO
         {
             // When present db object in destination and in origin and are different
             // Expect updateSchema contains alter statement
-            const string databaseName = "dbName";
-
+ 
             const string origin =
     @"CREATE TRIGGER [trg1]
 ON DATABASE 
@@ -231,13 +220,10 @@ DISABLE TRIGGER [trg1] ON DATABASE
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Trigger });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger });
 
             updateSchema.ShouldBe(
-    $@"USE [{databaseName}]
-GO
-
-ALTER TRIGGER [trg1]
+@"ALTER TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
 	create_table, alter_table, drop_table,
@@ -263,10 +249,9 @@ GO
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select trigger db object, update schema is created without trigger
-            const string databaseName = "dbName";
-
+          
             const string origin =
-    @"CREATE TRIGGER [trg1]
+@"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
 	create_table, alter_table, drop_table,
@@ -285,7 +270,7 @@ GO
 ";
             string destination = string.Empty;
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }

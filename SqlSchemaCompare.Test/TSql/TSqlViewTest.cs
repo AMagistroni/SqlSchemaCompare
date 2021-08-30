@@ -34,7 +34,6 @@ namespace SqlSchemaCompare.Test.TSql
         {
             // When origin equals destination 
             // Expect updateSchema should be empty
-            const string databaseName = "dbName";
 
             const string origin =
 @"CREATE VIEW [dbo].[vw1]
@@ -47,7 +46,7 @@ AS
 SELECT * FROM [dbo].[tbl1]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.View });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.View });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -58,7 +57,6 @@ GO";
         {
             // When present db object in origin absent from destination
             // Expect updateSchema contains create statement
-            const string databaseName = "dbName";
 
             const string origin =
 @"CREATE VIEW [dbo].[vw1]
@@ -67,13 +65,10 @@ AS
 GO";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.View });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.View });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-CREATE VIEW [dbo].[vw1]
+@"CREATE VIEW [dbo].[vw1]
 AS
     SELECT * FROM [dbo].[tbl1]
 GO
@@ -87,8 +82,7 @@ GO
         {
             // When present db object in destination absent from origin
             // Expect updateSchema contains drop statement
-            const string databaseName = "dbName";
-
+          
             const string origin = "";
             const string destination =
 @"CREATE VIEW [dbo].[vw1]
@@ -96,13 +90,10 @@ AS
     SELECT * FROM [dbo].[tbl1]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.View });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.View });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-DROP VIEW [dbo].[vw1]
+@"DROP VIEW [dbo].[vw1]
 GO
 
 ");
@@ -114,8 +105,7 @@ GO
         {
             // When present db object in destination and in origin and are different
             // Expect updateSchema contains alter statement
-            const string databaseName = "dbName";
-
+        
             const string origin =
 @"CREATE VIEW [dbo].[vw1]
 AS
@@ -127,13 +117,10 @@ AS
     SELECT * FROM [dbo].[tbl2]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.View });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.View });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-ALTER VIEW [dbo].[vw1]
+@"ALTER VIEW [dbo].[vw1]
 AS
     SELECT * FROM [dbo].[tbl1]
 GO
@@ -147,7 +134,6 @@ GO
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select view db object, update schema is created without view
-            const string databaseName = "dbName";
 
             const string origin =
 @"CREATE VIEW [dbo].[vw1]
@@ -156,7 +142,7 @@ AS
 GO";
             string destination = string.Empty;
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }

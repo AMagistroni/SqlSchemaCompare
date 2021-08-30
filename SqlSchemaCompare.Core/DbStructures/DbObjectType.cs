@@ -16,6 +16,7 @@
         TableContraint,
         Column,
         EnableTrigger,
+        UseDatabase,
         Other
     }
 }

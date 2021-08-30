@@ -23,6 +23,8 @@ namespace SqlSchemaCompare.Core.TSql
         private readonly TSqlTypeCreator _typeFactory;
         private readonly TSqlIndexFactory _indexFactory;
         private readonly TSqlMemberFactory _memberFactory;
+        private readonly TSqlSimpleDbObjectFactory _simpleDbObjectFactory;
+        private readonly TSqlUseDatabaseFactory _useDatabaseFactory;
 
         private readonly IList<Type> DDLParserRule = new List<Type>()
             { typeof(Cfl_statementContext) };
@@ -40,16 +42,18 @@ namespace SqlSchemaCompare.Core.TSql
             _typeFactory = new TSqlTypeCreator();
             _indexFactory = new TSqlIndexFactory();
             _memberFactory = new TSqlMemberFactory();
+            _simpleDbObjectFactory = new TSqlSimpleDbObjectFactory();
+            _useDatabaseFactory = new TSqlUseDatabaseFactory();
         }
         public List<DbObject> DbObjects { get; } = new();
         public override void ExitAlter_database([NotNull] Alter_databaseContext context)
         {
-            DbObjects.Add(new SimpleDbObject { Sql = context.Start.InputStream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)) });
+            DbObjects.Add(_simpleDbObjectFactory.Create(context, _stream));
         }
 
         public override void ExitCreate_columnstore_index([NotNull] Create_columnstore_indexContext context)
         {
-            DbObjects.Add(new SimpleDbObject { Sql = context.Start.InputStream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)) });
+            DbObjects.Add(_simpleDbObjectFactory.Create(context, _stream));
         }
         public override void ExitCreate_table([NotNull] TSqlParser.Create_tableContext context)
         {
@@ -129,17 +133,17 @@ namespace SqlSchemaCompare.Core.TSql
 
         public override void ExitCreate_nonclustered_columnstore_index([NotNull] Create_nonclustered_columnstore_indexContext context)
         {
-            DbObjects.Add(new SimpleDbObject { Sql = context.Start.InputStream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)) });
+            DbObjects.Add(_simpleDbObjectFactory.Create(context, _stream));
         }
 
         public override void ExitCreate_sequence([NotNull] Create_sequenceContext context)
         {
-            DbObjects.Add(new SimpleDbObject { Sql = context.Start.InputStream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)) });
+            DbObjects.Add(_simpleDbObjectFactory.Create(context, _stream));
         }
 
         public override void ExitUse_statement([NotNull] TSqlParser.Use_statementContext context) 
         {
-        
+            DbObjects.Add(_useDatabaseFactory.Create(context, _stream));
         }
         private bool ObjectInsideDDL(RuleContext context)
         {

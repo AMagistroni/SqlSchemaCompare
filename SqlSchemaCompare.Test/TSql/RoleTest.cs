@@ -29,12 +29,10 @@ namespace SqlSchemaCompare.Test.TSql
         {
             // When origin equals destination 
             // Expect updateSchema should be empty
-            const string databaseName = "dbName";
-
             const string origin = "CREATE ROLE [role]";
             const string destination = "CREATE ROLE [role]";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Role });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Role });
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -45,18 +43,14 @@ namespace SqlSchemaCompare.Test.TSql
         {
             // When present db object in origin absent from destination
             // Expect updateSchema contains create statement
-            const string databaseName = "dbName";
 
             const string origin = "CREATE ROLE [role]";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Role });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Role });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-CREATE ROLE [role]
+@"CREATE ROLE [role]
 GO
 
 ");
@@ -68,7 +62,6 @@ GO
         {
             // When present db object in destination absent from origin
             // Expect updateSchema contains drop statement
-            const string databaseName = "dbName";
 
             const string origin = "";
             const string destination =
@@ -79,13 +72,10 @@ ALTER ROLE [role] ADD MEMBER [user]
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { DbObjectType.Role });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Role });
 
             updateSchema.ShouldBe(
-$@"USE [{databaseName}]
-GO
-
-DROP ROLE [role]
+@"DROP ROLE [role]
 GO
 
 ");
@@ -97,12 +87,10 @@ GO
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select role db object, update schema is created without role
-            const string databaseName = "dbName";
-
             const string origin = "CREATE ROLE [role]";
             string destination = string.Empty;
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, databaseName, new DbObjectType[] { dbObjectTypes });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }
