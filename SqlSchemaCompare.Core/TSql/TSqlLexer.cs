@@ -5207,3 +5207,4 @@ using DFA = Antlr4.Runtime.Dfa.DFA;
 			new ATNDeserializer().Deserialize(_serializedATN.ToCharArray());
 	}
 } // namespace SqlSchemaCompareGenerator.Console
+

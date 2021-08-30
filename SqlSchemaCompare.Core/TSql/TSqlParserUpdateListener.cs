@@ -136,8 +136,11 @@ namespace SqlSchemaCompare.Core.TSql
         {
             DbObjects.Add(new SimpleDbObject { Sql = context.Start.InputStream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)) });
         }
-        
 
+        public override void ExitUse_statement([NotNull] TSqlParser.Use_statementContext context) 
+        {
+        
+        }
         private bool ObjectInsideDDL(RuleContext context)
         {
             if (context.parent is null)
