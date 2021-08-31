@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
+using Antlr4.Runtime.Tree;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql.Factory;
 using System;
@@ -24,7 +25,7 @@ namespace SqlSchemaCompare.Core.TSql
         private readonly TSqlIndexFactory _indexFactory;
         private readonly TSqlMemberFactory _memberFactory;
         private readonly TSqlSimpleDbObjectFactory _simpleDbObjectFactory;
-        private readonly TSqlUseDatabaseFactory _useDatabaseFactory;
+        private readonly TSqlDatabaseFactory _databaseFactory;
 
         private readonly IList<Type> DDLParserRule = new List<Type>()
             { typeof(Cfl_statementContext) };
@@ -43,7 +44,7 @@ namespace SqlSchemaCompare.Core.TSql
             _indexFactory = new TSqlIndexFactory();
             _memberFactory = new TSqlMemberFactory();
             _simpleDbObjectFactory = new TSqlSimpleDbObjectFactory();
-            _useDatabaseFactory = new TSqlUseDatabaseFactory();
+            _databaseFactory = new TSqlDatabaseFactory();
         }
         public List<DbObject> DbObjects { get; } = new();
         public override void ExitAlter_database([NotNull] Alter_databaseContext context)
@@ -140,10 +141,9 @@ namespace SqlSchemaCompare.Core.TSql
         {
             DbObjects.Add(_simpleDbObjectFactory.Create(context, _stream));
         }
-
-        public override void ExitUse_statement([NotNull] TSqlParser.Use_statementContext context) 
+        public override void ExitCreate_database([NotNull] TSqlParser.Create_databaseContext context) 
         {
-            DbObjects.Add(_useDatabaseFactory.Create(context, _stream));
+            DbObjects.Add(_databaseFactory.Create(context, _stream));
         }
         private bool ObjectInsideDDL(RuleContext context)
         {

@@ -101,7 +101,7 @@ GO
 
             const string origin = "";
             const string destination =
-@"USE [dbName]
+@"CREATE DATABASE [dbName]
 GO
 
 CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]

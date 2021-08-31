@@ -28,11 +28,11 @@ namespace SqlSchemaCompare.Core
             ProcessRole(sourceObjects, destinationObjects, resultProcessDbObject);
             ProcessMember(sourceObjects, destinationObjects, resultProcessDbObject);
             ProcessSchema(sourceObjects, destinationObjects, Operation.Create, resultProcessDbObject);
+            ProcessTable(sourceObjects, destinationObjects, resultProcessDbObject);
             ProcessGenericDbObject<StoreProcedure>(sourceObjects, destinationObjects, resultProcessDbObject, DbObjectType.StoreProcedure);
             ProcessGenericDbObject<Function>(sourceObjects, destinationObjects, resultProcessDbObject, DbObjectType.Function);
             ProcessGenericDbObject<View>(sourceObjects, destinationObjects, resultProcessDbObject, DbObjectType.View);
-            ProcessTrigger(sourceObjects, destinationObjects, resultProcessDbObject);
-            ProcessTable(sourceObjects, destinationObjects, resultProcessDbObject);
+            ProcessTrigger(sourceObjects, destinationObjects, resultProcessDbObject);            
             ProcessDbObjectWithoutAlter<TypeDbObject>(sourceObjects, destinationObjects, resultProcessDbObject, DbObjectType.Type);
             ProcdessIndex(sourceObjects, destinationObjects, resultProcessDbObject);
             ProcessSchema(sourceObjects, destinationObjects, Operation.Drop, resultProcessDbObject);
@@ -43,11 +43,11 @@ namespace SqlSchemaCompare.Core
             }
             else
             {
-                var destinationDb = destinationObjects.OfType<UseDbObject>();
+                var destinationDb = destinationObjects.OfType<Database>();
                 StringBuilder useDb = new();
                 if (destinationDb.Any())
                 {
-                    useDb.AppendLine(destinationDb.First().Sql);
+                    useDb.AppendLine(_schemaBuilder.BuildUse(destinationDb.First().Name));
                     useDb.AppendLine(_schemaBuilder.BuildSeparator());
                 }
                 return $"{useDb}{resultProcessDbObject.UpdateSchemaStringBuild}";

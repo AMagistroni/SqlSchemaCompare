@@ -267,6 +267,10 @@ namespace SqlSchemaCompare.WindowsForm
             var swap = txtOriginSchema.Text;
             txtOriginSchema.Text = txtDestinationSchema.Text;
             txtDestinationSchema.Text = swap;
+
+            formSettings.OriginSchema = txtOriginSchema.Text;
+            formSettings.DestinationSchema = txtDestinationSchema.Text;
+            formSettings.Save();
         }
                 
         private void BtnLoadSchema_Click(object sender, EventArgs e)
