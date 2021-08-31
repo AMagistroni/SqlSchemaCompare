@@ -16,8 +16,8 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 Sql = viewContext.stop.Text == "GO" 
                     ? stream.GetText(new Interval(viewContext.start.StartIndex, viewContext.stop.StopIndex - 4))
                     : stream.GetText(new Interval(viewContext.start.StartIndex, viewContext.stop.StopIndex)),
-                Name = ((TSqlParser.Simple_nameContext)viewContext.simple_name()).name.GetText(),
-                Schema = ((TSqlParser.Simple_nameContext)viewContext.simple_name()).schema.GetText(),
+                Name = viewContext.simple_name().name.GetText(),
+                Schema = viewContext.simple_name().schema.GetText(),
                 Body = stream.GetText(new Interval(bodyContext.start.StartIndex, bodyContext.stop.StopIndex)),
                 Operation = GetOperation(viewContext.GetChild(0).GetText())
             };

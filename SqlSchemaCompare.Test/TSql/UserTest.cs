@@ -107,16 +107,16 @@ GO
             // When present db object in destination and in origin and are different
             // Expect updateSchema contains alter statement
             const string origin =
-@"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
+@"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA = [dbo]
 GO";
             const string destination =
-@"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[sch1]
+@"CREATE USER [user] FOR LOGIN [login] WITH DEFAULT_SCHEMA = [sch1]
 GO";
 
             (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.User });
 
             updateSchema.ShouldBe(
-@"ALTER USER [user] WITH DEFAULT_SCHEMA=[dbo]
+@"ALTER USER [user] WITH DEFAULT_SCHEMA = [dbo], LOGIN = [user_login]
 GO
 
 ");

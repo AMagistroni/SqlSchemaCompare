@@ -1,6 +1,7 @@
 ﻿using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using System;
+using System.Text;
 using Index = SqlSchemaCompare.Core.DbStructures.Index;
 
 namespace SqlSchemaCompare.Core.TSql
@@ -94,13 +95,31 @@ namespace SqlSchemaCompare.Core.TSql
 
         private string BuildUser(User user, Operation operation)
         {
-            return operation switch
+            switch (operation)
             {
-                Operation.Create => user.Sql,
-                Operation.Alter => $"ALTER USER {user.Name}{(!string.IsNullOrEmpty(user.Schema) ? " WITH DEFAULT_SCHEMA=" + user.Schema : string.Empty)}",
-                Operation.Drop => $"DROP USER {user.Name}",
-                _ => throw new NotSupportedException($"Operation not supported on store {user}"),
-            };
+                case Operation.Create:
+                    return user.Sql;
+                case Operation.Alter:
+                    var stringBuilder = new StringBuilder();
+
+                    if (!string.IsNullOrEmpty(user.Schema))
+                        stringBuilder.Append($"DEFAULT_SCHEMA = { user.Schema}");
+
+                    if (!string.IsNullOrEmpty(user.Login))
+                    {
+                        if (stringBuilder.Length > 0)
+                            stringBuilder.Append(", ");
+
+                        stringBuilder.Append($"LOGIN = { user.Login}");
+                    }
+
+                    stringBuilder.Insert(0, $"ALTER USER { user.Name} WITH ");
+                    return stringBuilder.ToString();
+                case Operation.Drop:
+                    return $"DROP USER {user.Name}";
+                default:
+                    throw new NotSupportedException($"Operation not supported on store {user}");
+            }
         }
 
         private string BuildTrigger(Trigger trigger, Operation operation)

@@ -15,7 +15,8 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 Sql = stream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)),
                 Name = userContext.user_name.GetText(),
                 Schema = userContext.schema_name?.GetText(),
-                Operation = GetOperation(userContext.GetChild(0).GetText())
+                Operation = GetOperation(userContext.GetChild(0).GetText()),
+                Login = userContext.login_name?.GetText()
             };
         }
     }
