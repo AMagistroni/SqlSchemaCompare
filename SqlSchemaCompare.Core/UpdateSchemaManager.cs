@@ -73,11 +73,11 @@ namespace SqlSchemaCompare.Core
             if (_selectedObjectType.Contains(DbObjectType.Trigger))
             {
                 (toCreate.Union(toAlter)).ToList()
-                .ForEach(x => resultProcessDbObject.UpdateSchemaStringBuild
-                                .AppendLine(_schemaBuilder.Build(x.EnableObject, x.EnableObject.Enabled
-                                                                                                ? Operation.Enabled
-                                                                                                : Operation.Disabled))
-                                .AppendLine(_schemaBuilder.BuildSeparator()));
+                    .ForEach(x => resultProcessDbObject.UpdateSchemaStringBuild
+                        .AppendLine(_schemaBuilder.Build(x.EnableObject, x.EnableObject.Enabled
+                                                            ? Operation.Enabled
+                                                            : Operation.Disabled))
+                        .AppendLine(_schemaBuilder.BuildSeparator()));
             }
         }
 
@@ -89,16 +89,15 @@ namespace SqlSchemaCompare.Core
             var toCreate = CreateDbObjectByName<User>(originDb, destinationDb, resultProcessDbObject, DbObjectType.User);
             DropDbObjectByName<User>(originDb, destinationDb, resultProcessDbObject, DbObjectType.User);
 
-
             if (_selectedObjectType.Contains(DbObjectType.User))
             {
                 originDb
-                .Except(toCreate)
-                .Where(x => !destinationDb.Contains(x)) //discard object present in origin, present in destination and equals
-                .ToList()
-                    .ForEach(x => resultProcessDbObject.UpdateSchemaStringBuild
-                        .AppendLine(_schemaBuilder.Build(x, Operation.Alter))
-                        .AppendLine(_schemaBuilder.BuildSeparator()));
+                    .Except(toCreate)
+                    .Where(x => !destinationDb.Contains(x)) //discard object present in origin, present in destination and equals
+                    .ToList()
+                        .ForEach(x => resultProcessDbObject.UpdateSchemaStringBuild
+                            .AppendLine(_schemaBuilder.Build(x, Operation.Alter))
+                            .AppendLine(_schemaBuilder.BuildSeparator()));
             }
 
         }
@@ -153,12 +152,6 @@ namespace SqlSchemaCompare.Core
                 else
                 {
                     var destinationTable = destinationDb.Single(x => x.Identifier == tableOrigin.Identifier);
-                    if (tableOrigin != destinationTable)
-                    {
-                        //columns different
-                        ProcessTableColumn(tableOrigin, destinationTable, resultProcessDbObject);
-                    }
-                    
                     var constraintToCreate = CreateDbObject<Table.TableConstraint>(tableOrigin.Constraints, destinationTable.Constraints, resultProcessDbObject, DbObjectType.Table);
 
                     var constraintToDrop = DropDbObject<Table.TableConstraint>(tableOrigin.Constraints, destinationTable.Constraints)
@@ -180,6 +173,12 @@ namespace SqlSchemaCompare.Core
                                             .AppendLine(_schemaBuilder.BuildSeparator())
                                             .AppendLine(_schemaBuilder.Build(x, Operation.Create))
                                             .AppendLine(_schemaBuilder.BuildSeparator()));
+                    }
+
+                    if (tableOrigin != destinationTable)
+                    {
+                        //columns different
+                        ProcessTableColumn(tableOrigin, destinationTable, resultProcessDbObject);
                     }
                 }
             }

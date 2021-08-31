@@ -324,6 +324,39 @@ GO
             errors.ShouldBeEmpty();
         }
 
+        [Fact]
+        public void DropConstraintBeforeDropColumn()
+        {
+            const string origin =
+@"CREATE TABLE [dbo].[TBL] ([ID] [int] NOT NULL)
+GO
+
+";
+
+            const string destination =
+@"CREATE TABLE [dbo].[TBL] (
+	[ID] [int] NOT NULL,
+	[column1] [int] NOT NULL)
+GO
+
+ALTER TABLE [dbo].[TBL] WITH CHECK ADD CONSTRAINT [FK_constraint] FOREIGN KEY([column1])
+REFERENCES [dbo].[tbl2] ([ID])
+GO
+";
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.Column });
+
+            updateSchema.ShouldBe(
+@"ALTER TABLE [dbo].[TBL] DROP CONSTRAINT [FK_constraint]
+GO
+
+ALTER TABLE [dbo].[TBL] DROP COLUMN [column1]
+GO
+
+");
+            errors.ShouldBeEmpty();
+        }
+
         [Theory]
         [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), DbObjectType.Table, MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
