@@ -357,6 +357,9 @@ GO
             errors.ShouldBeEmpty();
         }
 
+        
+
+
         [Theory]
         [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), DbObjectType.Table, MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)

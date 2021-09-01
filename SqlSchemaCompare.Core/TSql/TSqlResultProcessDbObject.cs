@@ -11,6 +11,8 @@ namespace SqlSchemaCompare.Core.TSql
         public List<DbObject> ToDrop { get; private set; } = new();
         public List<DbObject> ToAlter { get; private set; } = new();
         public List<DbObject> ToCreate { get; private set; } = new();
+        public List<DbObject> ToEnable { get; private set; } = new();
+        public List<DbObject> ToDisable { get; private set; } = new();
 
         public void AddToAlter<T>(IList<T> dbObjects) where T: DbObject
         {
@@ -36,6 +38,14 @@ namespace SqlSchemaCompare.Core.TSql
         public void AddToDrop<T>(T dbObjects) where T : DbObject
         {
             ToDrop.Add(dbObjects);
+        }
+        public void AddToEnable<T>(T dbObjects) where T : DbObject
+        {
+            ToEnable.Add(dbObjects);
+        }
+        public void AddToDisable<T>(T dbObjects) where T : DbObject
+        {
+            ToDisable.Add(dbObjects);
         }
     }
 }

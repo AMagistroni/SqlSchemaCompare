@@ -10,14 +10,10 @@ namespace SqlSchemaCompare.Core
     public class UpdateSchemaManager
     {
         private readonly ISchemaBuilder _schemaBuilder;
-        private readonly IDbObjectFactory _dbObjectFactory;
-        private readonly IErrorWriter _errorWriter;
         private IEnumerable<DbObjectType> _selectedObjectType;
-        public UpdateSchemaManager(ISchemaBuilder schemaBuilder, IDbObjectFactory dbObjectFactory, IErrorWriter errorWriter)
+        public UpdateSchemaManager(ISchemaBuilder schemaBuilder)
         {
             _schemaBuilder = schemaBuilder;
-            _dbObjectFactory = dbObjectFactory;
-            _errorWriter = errorWriter;
         }
         public string UpdateSchema(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, IEnumerable<DbObjectType> selectedObjectType)
         {
@@ -70,6 +66,14 @@ namespace SqlSchemaCompare.Core
         {
             (var toCreate, var toAlter, var toDrop) = ProcessGenericDbObject<Trigger>(sourceObjects, destinationObjects, resultProcessDbObject, DbObjectType.Trigger);
 
+            foreach (var trigger in toCreate.Union(toAlter))
+            {
+                if (trigger.EnableObject.Enabled)
+                    resultProcessDbObject.AddToEnable(trigger);
+                else
+                    resultProcessDbObject.AddToDisable(trigger);
+            }
+
             if (_selectedObjectType.Contains(DbObjectType.Trigger))
             {
                 (toCreate.Union(toAlter)).ToList()
@@ -89,15 +93,18 @@ namespace SqlSchemaCompare.Core
             var toCreate = CreateDbObjectByName<User>(originDb, destinationDb, resultProcessDbObject, DbObjectType.User);
             DropDbObjectByName<User>(originDb, destinationDb, resultProcessDbObject, DbObjectType.User);
 
-            if (_selectedObjectType.Contains(DbObjectType.User))
-            {
-                originDb
+            var toAlter = originDb
                     .Except(toCreate)
                     .Where(x => !destinationDb.Contains(x)) //discard object present in origin, present in destination and equals
-                    .ToList()
-                        .ForEach(x => resultProcessDbObject.UpdateSchemaStringBuild
-                            .AppendLine(_schemaBuilder.Build(x, Operation.Alter))
-                            .AppendLine(_schemaBuilder.BuildSeparator()));
+                    .ToList();
+            resultProcessDbObject.AddToCreate(toAlter);
+
+            if (_selectedObjectType.Contains(DbObjectType.User))
+            {
+                toAlter
+                    .ForEach(x => resultProcessDbObject.UpdateSchemaStringBuild
+                        .AppendLine(_schemaBuilder.Build(x, Operation.Alter))
+                        .AppendLine(_schemaBuilder.BuildSeparator()));
             }
 
         }
@@ -132,6 +139,10 @@ namespace SqlSchemaCompare.Core
             {
                 if (!destinationIdentifier.Contains(tableOrigin.Identifier))
                 {
+                    var toCreate = tableOrigin
+                            .Constraints.ToList();
+                    resultProcessDbObject.AddToCreate(toCreate);
+
                     //table new 
                     if (_selectedObjectType.Contains(DbObjectType.Table))
                     {
@@ -139,9 +150,9 @@ namespace SqlSchemaCompare.Core
                             .AppendLine(_schemaBuilder.Build(tableOrigin, Operation.Create))
                             .AppendLine(_schemaBuilder.BuildSeparator());
 
-                        tableOrigin
-                            .Constraints.ToList()
-                            .ForEach(x =>
+                        
+
+                        toCreate.ForEach(x =>
                                 resultProcessDbObject.UpdateSchemaStringBuild
                                     .AppendLine(_schemaBuilder.Build(x, Operation.Create))
                                     .AppendLine(_schemaBuilder.BuildSeparator()));
@@ -161,6 +172,9 @@ namespace SqlSchemaCompare.Core
                     var toAlter = tableOrigin.Constraints
                         .Except(constraintToCreate)
                         .Where(x => !destinationTable.Constraints.Contains(x)).ToList(); //discard object present in origin, present in destination and equals
+
+                    resultProcessDbObject.AddToDrop(constraintToDrop);
+                    resultProcessDbObject.AddToAlter(toAlter);
 
                     if (_selectedObjectType.Contains(DbObjectType.Table))
                     {
@@ -187,27 +201,31 @@ namespace SqlSchemaCompare.Core
 
         private void ProcessTableColumn(Table table, Table destinationTable, TSqlResultProcessDbObject resultProcessDbObject)
         {
-            IEnumerable<Table.Column> columnsToAdd;
-            IEnumerable<Table.Column> columnsToDrop;
-            IEnumerable<Table.Column> columnsToAlter;
+            IList<Table.Column> columnsToAdd;
+            IList<Table.Column> columnsToDrop;
+            IList<Table.Column> columnsToAlter;
 
             columnsToAdd = table.Columns
                             .Where(x =>
                                 table.Columns
                                     .Select(x => x.Name)
                                     .Except(destinationTable.Columns.Select(x => x.Name))
-                                    .Contains(x.Name));
+                                    .Contains(x.Name)).ToList();
 
             columnsToDrop = destinationTable.Columns
                .Where(x =>
                    destinationTable.Columns
                        .Select(x => x.Name)
                        .Except(table.Columns.Select(x => x.Name))
-                       .Contains(x.Name));
+                       .Contains(x.Name)).ToList();
 
             columnsToAlter = table.Columns
                 .Except(columnsToAdd)
-                .Where(x => !destinationTable.Columns.Contains(x)); //discard object present in origin, present in destination and equals                                                                    
+                .Where(x => !destinationTable.Columns.Contains(x)).ToList(); //discard object present in origin, present in destination and equals
+
+            resultProcessDbObject.AddToCreate(columnsToAdd);
+            resultProcessDbObject.AddToAlter(columnsToAlter);
+            resultProcessDbObject.AddToDrop(columnsToDrop);
 
             if (_selectedObjectType.Contains(DbObjectType.Column))
             {
@@ -245,6 +263,7 @@ namespace SqlSchemaCompare.Core
             var toAlter = originDb
                 .Except(toCreate)
                 .Where(x => !destinationDb.Contains(x)).ToList(); //discard object present in origin, present in destination and equals
+            resultProcessDbObject.AddToAlter<Index>(toAlter);
 
             if (_selectedObjectType.Contains(DbObjectType.Index))
             {
@@ -267,6 +286,8 @@ namespace SqlSchemaCompare.Core
             var toAlter = originDb
                 .Except(toCreate)
                 .Where(x => !destinationDb.Contains(x)).ToList(); //discard object present in origin, present in destination and equals
+
+            resultProcessDbObject.AddToAlter<T>(toAlter);
 
             if (_selectedObjectType.Contains(dbObjectType))
             {
@@ -297,6 +318,9 @@ namespace SqlSchemaCompare.Core
                                     .AppendLine(_schemaBuilder.Build(x, Operation.Alter))
                                     .AppendLine(_schemaBuilder.BuildSeparator()));
             }
+
+            resultProcessDbObject.AddToAlter<T>(toAlter);            
+
             return (toCreate, toAlter, toDrop);
         }
         private List<T> CreateDbObject<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T : DbObject
@@ -329,8 +353,8 @@ namespace SqlSchemaCompare.Core
             if (_selectedObjectType.Contains(dbObjectType))
             {
                 toCreate.ForEach(x => resultProcessDbObject.UpdateSchemaStringBuild
-                                        .AppendLine(_schemaBuilder.Build(x, Operation.Create))
-                                        .AppendLine(_schemaBuilder.BuildSeparator()));
+                    .AppendLine(_schemaBuilder.Build(x, Operation.Create))
+                    .AppendLine(_schemaBuilder.BuildSeparator()));
             }
             return toCreate;
         }
