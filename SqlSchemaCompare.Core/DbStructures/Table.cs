@@ -9,14 +9,9 @@ namespace SqlSchemaCompare.Core.DbStructures
             public override DbObjectType DbObjectType => DbObjectType.Column;
         }
         public class TableConstraint : DbObject
-        {
-            public enum TableConstraintType
-            {
-                DefaultWithName,
-                DefaultWithoutName
-            }
+        {            
             public override DbObjectType DbObjectType => DbObjectType.TableContraint;
-            public TableConstraintType ConstraintType { get; set; }
+            public string ColumnNameForeighKey { get; set; }
         }
         public IList<Column> Columns { get; } = new List<Column>();
         public IList<TableConstraint> Constraints { get; } = new List<TableConstraint>();

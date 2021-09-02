@@ -69,7 +69,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 Sql = alterTableContext.Start.InputStream.GetText(new Interval(alterTableContext.start.StartIndex, alterTableContext.stop.StopIndex)),
                 Name = name,
                 ParentName = tableName,
-                ConstraintType = name == string.Empty ?  Table.TableConstraint.TableConstraintType.DefaultWithoutName : Table.TableConstraint.TableConstraintType.DefaultWithName
+                ColumnNameForeighKey = alterTableContext.fk?.GetText()
             };
         }
     }

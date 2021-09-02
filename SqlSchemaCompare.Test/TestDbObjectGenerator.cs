@@ -6,11 +6,11 @@ namespace SqlSchemaCompare.Test
 {
     public class TestDbObjectGenerator
     {
-        public static IEnumerable<object[]> ListDbObjectTypeExceptOne(DbObjectType except)
+        public static IEnumerable<object[]> ListDbObjectTypeExceptOne(IList<DbObjectType> except)
         {
             foreach (DbObjectType dbObject in Enum.GetValues(typeof(DbObjectType)))
             {
-                if (dbObject != except)
+                if (!except.Contains(dbObject))
                     yield return new object[] { dbObject };
             }
         }

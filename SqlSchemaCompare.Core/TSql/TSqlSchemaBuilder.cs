@@ -10,39 +10,24 @@ namespace SqlSchemaCompare.Core.TSql
     {
         public string Build(DbObject dbObject, Operation operation)
         {
-            switch (dbObject.DbObjectType)
+            return dbObject.DbObjectType switch
             {
-                case DbObjectType.Table:
-                    return BuildCreateDropTable(dbObject as Table, operation);
-                case DbObjectType.TableContraint:
-                    return BuildTableConstraint(dbObject as Table.TableConstraint, operation);
-                case DbObjectType.Column:
-                    return BuildAlterTableElement("COLUMN", dbObject as Table.Column, operation);
-                case DbObjectType.View:
-                    return BuildView(dbObject as View, operation);
-                case DbObjectType.StoreProcedure:
-                    return BuildStoreProcedure(dbObject as StoreProcedure, operation);
-                case DbObjectType.Function:
-                    return BuildFunction(dbObject as Function, operation);
-                case DbObjectType.Schema:
-                    return BuildCreateDrop(dbObject as Schema, "SCHEMA", operation);
-                case DbObjectType.Trigger:
-                    return BuildTrigger(dbObject as Trigger, operation);
-                case DbObjectType.User:
-                    return BuildUser(dbObject as User, operation);
-                case DbObjectType.Role:
-                    return BuildCreateDrop(dbObject as Role, "ROLE", operation);
-                case DbObjectType.Type:
-                    return BuildCreateDrop(dbObject as TypeDbObject, "TYPE", operation);
-                case DbObjectType.Index:
-                    return BuildIndex(dbObject as Index, operation);
-                case DbObjectType.Member:
-                    return BuildMember(dbObject as Member, operation);
-                case DbObjectType.EnableTrigger:
-                    return BuildEnableTrigger(dbObject as Trigger.EnabledDbObject, operation);
-                default:
-                    throw new NotImplementedException();
-            }
+                DbObjectType.Table => BuildCreateDropTable(dbObject as Table, operation),
+                DbObjectType.TableContraint => BuildTableConstraint(dbObject as Table.TableConstraint, operation),
+                DbObjectType.Column => BuildColumn(dbObject as Table.Column, operation),
+                DbObjectType.View => BuildView(dbObject as View, operation),
+                DbObjectType.StoreProcedure => BuildStoreProcedure(dbObject as StoreProcedure, operation),
+                DbObjectType.Function => BuildFunction(dbObject as Function, operation),
+                DbObjectType.Schema => BuildCreateDrop(dbObject as Schema, "SCHEMA", operation),
+                DbObjectType.Trigger => BuildTrigger(dbObject as Trigger, operation),
+                DbObjectType.User => BuildUser(dbObject as User, operation),
+                DbObjectType.Role => BuildCreateDrop(dbObject as Role, "ROLE", operation),
+                DbObjectType.Type => BuildCreateDrop(dbObject as TypeDbObject, "TYPE", operation),
+                DbObjectType.Index => BuildIndex(dbObject as Index, operation),
+                DbObjectType.Member => BuildMember(dbObject as Member, operation),
+                DbObjectType.EnableTrigger => BuildEnableTrigger(dbObject as Trigger.EnabledDbObject, operation),
+                _ => throw new NotImplementedException(),
+            };
         }
 
         public string GetStartCommentInLine()
@@ -82,13 +67,13 @@ namespace SqlSchemaCompare.Core.TSql
             };
         }
 
-        private string BuildAlterTableElement(String itemName, DbObject dbObject, Operation operation)
+        private string BuildColumn(DbObject dbObject, Operation operation)
         {
             return operation switch
             {
-                Operation.Create => $"ALTER TABLE {dbObject.ParentName} ADD {itemName} {dbObject.Sql}",
-                Operation.Drop => $"ALTER TABLE {dbObject.ParentName} DROP {itemName} {dbObject.Name}",
-                Operation.Alter => $"ALTER TABLE {dbObject.ParentName} ALTER {itemName} {dbObject.Sql}",
+                Operation.Create => $"ALTER TABLE {dbObject.ParentName} ADD {dbObject.Sql}",
+                Operation.Drop => $"ALTER TABLE {dbObject.ParentName} DROP COLUMN {dbObject.Name}",
+                Operation.Alter => $"ALTER TABLE {dbObject.ParentName} ALTER COLUMN {dbObject.Sql}",
                 _ => throw new NotSupportedException("Alter not supported on schema"),
             };
         }

@@ -119,7 +119,7 @@ DISABLE TRIGGER [trg1] ON DATABASE
 GO";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger, DbObjectType.EnableTrigger });
 
             updateSchema.ShouldBe(
 @"CREATE TRIGGER [trg1]
@@ -168,7 +168,7 @@ ENABLE TRIGGER [trg1] ON DATABASE
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger, DbObjectType.EnableTrigger });
 
             updateSchema.ShouldBe(
 @"DROP TRIGGER [trg1]
@@ -220,7 +220,7 @@ DISABLE TRIGGER [trg1] ON DATABASE
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger, DbObjectType.EnableTrigger });
 
             updateSchema.ShouldBe(
 @"ALTER TRIGGER [trg1]
@@ -245,7 +245,7 @@ GO
         }
 
         [Theory]
-        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), DbObjectType.Trigger, MemberType = typeof(TestDbObjectGenerator))]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.Trigger, DbObjectType.EnableTrigger } , MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select trigger db object, update schema is created without trigger

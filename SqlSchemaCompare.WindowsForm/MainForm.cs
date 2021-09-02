@@ -181,7 +181,6 @@ namespace SqlSchemaCompare.WindowsForm
 
             btnOriginSchema.Enabled = !isAfterLoad;
             btnDestinationSchema.Enabled = !isAfterLoad;
-            BtnSwapOriginDestination.Enabled = !isAfterLoad;
             BtnLoadSchema.Enabled = !isAfterLoad;
 
             GrpCompare.Enabled = isAfterLoad;

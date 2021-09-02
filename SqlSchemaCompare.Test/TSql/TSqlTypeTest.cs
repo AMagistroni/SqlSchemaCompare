@@ -55,7 +55,6 @@ GO";
         {
             // When present db object in origin absent from destination
             // Expect updateSchema contains create statement
-            const string databaseName = "dbName";
 
             const string origin =
 @"CREATE TYPE [schema].[type1] AS TABLE (
@@ -104,7 +103,6 @@ GO
         {
             // When present db object in destination and in origin and are different
             // Expect updateSchema contains alter statement
-            const string databaseName = "dbName";
 
             const string origin =
 @"CREATE TYPE [dbo].[TBL] AS TABLE (
@@ -133,7 +131,7 @@ GO
         }
 
         [Theory]
-        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), DbObjectType.Type, MemberType = typeof(TestDbObjectGenerator))]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.Type }, MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select type db object, update schema is created without type

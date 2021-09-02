@@ -33,7 +33,6 @@ END";
         {
             // When origin equals destination 
             // Expect updateSchema should be empty
-            const string databaseName = "dbName";
 
             const string origin =
 @"CREATE PROCEDURE [dbo].[proc]	
@@ -178,7 +177,7 @@ GO";
         }
 
         [Theory]
-        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), DbObjectType.StoreProcedure, MemberType = typeof(TestDbObjectGenerator))]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.StoreProcedure } , MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select StoreProcedure db object, update schema is created without StoreProcedure

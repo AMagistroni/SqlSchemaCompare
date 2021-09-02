@@ -16,40 +16,40 @@ namespace SqlSchemaCompare.Test.TSql
 							[Id] ASC
 						) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db1]";
 
-			var sqlTable = $@"CREATE TABLE [schema].[TableName](
+            var sqlTable = $@"CREATE TABLE [schema].[TableName](
 							[Id] [int] IDENTITY(1,1) NOT NULL,
 							[col1] [char](8) NULL,
 						{constraint}
 						) ON [db1]";
 
-			var sql = $@"{sqlTable}
+            var sql = $@"{sqlTable}
 						GO";
 
-			var objectFactory = new TSqlObjectFactory();
+            var objectFactory = new TSqlObjectFactory();
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
-			var table = dbObjects.Single() as Table;
+            var table = dbObjects.Single() as Table;
 
-			table.Name.ShouldBe("[TableName]");
-			table.Schema.ShouldBe("[schema]");
-			table.Sql.ShouldBe(sqlTable);
+            table.Name.ShouldBe("[TableName]");
+            table.Schema.ShouldBe("[schema]");
+            table.Sql.ShouldBe(sqlTable);
 
-			var column1 = table.Columns.ElementAt(0);
-			column1.Name.ShouldBe("[Id]");
-			column1.Sql.ShouldBe("[Id] [int] IDENTITY(1,1) NOT NULL");
+            var column1 = table.Columns.ElementAt(0);
+            column1.Name.ShouldBe("[Id]");
+            column1.Sql.ShouldBe("[Id] [int] IDENTITY(1,1) NOT NULL");
 
-			var column2 = table.Columns.ElementAt(1);
-			column2.Name.ShouldBe("[col1]");
-			column2.Sql.ShouldBe("[col1] [char](8) NULL");
+            var column2 = table.Columns.ElementAt(1);
+            column2.Name.ShouldBe("[col1]");
+            column2.Sql.ShouldBe("[col1] [char](8) NULL");
 
-			table.Constraint.ShouldBe(constraint);
+            table.Constraint.ShouldBe(constraint);
             errors.Count().ShouldBe(0);
-		}
+        }
         [Fact]
         public void EqualsDbObject()
         {
             // When origin equals destination 
             // Expect updateSchema should be empty
-            
+
             const string origin =
 @"CREATE TABLE [dbo].[TBL] (
 	[ID] [int] IDENTITY(1,1) NOT NULL,
@@ -127,7 +127,7 @@ GO
 ";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.TableContraint });
 
             updateSchema.ShouldBe(
 @"CREATE TABLE [dbo].[TBL] (
@@ -214,7 +214,7 @@ GO";
             (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.Column });
 
             updateSchema.ShouldBe(
-@"ALTER TABLE [dbo].[TBL] ADD COLUMN [columnToAdd] [nvarchar](20) NOT NULL
+@"ALTER TABLE [dbo].[TBL] ADD [columnToAdd] [nvarchar](20) NOT NULL
 GO
 
 ALTER TABLE [dbo].[TBL] DROP COLUMN [columnToDrop]
@@ -252,7 +252,7 @@ GO
 ALTER TABLE [dbo].[TBL] CHECK CONSTRAINT [FK_Name1]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.TableContraint });
 
             updateSchema.ShouldBe(
 @"ALTER TABLE [dbo].[TBL] DROP CONSTRAINT [FK_Name1]
@@ -311,7 +311,7 @@ ALTER TABLE [dbo].[TBL] ADD  CONSTRAINT [constraintName]  DEFAULT ((1)) FOR [col
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.TableContraint });
 
             updateSchema.ShouldBe(
 @"ALTER TABLE [dbo].[TBL] DROP CONSTRAINT [constraintName]
@@ -344,7 +344,7 @@ REFERENCES [dbo].[tbl2] ([ID])
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.Column });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.Column, DbObjectType.TableContraint });
 
             updateSchema.ShouldBe(
 @"ALTER TABLE [dbo].[TBL] DROP CONSTRAINT [FK_constraint]
@@ -357,11 +357,66 @@ GO
             errors.ShouldBeEmpty();
         }
 
-        
+        [Fact]
+        public void DropConstraintBeforeAlterColumn()
+        {
+            const string origin =
+@"CREATE TABLE [dbo].[tbl](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[column1] [int] NOT NULL)
+GO
+
+CREATE TABLE [dbo].[tblLookup](
+	[ID] [int] NOT NULL,
+	[description] [nvarchar](50) NOT NULL)
+GO
+
+ALTER TABLE [dbo].[tbl] WITH CHECK ADD CONSTRAINT [FK_constraint] FOREIGN KEY([column1])
+REFERENCES [dbo].[tblLookup] ([ID])
+
+
+";
+
+            const string destination =
+@"CREATE TABLE [dbo].[tbl](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[column1] [tinyint] NOT NULL)
+GO
+
+CREATE TABLE [dbo].[tblLookup](
+	[ID] [tinyint] NOT NULL,
+	[description] [nvarchar](50) NOT NULL)
+GO
+
+ALTER TABLE [dbo].[tbl] WITH CHECK ADD CONSTRAINT [FK_constraint] FOREIGN KEY([column1])
+REFERENCES [dbo].[tblLookup] ([ID])
+GO
+
+";
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.Column, DbObjectType.TableContraint });
+
+            updateSchema.ShouldBe(
+@"ALTER TABLE [dbo].[tbl] DROP CONSTRAINT [FK_constraint]
+GO
+
+ALTER TABLE [dbo].[tbl] ALTER COLUMN [column1] [int] NOT NULL
+GO
+
+ALTER TABLE [dbo].[tblLookup] ALTER COLUMN [ID] [int] NOT NULL
+GO
+
+ALTER TABLE [dbo].[tbl] WITH CHECK ADD CONSTRAINT [FK_constraint] FOREIGN KEY([column1])
+REFERENCES [dbo].[tblLookup] ([ID])
+GO
+
+");
+            errors.ShouldBeEmpty();
+        }
 
 
         [Theory]
-        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), DbObjectType.Table, MemberType = typeof(TestDbObjectGenerator))]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.Table, DbObjectType.TableContraint }, MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select table db object, update schema is created without table

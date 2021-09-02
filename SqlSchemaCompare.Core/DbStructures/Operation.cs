@@ -6,7 +6,6 @@
         Alter,
         Drop,
         Enabled,
-        Disabled,
-        Add
+        Disabled
     }
 }
