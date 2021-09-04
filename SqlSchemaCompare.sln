@@ -9,10 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlSchemaCompare.WindowsFor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlSchemaCompare.Test", "SqlSchemaCompare.Test\SqlSchemaCompare.Test.csproj", "{112A6539-A729-4797-9FBB-8C8AB009B30B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{5AB33409-46A7-4675-A0D2-977C63353114}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{60DFE3B7-F052-4DE2-8D7F-20D8E926176D}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\Users\ale.magistroni\Desktop\sql compare\FirstScreen.PNG = ..\..\Users\ale.magistroni\Desktop\sql compare\FirstScreen.PNG
-		..\..\Users\ale.magistroni\Desktop\sql compare\Secondscreen.PNG = ..\..\Users\ale.magistroni\Desktop\sql compare\Secondscreen.PNG
+		Doc\FirstScreen.PNG = Doc\FirstScreen.PNG
+		Doc\Secondscreen.PNG = Doc\Secondscreen.PNG
 	EndProjectSection
 EndProject
 Global
