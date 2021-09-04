@@ -54,9 +54,9 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             string name = string.Empty;
             if ((alterTableContext.fk != null) || (alterTableContext.constraint != null))
             {
-                name = alterTableContext.constraint.GetText();
+                name = alterTableContext.constraint != null ? alterTableContext.constraint.GetText() : default;
             }
-            else {
+            else if (alterTableContext.column_def_table_constraints() != null) {
                 var constraint = ((TSqlParser.Column_def_table_constraintContext)alterTableContext.column_def_table_constraints().children[0]).table_constraint();
                 if (constraint.CONSTRAINT() != null)
                 {

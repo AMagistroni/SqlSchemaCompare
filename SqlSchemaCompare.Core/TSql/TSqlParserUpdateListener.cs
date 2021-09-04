@@ -1,6 +1,5 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql.Factory;
 using System;
@@ -28,7 +27,7 @@ namespace SqlSchemaCompare.Core.TSql
         private readonly TSqlDatabaseFactory _databaseFactory;
 
         private readonly IList<Type> DDLParserRule = new List<Type>()
-            { typeof(Cfl_statementContext) };
+            { typeof(Cfl_statementContext), typeof(Create_or_alter_procedureContext) };
         public TSqlParserUpdateListener(ICharStream stream)
         {
             _stream = stream;
