@@ -116,7 +116,7 @@ namespace SqlSchemaCompare.WindowsForm
                 txtOutputDirectory.Text = txtOutputDirectory.Text.Trim();
                 if (txtOutputDirectory.Text == string.Empty)
                 {
-                    MessageBox.Show("Select un output directory", ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Select an output directory", ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
 
