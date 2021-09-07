@@ -12,7 +12,7 @@ Extract from SqlManagement the database creation schemas of the origin and desti
 
 ![Second step](Doc/Secondscreen.PNG)
 
-1. Choose a suffix(_diff is the default) and an output directory.
+1. Choose a suffix(_diff is the default) and an output directory where the files will be saved.
 2. Choose a file name. It will contain the update schema.
 3. Choose the db objects that you want compare or you want update.
 4. Click compare to generate two files with the difference between schemas.
