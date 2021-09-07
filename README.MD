@@ -18,6 +18,7 @@ Extract from SqlManagement the database creation schemas of the origin and desti
 4. Click compare to generate two files with the difference between schemas.
 5. Click create update file to create a file with sql statement to modify the destination as origin database.
 
+Use clear to load other schemas
 ## Compare
 The compare feature creates two files that you can compare with WinMerge or other tool for comparing file. 
 This feature discard from the schemas the objects that are equals and put in the files the creation statements that are different. They are ordered alphabetically.
