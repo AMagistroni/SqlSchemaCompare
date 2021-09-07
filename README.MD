@@ -7,7 +7,7 @@ Extract from SqlManagement the database creation schemas of the origin and desti
 ![First step](Doc/FirstScreen.PNG)
 
 1. Choose the origin schema database.
-2. Chose the destination schema database.
+2. Choose the destination schema database.
 3. Load schema.
 
 ![Second step](Doc/Secondscreen.PNG)
