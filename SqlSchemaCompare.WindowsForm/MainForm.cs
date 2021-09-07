@@ -224,7 +224,7 @@ namespace SqlSchemaCompare.WindowsForm
                 if (File.Exists(txtUpdateSchemaFile.Text))
                     File.Delete(txtUpdateSchemaFile.Text);
 
-                var errorFile = GetErrorFileName();
+                var errorFile = GetErrorFileName("_errorsUpdateSchema");
                 if (File.Exists(errorFile))
                     File.Delete(errorFile);
 
@@ -251,11 +251,11 @@ namespace SqlSchemaCompare.WindowsForm
             }
         }
 
-        private string GetErrorFileName()
+        private string GetErrorFileName(string suffix)
         {
             var indexDot = txtUpdateSchemaFile.Text.LastIndexOf('.');
             if (indexDot > 0)
-                return $"{txtUpdateSchemaFile.Text.Substring(0, indexDot)}_errorsUpdateSchema.{txtUpdateSchemaFile.Text.Substring(indexDot + 1)}";
+                return $"{txtUpdateSchemaFile.Text.Substring(0, indexDot)}{suffix}.{txtUpdateSchemaFile.Text.Substring(indexDot + 1)}";
             else
                 return $"{txtUpdateSchemaFile.Text}_errors";
         }
@@ -276,7 +276,7 @@ namespace SqlSchemaCompare.WindowsForm
             if (!MandatoryFieldArePresent())
                 return;
             
-            var errorFile = GetErrorFileName();
+            var errorFile = GetErrorFileName("_errorsLoadSchema");
             if (File.Exists(errorFile))
                 File.Delete(errorFile);
 
