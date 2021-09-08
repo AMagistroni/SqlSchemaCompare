@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SqlSchemaCompare.Core.TSql
+namespace SqlSchemaCompare.Core.Common
 {
-    public class TSqlResultProcessDbObject
+    public class ResultProcessDbObject
     {
         public class OperationOnDbObject
         {

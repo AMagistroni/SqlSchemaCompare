@@ -47495,6 +47495,7 @@ public partial class TSqlParser : Parser {
 
 	public partial class Table_constraintContext : ParserRuleContext {
 		public Id_Context constraint;
+		public Id_Context forColumn;
 		public Column_name_listContext fk;
 		public Column_name_listContext pk;
 		public Column_name_list_with_orderContext column_name_list_with_order() {
@@ -47509,12 +47510,6 @@ public partial class TSqlParser : Parser {
 		public ITerminalNode FOR(int i) {
 			return GetToken(TSqlParser.FOR, i);
 		}
-		public Id_Context[] id_() {
-			return GetRuleContexts<Id_Context>();
-		}
-		public Id_Context id_(int i) {
-			return GetRuleContext<Id_Context>(i);
-		}
 		public ITerminalNode FOREIGN() { return GetToken(TSqlParser.FOREIGN, 0); }
 		public ITerminalNode KEY() { return GetToken(TSqlParser.KEY, 0); }
 		public ITerminalNode REFERENCES() { return GetToken(TSqlParser.REFERENCES, 0); }
@@ -47522,6 +47517,12 @@ public partial class TSqlParser : Parser {
 			return GetRuleContext<Table_nameContext>(0);
 		}
 		public ITerminalNode CONSTRAINT() { return GetToken(TSqlParser.CONSTRAINT, 0); }
+		public Id_Context[] id_() {
+			return GetRuleContexts<Id_Context>();
+		}
+		public Id_Context id_(int i) {
+			return GetRuleContext<Id_Context>(i);
+		}
 		public Column_name_listContext[] column_name_list() {
 			return GetRuleContexts<Column_name_listContext>();
 		}
@@ -47773,7 +47774,7 @@ public partial class TSqlParser : Parser {
 					break;
 				}
 				State = 9516; Match(FOR);
-				State = 9517; id_();
+				State = 9517; _localctx.forColumn = id_();
 				}
 				break;
 
@@ -47850,7 +47851,7 @@ public partial class TSqlParser : Parser {
 				State = 9544; Match(RR_BRACKET);
 				State = 9545; Match(RR_BRACKET);
 				State = 9546; Match(FOR);
-				State = 9547; id_();
+				State = 9547; _localctx.forColumn = id_();
 				}
 				break;
 

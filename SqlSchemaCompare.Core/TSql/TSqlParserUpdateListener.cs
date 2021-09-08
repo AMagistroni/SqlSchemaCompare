@@ -127,8 +127,8 @@ namespace SqlSchemaCompare.Core.TSql
         public override void ExitAlter_table([NotNull] TSqlParser.Alter_tableContext context)
         {
             var constraint = _tableFactory.CreateAlterTable(context);
-            var role = DbObjects.OfType<Table>().Single(x => x.Identifier == constraint.ParentName);
-            role.AddConstraint(constraint);
+            var table = DbObjects.OfType<Table>().Single(x => x.Identifier == constraint.ParentName);
+            table.AddConstraint(constraint);
         }
 
         public override void ExitCreate_nonclustered_columnstore_index([NotNull] Create_nonclustered_columnstore_indexContext context)

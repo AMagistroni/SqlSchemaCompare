@@ -1,6 +1,5 @@
 ﻿using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
-using SqlSchemaCompare.Core.TSql;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -68,7 +67,7 @@ namespace SqlSchemaCompare.Core
         public string UpdateSchema(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, IEnumerable<DbObjectType> selectedObjectType)
         {
             _selectedObjectType = selectedObjectType;
-            TSqlResultProcessDbObject resultProcessDbObject = new();
+            ResultProcessDbObject resultProcessDbObject = new();
 
             ProcessUser(sourceObjects, destinationObjects, resultProcessDbObject);
             ProcessRole(sourceObjects, destinationObjects, resultProcessDbObject);
@@ -106,17 +105,23 @@ namespace SqlSchemaCompare.Core
                             _ => throw new System.NotImplementedException(),
                         };
 
-                        dbObjects.ToList()
-                            .ForEach(x => updateSchemaStringBuild
-                                .AppendLine(_schemaBuilder.Build(x, objectToWrite.Operation))
-                                .AppendLine(_schemaBuilder.BuildSeparator()));
+                        foreach (var dbObject in dbObjects.ToList())
+                        {
+                            var sql = _schemaBuilder.Build(dbObject, objectToWrite.Operation, resultProcessDbObject);
+                            if (!string.IsNullOrEmpty(sql))
+                            { 
+                                updateSchemaStringBuild
+                                    .AppendLine(sql)
+                                    .AppendLine(_schemaBuilder.BuildSeparator());
+                            }
+                        }                        
                     }
                 }                
             }
             return updateSchemaStringBuild.ToString();
         }        
 
-        private void ProcessMember(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject)
+        private void ProcessMember(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
         {
             var originDb = sourceObjects.OfType<Member>();
             var destinationDb = destinationObjects.OfType<Member>();
@@ -128,7 +133,7 @@ namespace SqlSchemaCompare.Core
             DropDbObjectByName(originDb, destinationDb, resultProcessDbObject, DbObjectType.Member);
         }
 
-        private void ProcessTrigger(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject)
+        private void ProcessTrigger(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
         {
             (var toCreate, var toAlter, _) = ProcessGenericDbObject<Trigger>(sourceObjects, destinationObjects, resultProcessDbObject, DbObjectType.Trigger);
 
@@ -141,7 +146,7 @@ namespace SqlSchemaCompare.Core
             }
         }
 
-        private void ProcessUser(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject)
+        private void ProcessUser(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
         {
             var originDb = sourceObjects.OfType<User>();
             var destinationDb = destinationObjects.OfType<User>();
@@ -156,7 +161,7 @@ namespace SqlSchemaCompare.Core
             resultProcessDbObject.AddOperation(toAlter, Operation.Alter);
         }
 
-        private void ProcessRole(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject)
+        private void ProcessRole(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
         {
             var originDb = sourceObjects.OfType<Role>();
             var destinationDb = destinationObjects.OfType<Role>();
@@ -165,7 +170,7 @@ namespace SqlSchemaCompare.Core
             DropDbObject(originDb, destinationDb, resultProcessDbObject, DbObjectType.Role);            
         }
 
-        private void ProcessSchema(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject)
+        private void ProcessSchema(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
         {
             var originDb = sourceObjects.OfType<Schema>();
             var destinationDb = destinationObjects.OfType<Schema>();
@@ -174,7 +179,7 @@ namespace SqlSchemaCompare.Core
             DropDbObject(originDb, destinationDb, resultProcessDbObject, DbObjectType.Schema);
         }
 
-        private void ProcessTable(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject)
+        private void ProcessTable(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
         {
             var originDb = sourceObjects.OfType<Table>();
             var destinationDb = destinationObjects.OfType<Table>();
@@ -213,7 +218,7 @@ namespace SqlSchemaCompare.Core
             }
             DropDbObject(originDb, destinationDb, resultProcessDbObject, DbObjectType.Table);
         }
-        private void ProcessTableColumn(Table table, Table destinationTable, IEnumerable<DbObject> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject)
+        private void ProcessTableColumn(Table table, Table destinationTable, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
         {
             IList<Table.Column> columnsToAdd;
             IList<Table.Column> columnsToDrop;
@@ -242,15 +247,15 @@ namespace SqlSchemaCompare.Core
             resultProcessDbObject.AddOperation(columnsToDrop, Operation.Drop);
 
             var columnsOfCostraintToDropAndCreate = destinationTable
-                .Constraints.Select(x => x.ColumnNameForeighKey)
+                .Constraints.Select(x => x.ColumnName)
                 .Intersect(columnsToAlter.Select(x => x.Name));
 
-            var constrainttoDropAndCreate = destinationTable.Constraints.Where(x => columnsOfCostraintToDropAndCreate.Contains(x.ColumnNameForeighKey)).ToList();            
+            var constrainttoDropAndCreate = destinationTable.Constraints.Where(x => columnsOfCostraintToDropAndCreate.Contains(x.ColumnName)).ToList();            
             resultProcessDbObject.AddOperation(constrainttoDropAndCreate, Operation.Drop);
             resultProcessDbObject.AddOperation(constrainttoDropAndCreate, Operation.Create);
         }
 
-        private void ProcdessIndex(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject)
+        private void ProcdessIndex(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
         {
             var originDb = sourceObjects.OfType<Index>();
             var destinationDb = destinationObjects.OfType<Index>();
@@ -269,7 +274,7 @@ namespace SqlSchemaCompare.Core
             resultProcessDbObject.AddOperation(toAlter, Operation.Create);
         }
 
-        private void ProcessDbObjectWithoutAlter<T>(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T: DbObject
+        private void ProcessDbObjectWithoutAlter<T>(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T: DbObject
         {
             var originDb = sourceObjects.OfType<T>();
             var destinationDb = destinationObjects.OfType<T>();
@@ -285,7 +290,7 @@ namespace SqlSchemaCompare.Core
             resultProcessDbObject.AddOperation<T>(toAlter, Operation.Create);
         }
 
-        private (List<T> toCreate, List<T> toAlter, List<T> toDrop) ProcessGenericDbObject<T>(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType)
+        private (List<T> toCreate, List<T> toAlter, List<T> toDrop) ProcessGenericDbObject<T>(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType)
             where T: DbObject
         {
             var originDb = sourceObjects.OfType<T>();
@@ -302,7 +307,7 @@ namespace SqlSchemaCompare.Core
 
             return (toCreate, toAlter, toDrop);
         }
-        private List<T> CreateDbObject<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T : DbObject
+        private List<T> CreateDbObject<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T : DbObject
         {
             var toCreate = sourceObjects
                 .Where(dbObject => sourceObjects
@@ -313,7 +318,7 @@ namespace SqlSchemaCompare.Core
             resultProcessDbObject.AddOperation<T>(toCreate, Operation.Create);
             return toCreate;
         }       
-        private List<T> CreateDbObjectByName<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T : DbObject
+        private List<T> CreateDbObjectByName<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T : DbObject
         {
             var toCreate = sourceObjects
                 .Where(dbObject => sourceObjects
@@ -324,7 +329,7 @@ namespace SqlSchemaCompare.Core
             resultProcessDbObject.AddOperation<T>(toCreate, Operation.Create);
             return toCreate;       
         }
-        private List<T> DropDbObject<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T : DbObject
+        private List<T> DropDbObject<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T : DbObject
         {
             var toDrop = DropDbObject<T>(sourceObjects, destinationObjects);
             resultProcessDbObject.AddOperation<T>(toDrop, Operation.Drop);            
@@ -340,7 +345,7 @@ namespace SqlSchemaCompare.Core
                     .Contains(dbObject.Identifier)) // object with completeName to be dropped
                 .ToList();
         }
-        private void DropDbObjectByName<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, TSqlResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T : DbObject
+        private void DropDbObjectByName<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T : DbObject
         {
             var toDrop = destinationObjects
                 .Where(dbObject => destinationObjects

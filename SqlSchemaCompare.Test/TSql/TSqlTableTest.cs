@@ -415,6 +415,34 @@ GO
         }
 
 
+        [Fact]
+        public void AddColumnAndAddDefaultConstraintOnSameStatement()
+        {
+            const string origin =
+@"CREATE TABLE [schema].[tbl] (col1 INT not null, [col2] [datetime] NOT NULL)
+GO
+
+ALTER TABLE [schema].[tbl] ADD CONSTRAINT [constraint] DEFAULT (getdate()) FOR [col2]
+GO
+
+";
+
+            const string destination =
+@"CREATE TABLE [schema].[tbl] (col1 INT not null)
+GO
+";
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.Column, DbObjectType.TableContraint });
+
+            updateSchema.ShouldBe(
+@"ALTER TABLE [schema].[tbl] ADD [col2] [datetime] NOT NULL CONSTRAINT [constraint] DEFAULT (getdate())
+GO
+
+");
+            errors.ShouldBeEmpty();
+        }
+
+
         [Theory]
         [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.Table, DbObjectType.TableContraint }, MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)

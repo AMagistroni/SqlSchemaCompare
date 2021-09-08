@@ -9,12 +9,29 @@
         public string Sql { get; set; }
         public string ParentName { get; init; }
 
-        public static bool operator ==(DbObject dbObject1, DbObject dbObject2) => dbObject1.Equals(dbObject2);
+        public static bool operator ==(DbObject dbObject1, DbObject dbObject2)
+        {
+            if (dbObject1 is null)
+            {
+                if (dbObject2 is null)
+                {
+                    // null == null = true.
+                    return true;
+                }
 
-        public static bool operator !=(DbObject dbObject1, DbObject dbObject2) => !dbObject1.Equals(dbObject2);
+                // Only the left side is null.
+                return false;
+            }
+            return dbObject1.Equals(dbObject2);
+        }
+
+        public static bool operator !=(DbObject dbObject1, DbObject dbObject2) => !(dbObject1 == dbObject2);
 
         public override bool Equals(object obj)
         {
+            if (obj == null)
+                return false;
+
             return Sql == ((DbObject)obj).Sql;
         }
 

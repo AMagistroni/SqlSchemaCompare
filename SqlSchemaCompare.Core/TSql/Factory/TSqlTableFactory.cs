@@ -2,6 +2,8 @@
 using Antlr4.Runtime.Misc;
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
+using System.Linq;
+using System.Text;
 
 namespace SqlSchemaCompare.Core.TSql.Factory
 {
@@ -24,7 +26,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 var columnDefinition = columnTree.column_definition();
                 if (columnDefinition != null)
                 {
-                    table.AdColumns(CreateColumn(columnTree, table.Identifier));
+                    table.AdColumns(CreateColumn(columnTree, table));
                 }
                 else if (columnTree.table_constraint() != null)
                 {
@@ -34,7 +36,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             return table;
         }
 
-        private Table.Column CreateColumn(TSqlParser.Column_def_table_constraintContext columnTree, string tableName)
+        private Table.Column CreateColumn(TSqlParser.Column_def_table_constraintContext columnTree, Table table)
         {
             var columnDefinition = columnTree.column_definition();
 
@@ -42,7 +44,8 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             {
                 Sql = columnTree.Start.InputStream.GetText(new Interval(columnTree.start.StartIndex, columnTree.stop.StopIndex)),
                 Name = columnDefinition.id_()[0].GetText(),
-                ParentName = tableName
+                ParentName = table.Identifier,
+                Table = table
             };
         }
 
@@ -52,9 +55,15 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             var tableName = alterTableContext.children[2].GetText();
 
             string name = string.Empty;
+            string columnName = string.Empty;
+            StringBuilder value = new();
+
+            Table.TableConstraint.ConstraintTypes constraintType = Table.TableConstraint.ConstraintTypes.ForeignKey;
             if ((alterTableContext.fk != null) || (alterTableContext.constraint != null))
             {
+                columnName = alterTableContext.fk?.GetText();
                 name = alterTableContext.constraint != null ? alterTableContext.constraint.GetText() : default;
+                constraintType = Table.TableConstraint.ConstraintTypes.ForeignKey;
             }
             else if (alterTableContext.column_def_table_constraints() != null) {
                 var constraint = ((TSqlParser.Column_def_table_constraintContext)alterTableContext.column_def_table_constraints().children[0]).table_constraint();
@@ -62,14 +71,25 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 {
                     name = constraint.id_()[0].GetText();
                 }
-                    
+                columnName = constraint.forColumn.GetText();
+                constraintType = Table.TableConstraint.ConstraintTypes.Default;
+                var @default = constraint.children.SingleOrDefault(x => x.GetText().ToUpper() == "DEFAULT");
+                if (@default != null)
+                {
+                    var indexOf = constraint.children.IndexOf(@default);
+                    value.Append(constraint.children[indexOf + 1].GetText());
+                    value.Append(constraint.children[indexOf + 2].GetText());
+                    value.Append(constraint.children[indexOf + 3].GetText());
+                }
             }
             return  new Table.TableConstraint
             {
                 Sql = alterTableContext.Start.InputStream.GetText(new Interval(alterTableContext.start.StartIndex, alterTableContext.stop.StopIndex)),
                 Name = name,
                 ParentName = tableName,
-                ColumnNameForeighKey = alterTableContext.fk?.GetText()
+                ColumnName = columnName,
+                ConstraintType = constraintType,
+                Value = value.ToString()
             };
         }
     }

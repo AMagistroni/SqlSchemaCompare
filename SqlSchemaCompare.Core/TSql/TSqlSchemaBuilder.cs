@@ -1,6 +1,7 @@
 ﻿using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using System;
+using System.Linq;
 using System.Text;
 using Index = SqlSchemaCompare.Core.DbStructures.Index;
 
@@ -8,12 +9,12 @@ namespace SqlSchemaCompare.Core.TSql
 {
     public class TSqlSchemaBuilder : ISchemaBuilder
     {
-        public string Build(DbObject dbObject, Operation operation)
+        public string Build(DbObject dbObject, Operation operation, ResultProcessDbObject resultProcessDbObject)
         {
             return dbObject.DbObjectType switch
             {
                 DbObjectType.Table => BuildCreateDropTable(dbObject as Table, operation),
-                DbObjectType.TableContraint => BuildTableConstraint(dbObject as Table.TableConstraint, operation),
+                DbObjectType.TableContraint => BuildTableConstraint(dbObject as Table.TableConstraint, operation, resultProcessDbObject),
                 DbObjectType.Column => BuildColumn(dbObject as Table.Column, operation),
                 DbObjectType.View => BuildView(dbObject as View, operation),
                 DbObjectType.StoreProcedure => BuildStoreProcedure(dbObject as StoreProcedure, operation),
@@ -47,14 +48,21 @@ namespace SqlSchemaCompare.Core.TSql
         {
             return "GO\r\n";
         }
-        private string BuildTableConstraint(Table.TableConstraint alterTable, Operation operation)
+        private string BuildTableConstraint(Table.TableConstraint alterTable, Operation operation, ResultProcessDbObject resultProcessDbObject)
         {
-            return operation switch
+            switch (operation)
             {
-                Operation.Create => alterTable.Sql,
-                Operation.Drop => $"ALTER TABLE {alterTable.ParentName} DROP CONSTRAINT {alterTable.Name}",
-                _ => throw new NotSupportedException("Alter not supported on schema"),
-            };
+                case Operation.Create:
+                    if (!resultProcessDbObject.GetDbObject(DbObjectType.Column, Operation.Create).Any(x => x.Name == alterTable.ColumnName))
+                    {
+                        return alterTable.Sql;
+                    }
+                    return string.Empty;
+                case Operation.Drop:
+                    return $"ALTER TABLE {alterTable.ParentName} DROP CONSTRAINT {alterTable.Name}";
+                default:
+                    throw new NotSupportedException("Alter not supported on schema");
+            };            
         }
 
         private string BuildMember(Member member, Operation operation)
@@ -67,15 +75,25 @@ namespace SqlSchemaCompare.Core.TSql
             };
         }
 
-        private string BuildColumn(DbObject dbObject, Operation operation)
+        private string BuildColumn(Table.Column column, Operation operation)
         {
-            return operation switch
+            switch (operation)
             {
-                Operation.Create => $"ALTER TABLE {dbObject.ParentName} ADD {dbObject.Sql}",
-                Operation.Drop => $"ALTER TABLE {dbObject.ParentName} DROP COLUMN {dbObject.Name}",
-                Operation.Alter => $"ALTER TABLE {dbObject.ParentName} ALTER COLUMN {dbObject.Sql}",
-                _ => throw new NotSupportedException("Alter not supported on schema"),
-            };
+                case Operation.Create:
+                    var sql = $"ALTER TABLE {column.ParentName} ADD { column.Sql}";
+                    var constraintRelated = column.Table.Constraints.SingleOrDefault(x => x.ColumnName == column.Name && x.ConstraintType == Table.TableConstraint.ConstraintTypes.Default);
+                    if (constraintRelated != null)
+                    {
+                        sql = $"{sql} CONSTRAINT {constraintRelated.Name} DEFAULT {constraintRelated.Value}";
+                    }
+                    return sql;
+                case Operation.Alter:
+                    return $"ALTER TABLE {column.ParentName} ALTER COLUMN {column.Sql}";
+                case Operation.Drop:
+                    return $"ALTER TABLE {column.ParentName} DROP COLUMN {column.Name}";
+                default:
+                    throw new NotSupportedException("Alter not supported on schema");
+            }
         }
 
         private string BuildUser(User user, Operation operation)
