@@ -168,6 +168,7 @@ namespace SqlSchemaCompare.WindowsForm
             GrpCompare.Enabled = enable;
             GrpDbObjects.Enabled = enable;
             GrpUpdateSchema.Enabled = enable;
+            GrpMain.Enabled = enable;
 
             if (enable)                            
                 ProgressBar.Hide();
@@ -182,6 +183,8 @@ namespace SqlSchemaCompare.WindowsForm
             btnOriginSchema.Enabled = !isAfterLoad;
             btnDestinationSchema.Enabled = !isAfterLoad;
             BtnLoadSchema.Enabled = !isAfterLoad;
+            BtnSwapOriginDestination.Enabled = !isAfterLoad;
+            GrpMain.Enabled = true;
 
             GrpCompare.Enabled = isAfterLoad;
             GrpDbObjects.Enabled = isAfterLoad;

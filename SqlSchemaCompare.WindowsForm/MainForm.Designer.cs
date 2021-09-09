@@ -29,7 +29,7 @@ namespace SqlSchemaCompare.WindowsForm
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBoxMain = new System.Windows.Forms.GroupBox();
+            this.GrpMain = new System.Windows.Forms.GroupBox();
             this.BtnClear = new System.Windows.Forms.Button();
             this.BtnLoadSchema = new System.Windows.Forms.Button();
             this.BtnSwapOriginDestination = new System.Windows.Forms.Button();
@@ -70,31 +70,31 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkAll = new System.Windows.Forms.CheckBox();
             this.BackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.ProgressBar = new System.Windows.Forms.ProgressBar();
-            this.groupBoxMain.SuspendLayout();
+            this.GrpMain.SuspendLayout();
             this.GrpUpdateSchema.SuspendLayout();
             this.GrpCompare.SuspendLayout();
             this.GrpDbObjects.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBoxMain
+            // GrpMain
             // 
-            this.groupBoxMain.Controls.Add(this.BtnClear);
-            this.groupBoxMain.Controls.Add(this.BtnLoadSchema);
-            this.groupBoxMain.Controls.Add(this.BtnSwapOriginDestination);
-            this.groupBoxMain.Controls.Add(this.btnDestinationSchema);
-            this.groupBoxMain.Controls.Add(this.btnOriginSchema);
-            this.groupBoxMain.Controls.Add(this.txtDestinationSchema);
-            this.groupBoxMain.Controls.Add(this.txtOriginSchema);
-            this.groupBoxMain.Controls.Add(this.lblDestinationSchema);
-            this.groupBoxMain.Controls.Add(this.lblOriginSchema);
-            this.groupBoxMain.Location = new System.Drawing.Point(17, 20);
-            this.groupBoxMain.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.groupBoxMain.Name = "groupBoxMain";
-            this.groupBoxMain.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.groupBoxMain.Size = new System.Drawing.Size(494, 222);
-            this.groupBoxMain.TabIndex = 0;
-            this.groupBoxMain.TabStop = false;
-            this.groupBoxMain.Text = "Schema";
+            this.GrpMain.Controls.Add(this.BtnClear);
+            this.GrpMain.Controls.Add(this.BtnLoadSchema);
+            this.GrpMain.Controls.Add(this.BtnSwapOriginDestination);
+            this.GrpMain.Controls.Add(this.btnDestinationSchema);
+            this.GrpMain.Controls.Add(this.btnOriginSchema);
+            this.GrpMain.Controls.Add(this.txtDestinationSchema);
+            this.GrpMain.Controls.Add(this.txtOriginSchema);
+            this.GrpMain.Controls.Add(this.lblDestinationSchema);
+            this.GrpMain.Controls.Add(this.lblOriginSchema);
+            this.GrpMain.Location = new System.Drawing.Point(17, 20);
+            this.GrpMain.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.GrpMain.Name = "GrpMain";
+            this.GrpMain.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.GrpMain.Size = new System.Drawing.Size(494, 222);
+            this.GrpMain.TabIndex = 0;
+            this.GrpMain.TabStop = false;
+            this.GrpMain.Text = "Schema";
             // 
             // BtnClear
             // 
@@ -529,13 +529,13 @@ namespace SqlSchemaCompare.WindowsForm
             this.Controls.Add(this.GrpCompare);
             this.Controls.Add(this.GrpUpdateSchema);
             this.Controls.Add(this.lblInfo);
-            this.Controls.Add(this.groupBoxMain);
+            this.Controls.Add(this.GrpMain);
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "MainForm";
             this.Text = "SqlSchemaCompare";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.groupBoxMain.ResumeLayout(false);
-            this.groupBoxMain.PerformLayout();
+            this.GrpMain.ResumeLayout(false);
+            this.GrpMain.PerformLayout();
             this.GrpUpdateSchema.ResumeLayout(false);
             this.GrpUpdateSchema.PerformLayout();
             this.GrpCompare.ResumeLayout(false);
@@ -549,7 +549,7 @@ namespace SqlSchemaCompare.WindowsForm
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBoxMain;
+        private System.Windows.Forms.GroupBox GrpMain;
         private System.Windows.Forms.Button btnDestinationSchema;
         private System.Windows.Forms.Button btnOriginSchema;
         private System.Windows.Forms.TextBox txtDestinationSchema;
