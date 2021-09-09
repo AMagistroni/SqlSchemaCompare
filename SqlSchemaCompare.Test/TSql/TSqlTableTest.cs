@@ -263,6 +263,44 @@ GO
         }
 
         [Fact]
+        public void AlterTableAlterColumnDropConstraint()
+        {
+            // When present db object in destination and in origin and are different
+            // Expect updateSchema contains alter statement     
+
+            const string origin =
+@"CREATE TABLE [dbo].[TBL] (
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[column1] [nvarchar](20) NULL)
+GO";
+            const string destination =
+@"CREATE TABLE [dbo].[TBL] (
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[column1] [nvarchar](20) NOT NULL)
+GO
+
+ALTER TABLE [dbo].[TBL]  WITH NOCHECK ADD  CONSTRAINT [FK_Name1] FOREIGN KEY([column1])
+    REFERENCES [dbo].[TBL2] ([ID])
+    ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[TBL] CHECK CONSTRAINT [FK_Name1]
+GO";
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.TableContraint, DbObjectType.Column });
+
+            updateSchema.ShouldBe(
+@"ALTER TABLE [dbo].[TBL] DROP CONSTRAINT [FK_Name1]
+GO
+
+ALTER TABLE [dbo].[TBL] ALTER COLUMN [column1] [nvarchar](20) NULL
+GO
+
+");
+            errors.ShouldBeEmpty();
+        }
+
+        [Fact]
         public void AlterTableWithTableConstraint()
         {
             const string origin =

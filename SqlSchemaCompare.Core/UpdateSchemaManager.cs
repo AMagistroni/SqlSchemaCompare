@@ -36,17 +36,17 @@ namespace SqlSchemaCompare.Core
             ( DbObjectType.Column, Operation.Alter ),
             ( DbObjectType.TableContraint, Operation.Create),
             ( DbObjectType.Table, Operation.Drop ),
-            
-            ( DbObjectType.StoreProcedure, Operation.Create ),
-            ( DbObjectType.StoreProcedure, Operation.Drop ),
+
+            ( DbObjectType.StoreProcedure, Operation.Drop),
+            ( DbObjectType.StoreProcedure, Operation.Create ),            
             ( DbObjectType.StoreProcedure, Operation.Alter ),
-            
-            ( DbObjectType.Function, Operation.Create ),
-            ( DbObjectType.Function, Operation.Drop ),
+
+            ( DbObjectType.Function, Operation.Drop),
+            ( DbObjectType.Function, Operation.Create ),            
             ( DbObjectType.Function, Operation.Alter ),
-            
-            ( DbObjectType.View, Operation.Create ),
-            ( DbObjectType.View, Operation.Drop ),
+
+            ( DbObjectType.View, Operation.Drop),
+            ( DbObjectType.View, Operation.Create ),            
             ( DbObjectType.View, Operation.Alter ),
 
             ( DbObjectType.Trigger, Operation.Drop ),
@@ -249,8 +249,11 @@ namespace SqlSchemaCompare.Core
             var columnsOfCostraintToDropAndCreate = destinationTable
                 .Constraints.Select(x => x.ColumnName)
                 .Intersect(columnsToAlter.Select(x => x.Name));
-
-            var constrainttoDropAndCreate = destinationTable.Constraints.Where(x => columnsOfCostraintToDropAndCreate.Contains(x.ColumnName)).ToList();            
+    
+            var constrainttoDropAndCreate = destinationTable.Constraints
+                .Where(x => columnsOfCostraintToDropAndCreate.Contains(x.ColumnName))
+                .Except(resultProcessDbObject.GetDbObject(DbObjectType.TableContraint, Operation.Drop))//constraint that we have to drop
+                .ToList();            
             resultProcessDbObject.AddOperation(constrainttoDropAndCreate, Operation.Drop);
             resultProcessDbObject.AddOperation(constrainttoDropAndCreate, Operation.Create);
         }

@@ -56,7 +56,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
 
             string name = string.Empty;
             string columnName = string.Empty;
-            StringBuilder value = new();
+            string value = string.Empty;
 
             Table.TableConstraint.ConstraintTypes constraintType = Table.TableConstraint.ConstraintTypes.ForeignKey;
             if ((alterTableContext.fk != null) || (alterTableContext.constraint != null))
@@ -73,13 +73,9 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 }
                 columnName = constraint.forColumn.GetText();
                 constraintType = Table.TableConstraint.ConstraintTypes.Default;
-                var @default = constraint.children.SingleOrDefault(x => x.GetText().ToUpper() == "DEFAULT");
-                if (@default != null)
+                if (constraint.DEFAULT() != null)
                 {
-                    var indexOf = constraint.children.IndexOf(@default);
-                    value.Append(constraint.children[indexOf + 1].GetText());
-                    value.Append(constraint.children[indexOf + 2].GetText());
-                    value.Append(constraint.children[indexOf + 3].GetText());
+                    value = constraint.default_value_column.GetText();
                 }
             }
             return  new Table.TableConstraint
