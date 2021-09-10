@@ -41,7 +41,7 @@ namespace SqlSchemaCompare.Test.TSql
             column2.Name.ShouldBe("[col1]");
             column2.Sql.ShouldBe("[col1] [char](8) NULL");
 
-            table.Constraint.ShouldBe(constraint);
+            table.Constraints.Single().Sql.ShouldBe(constraint);
             errors.Count().ShouldBe(0);
         }
         [Fact]
@@ -406,7 +406,12 @@ GO
 
 CREATE TABLE [dbo].[tblLookup](
 	[ID] [int] NOT NULL,
-	[description] [nvarchar](50) NOT NULL)
+	[description] [nvarchar](50) NOT NULL,
+        CONSTRAINT [PK] PRIMARY KEY CLUSTERED 
+        (
+	        [ID] ASC, [description] DESC
+        )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
+) ON [db]
 GO
 
 ALTER TABLE [dbo].[tbl] WITH CHECK ADD CONSTRAINT [FK_constraint] FOREIGN KEY([column1])
@@ -423,7 +428,12 @@ GO
 
 CREATE TABLE [dbo].[tblLookup](
 	[ID] [tinyint] NOT NULL,
-	[description] [nvarchar](50) NOT NULL)
+	[description] [nvarchar](50) NOT NULL,
+        CONSTRAINT [PK] PRIMARY KEY CLUSTERED 
+        (
+	        [ID] ASC, [description] DESC
+        )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
+) ON [db]
 GO
 
 ALTER TABLE [dbo].[tbl] WITH CHECK ADD CONSTRAINT [FK_constraint] FOREIGN KEY([column1])
@@ -438,6 +448,9 @@ GO
 @"ALTER TABLE [dbo].[tbl] DROP CONSTRAINT [FK_constraint]
 GO
 
+ALTER TABLE [dbo].[tblLookup] DROP CONSTRAINT [PK]
+GO
+
 ALTER TABLE [dbo].[tbl] ALTER COLUMN [column1] [int] NOT NULL
 GO
 
@@ -446,6 +459,12 @@ GO
 
 ALTER TABLE [dbo].[tbl] WITH CHECK ADD CONSTRAINT [FK_constraint] FOREIGN KEY([column1])
 REFERENCES [dbo].[tblLookup] ([ID])
+GO
+
+ALTER TABLE ADD CONSTRAINT [PK] PRIMARY KEY CLUSTERED 
+        (
+	        [ID] ASC, [description] DESC
+        )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
 GO
 
 ");

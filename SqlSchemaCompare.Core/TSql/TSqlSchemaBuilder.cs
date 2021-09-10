@@ -53,8 +53,12 @@ namespace SqlSchemaCompare.Core.TSql
             switch (operation)
             {
                 case Operation.Create:
-                    if (!resultProcessDbObject.GetDbObject(DbObjectType.Column, Operation.Create).Any(x => x.Name == alterTable.ColumnName))
+                    if (!resultProcessDbObject.GetDbObject(DbObjectType.Column, Operation.Create).Any(x => alterTable.ColumnName.Contains(x.Name)))
                     {
+                        if (alterTable.ConstraintType == Table.TableConstraint.ConstraintTypes.PrimaryKey)
+                        {
+                            return $"ALTER TABLE ADD {alterTable.Sql}";
+                        }
                         return alterTable.Sql;
                     }
                     return string.Empty;
@@ -81,7 +85,7 @@ namespace SqlSchemaCompare.Core.TSql
             {
                 case Operation.Create:
                     var sql = $"ALTER TABLE {column.ParentName} ADD { column.Sql}";
-                    var constraintRelated = column.Table.Constraints.SingleOrDefault(x => x.ColumnName == column.Name && x.ConstraintType == Table.TableConstraint.ConstraintTypes.Default);
+                    var constraintRelated = column.Table.Constraints.SingleOrDefault(x => x.ColumnName.Contains(column.Name) && x.ConstraintType == Table.TableConstraint.ConstraintTypes.Default);
                     if (constraintRelated != null)
                     {
                         sql = $"{sql} CONSTRAINT {constraintRelated.Name} DEFAULT {constraintRelated.Value}";

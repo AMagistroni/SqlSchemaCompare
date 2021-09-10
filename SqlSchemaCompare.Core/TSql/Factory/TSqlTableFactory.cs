@@ -2,8 +2,8 @@
 using Antlr4.Runtime.Misc;
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SqlSchemaCompare.Core.TSql.Factory
 {
@@ -30,7 +30,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 }
                 else if (columnTree.table_constraint() != null)
                 {
-                    table.SetConstraint(stream.GetText(new Interval(columnTree.table_constraint().start.StartIndex, columnTree.table_constraint().stop.StopIndex)));
+                    table.AddConstraint(CreatePrimaryKeyConstraint(columnTree.table_constraint(), stream, table.Identifier));
                 }
             }
             return table;
@@ -46,6 +46,18 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 Name = columnDefinition.id_()[0].GetText(),
                 ParentName = table.Identifier,
                 Table = table
+            };
+        }
+
+        public Table.TableConstraint CreatePrimaryKeyConstraint(TSqlParser.Table_constraintContext constraintContext, ICharStream stream, string tableName)
+        {
+            return new Table.TableConstraint
+            {
+                Sql = stream.GetText(new Interval(constraintContext.start.StartIndex, constraintContext.stop.StopIndex)),
+                Name = constraintContext.id_()[0].GetText(),
+                ParentName = tableName,
+                ColumnName = constraintContext.column_name_list_with_order().id_().Select(x => x.GetText()),
+                ConstraintType = Table.TableConstraint.ConstraintTypes.PrimaryKey
             };
         }
 
@@ -83,7 +95,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 Sql = alterTableContext.Start.InputStream.GetText(new Interval(alterTableContext.start.StartIndex, alterTableContext.stop.StopIndex)),
                 Name = name,
                 ParentName = tableName,
-                ColumnName = columnName,
+                ColumnName = new List<string> {columnName},
                 ConstraintType = constraintType,
                 Value = value.ToString()
             };

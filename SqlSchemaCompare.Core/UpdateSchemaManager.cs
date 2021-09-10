@@ -250,11 +250,11 @@ namespace SqlSchemaCompare.Core
             resultProcessDbObject.AddOperation(columnsToDrop, Operation.Drop);
 
             var columnsOfCostraintToDropAndCreate = destinationTable
-                .Constraints.Select(x => x.ColumnName)
+                .Constraints.SelectMany(x => x.ColumnName)
                 .Intersect(columnsToAlter.Select(x => x.Name));
     
             var constrainttoDropAndCreate = destinationTable.Constraints
-                .Where(x => columnsOfCostraintToDropAndCreate.Contains(x.ColumnName))
+                .Where(x => columnsOfCostraintToDropAndCreate.Intersect(x.ColumnName).Any())
                 .Except(resultProcessDbObject.GetDbObject(DbObjectType.TableContraint, Operation.Drop))//constraint that we have to drop
                 .ToList();            
             resultProcessDbObject.AddOperation(constrainttoDropAndCreate, Operation.Drop);
