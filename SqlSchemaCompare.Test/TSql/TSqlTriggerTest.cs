@@ -1,6 +1,8 @@
 ﻿using Shouldly;
+using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -8,6 +10,12 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlTriggerTest
     {
+        private IList<DbObjectType> SelectedObjects;
+        public TSqlTriggerTest()
+        {
+            RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
+            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Trigger);
+        }
         [Fact]
         public void CreateTrigger()
         {
@@ -88,7 +96,7 @@ GO
 ENABLE TRIGGER [trg1] ON DATABASE
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -119,7 +127,7 @@ DISABLE TRIGGER [trg1] ON DATABASE
 GO";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger, DbObjectType.EnableTrigger });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"CREATE TRIGGER [trg1]
@@ -168,7 +176,7 @@ ENABLE TRIGGER [trg1] ON DATABASE
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger, DbObjectType.EnableTrigger });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"DROP TRIGGER [trg1]
@@ -220,7 +228,7 @@ DISABLE TRIGGER [trg1] ON DATABASE
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Trigger, DbObjectType.EnableTrigger });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"ALTER TRIGGER [trg1]

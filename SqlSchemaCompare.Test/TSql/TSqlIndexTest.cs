@@ -1,13 +1,21 @@
 ﻿using Shouldly;
+using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
 namespace SqlSchemaCompare.Test.TSql
 {
-    public class IndexTest
+    public class TSqlIndexTest
     {
+        private IList<DbObjectType> SelectedObjects;
+        public TSqlIndexTest()
+        {
+            RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
+            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Index);
+        }
         [Fact]
         public void CreateIndex()
         {
@@ -60,7 +68,7 @@ GO";
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Index });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -80,7 +88,7 @@ GO";
 GO";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Index });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
@@ -110,7 +118,7 @@ CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Index });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"USE [dbName]
@@ -143,7 +151,7 @@ GO";
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Index });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"DROP INDEX [indexName] ON [dbo].[table]

@@ -1,6 +1,8 @@
 ﻿using Shouldly;
+using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -8,6 +10,12 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlViewTest
     {
+        private IList<DbObjectType> SelectedObjects;
+        public TSqlViewTest()
+        {
+            RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
+            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.View);
+        }
         [Fact]
         public void CreateView()
         {
@@ -46,7 +54,7 @@ AS
 SELECT * FROM [dbo].[tbl1]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.View });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -65,7 +73,7 @@ AS
 GO";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.View });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"CREATE VIEW [dbo].[vw1]
@@ -90,7 +98,7 @@ AS
     SELECT * FROM [dbo].[tbl1]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.View });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"DROP VIEW [dbo].[vw1]
@@ -117,7 +125,7 @@ AS
     SELECT * FROM [dbo].[tbl2]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.View });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"ALTER VIEW [dbo].[vw1]

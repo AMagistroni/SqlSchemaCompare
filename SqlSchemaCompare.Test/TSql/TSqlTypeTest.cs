@@ -1,6 +1,8 @@
 ﻿using Shouldly;
+using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -8,6 +10,12 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlTypeTest
     {
+        private IList<DbObjectType> SelectedObjects;
+        public TSqlTypeTest()
+        {
+            RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
+            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Type);
+        }
         [Fact]
         public void CreateType()
         {
@@ -44,7 +52,7 @@ GO";
 	[column1] [nvarchar](20) NOT NULL)
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Type });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -63,7 +71,7 @@ GO";
 GO";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Type });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"CREATE TYPE [schema].[type1] AS TABLE (
@@ -88,7 +96,7 @@ GO
     [column1] [nvarchar](20) NOT NULL)
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Type });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"DROP TYPE [schema].[type1]
@@ -115,7 +123,7 @@ GO";
     [columnDifferent] [nvarchar](20) NULL)
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Type });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"DROP TYPE [dbo].[TBL]

@@ -1,6 +1,8 @@
 ﻿using Shouldly;
+using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -8,6 +10,12 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlFunctionTest
     {
+        private IList<DbObjectType> SelectedObjects;
+        public TSqlFunctionTest()
+        {
+            RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
+            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Function);
+        }
         [Fact]
         public void CreateFunction()
         {
@@ -53,7 +61,7 @@ BEGIN
 END
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Function });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -75,7 +83,7 @@ END
 GO";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Function });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"CREATE FUNCTION [dbo].[func1] (@par int)
@@ -106,7 +114,7 @@ BEGIN
 END
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Function });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"DROP FUNCTION [dbo].[func1]
@@ -139,7 +147,7 @@ BEGIN
 END
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Function });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"ALTER FUNCTION [dbo].[func1] (@par int)

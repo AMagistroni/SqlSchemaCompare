@@ -25,6 +25,7 @@ namespace SqlSchemaCompare.WindowsForm
 
         private IEnumerable<DbObject> currentOriginDbObjects;
         private IEnumerable<DbObject> currentDestinationDbObjects;
+        private RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new ();
         public MainForm()
         {
             InitializeComponent();
@@ -133,7 +134,7 @@ namespace SqlSchemaCompare.WindowsForm
 
                 var errorFile = $"{txtOutputDirectory.Text}\\ErrorCompare.txt";
                 if (File.Exists(errorFile))
-                    File.Delete(errorFile);                
+                    File.Delete(errorFile);
 
                 ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
                 IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
@@ -143,7 +144,7 @@ namespace SqlSchemaCompare.WindowsForm
 
                 File.WriteAllText(fileNameDiffOrigin, file1);
                 File.WriteAllText(fileNameDiffDestination, file2);
-                
+
                 EnableDisableMainForm(FileCompareCreated, true);
             }
             catch (Exception exc)
@@ -164,13 +165,13 @@ namespace SqlSchemaCompare.WindowsForm
         private void EnableDisableMainForm(string text, bool enable)
         {
             lblInfo.Text = text;
-            
+
             GrpCompare.Enabled = enable;
             GrpDbObjects.Enabled = enable;
             GrpUpdateSchema.Enabled = enable;
             GrpMain.Enabled = enable;
 
-            if (enable)                            
+            if (enable)
                 ProgressBar.Hide();
             else
                 ProgressBar.Show();
@@ -273,12 +274,12 @@ namespace SqlSchemaCompare.WindowsForm
             formSettings.DestinationSchema = txtDestinationSchema.Text;
             formSettings.Save();
         }
-                
+
         private void BtnLoadSchema_Click(object sender, EventArgs e)
         {
             if (!MandatoryFieldArePresent())
                 return;
-            
+
             var errorFile = GetErrorFileName("_errorsLoadSchema");
             if (File.Exists(errorFile))
                 File.Delete(errorFile);
@@ -305,7 +306,7 @@ namespace SqlSchemaCompare.WindowsForm
         private void LoadSchemaCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             ProgressBar.Hide();
-            LoadClearSchemaCompleted(string.IsNullOrEmpty(e.Result as string) ? SchemaLoaded : SchemaLoadedWithErrors, true);            
+            LoadClearSchemaCompleted(string.IsNullOrEmpty(e.Result as string) ? SchemaLoaded : SchemaLoadedWithErrors, true);
         }
         private void ChkAll_CheckedChanged(object sender, EventArgs e)
         {
@@ -325,40 +326,29 @@ namespace SqlSchemaCompare.WindowsForm
         {
             var selectedObjectType = new List<DbObjectType>();
             if (ChkFunction.Checked)
-                selectedObjectType.Add(DbObjectType.Function);
+                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Function));
             if (ChkStoreProcedure.Checked)
-                selectedObjectType.Add(DbObjectType.StoreProcedure);
+                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.StoreProcedure));
             if (ChkTable.Checked)
-            {
-                selectedObjectType.Add(DbObjectType.Table);
-                selectedObjectType.Add(DbObjectType.TableContraint);
-                selectedObjectType.Add(DbObjectType.Column);
-            }
+                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Table));
             if (ChkUser.Checked)
-            {
-                selectedObjectType.Add(DbObjectType.User);
-                selectedObjectType.Add(DbObjectType.Role);
-                selectedObjectType.Add(DbObjectType.Member);
-            }
-                if (ChkView.Checked)
-                selectedObjectType.Add(DbObjectType.View);
+                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.User));
+            if (ChkView.Checked)
+                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.View));
             if (ChkSchema.Checked)
-                selectedObjectType.Add(DbObjectType.Schema);
+                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Schema));
             if (ChkTrigger.Checked)
-            {
-                selectedObjectType.Add(DbObjectType.Trigger);
-                selectedObjectType.Add(DbObjectType.EnableTrigger);
-            }
+                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Trigger));
             if (ChkTableType.Checked)
-                selectedObjectType.Add(DbObjectType.Type);
+                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Type));
             if (ChkOther.Checked)
-                selectedObjectType.Add(DbObjectType.Other);
+                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Other));
             if (ChkIndex.Checked)
-                selectedObjectType.Add(DbObjectType.Index);
+                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Index));
 
             return selectedObjectType;
         }
-
+        
         private void BtnClear_Click(object sender, EventArgs e)
         {
             LoadClearSchemaCompleted(ChooseCompareUpdate, false);

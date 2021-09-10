@@ -8,27 +8,28 @@ using Xunit;
 
 namespace SqlSchemaCompare.Test.TSql
 {
-    public class TSqlSchemaTest
+    public class TSqlMemberTest
     {
         private IList<DbObjectType> SelectedObjects;
-        public TSqlSchemaTest()
+        public TSqlMemberTest()
         {
             RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
-            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Schema);
+            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Member);
         }
         [Fact]
         public void CreateSchema()
         {
-            const string schemaSql = "CREATE SCHEMA [sch1]";
+            const string schemaSql = "ALTER ROLE [role] ADD MEMBER [member1]";
 
             var objectFactory = new TSqlObjectFactory();
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(schemaSql);
-            var dbobject = dbObjects.Single() as Schema;
+            var dbobject = dbObjects.Single() as Member;
 
-            dbobject.Name.ShouldBe("[sch1]");
-            dbobject.Schema.ShouldBeEmpty();
-            dbobject.Identifier.ShouldBe("[sch1]");
+            dbobject.Name.ShouldBe("[member1]");
+            dbobject.Schema.ShouldBeNull();
+            dbobject.Identifier.ShouldBe("[member1]");
             dbobject.Sql.ShouldBe(schemaSql);
+            dbobject.RoleName.ShouldBe("[role]");
             errors.Count().ShouldBe(0);
         }
 
@@ -37,13 +38,13 @@ namespace SqlSchemaCompare.Test.TSql
         {
             // When origin equals destination 
             // Expect updateSchema should be empty
-
-            const string origin = "CREATE SCHEMA [sch1]";
-            const string destination = "CREATE SCHEMA [sch1]";
+            const string origin = "ALTER ROLE [role] ADD MEMBER [member1]";
+            const string destination = "ALTER ROLE [role] ADD MEMBER [member1]";
 
             (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBeEmpty();
+            errors.ShouldBeEmpty();
         }
 
         [Fact]
@@ -52,13 +53,13 @@ namespace SqlSchemaCompare.Test.TSql
             // When present db object in origin absent from destination
             // Expect updateSchema contains create statement
 
-            const string origin = "CREATE SCHEMA [sch1]";
+            const string origin = "ALTER ROLE [role] ADD MEMBER [member1]";
             const string destination = "";
 
             (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
-@"CREATE SCHEMA [sch1]
+@"ALTER ROLE [role] ADD MEMBER [member1]
 GO
 
 ");
@@ -70,14 +71,14 @@ GO
         {
             // When present db object in destination absent from origin
             // Expect updateSchema contains drop statement
-       
+
             const string origin = "";
-            const string destination = "CREATE SCHEMA [sch1]";
+            const string destination = "ALTER ROLE [role] ADD MEMBER [member1]";
 
             (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
-@"DROP SCHEMA [sch1]
+@"ALTER ROLE [role] DROP MEMBER [member1]
 GO
 
 ");
@@ -85,17 +86,17 @@ GO
         }
 
         [Theory]
-        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.Schema }, MemberType = typeof(TestDbObjectGenerator))]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.Member }, MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
-            // When user not select schema db object, update schema is created without schema            
+            // When user not select Member db object, update schema is created without Member            
 
-            const string origin = "CREATE SCHEMA [sch1]";
+            const string origin = "ALTER ROLE [role] ADD MEMBER [member1]";
             string destination = string.Empty;
-            
+
             (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
             updateSchema.ShouldBeEmpty();
-            errors.ShouldBeEmpty();     
+            errors.ShouldBeEmpty();
         }
     }
 }

@@ -1,13 +1,22 @@
 ﻿using Shouldly;
+using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
 namespace SqlSchemaCompare.Test.TSql
 {
-    public class UserTest
+    public class TSqlUserTest
     {
+        private IList<DbObjectType> SelectedObjects;
+        public TSqlUserTest()
+        {
+            RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
+            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.User);
+        }
+
         [Fact]
         public void CreateUser()
         {
@@ -53,7 +62,7 @@ GO";
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.User });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -70,7 +79,7 @@ GO";
 GO";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.User });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
@@ -95,7 +104,7 @@ ALTER ROLE [role] ADD MEMBER [user]
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.User, DbObjectType.Role, DbObjectType.Member });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"DROP USER [user]
@@ -117,7 +126,7 @@ GO";
 @"CREATE USER [user] FOR LOGIN [login] WITH DEFAULT_SCHEMA = [sch1]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.User });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"ALTER USER [user] WITH DEFAULT_SCHEMA = [dbo], LOGIN = [user_login]
@@ -128,7 +137,7 @@ GO
         }
 
         [Theory]
-        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.User } , MemberType = typeof(TestDbObjectGenerator))]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.User, DbObjectType.Role, DbObjectType.Member } , MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select user db object, update schema is created without user

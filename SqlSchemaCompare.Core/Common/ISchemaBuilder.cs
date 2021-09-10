@@ -1,5 +1,4 @@
 ﻿using SqlSchemaCompare.Core.DbStructures;
-using SqlSchemaCompare.Core.TSql;
 
 namespace SqlSchemaCompare.Core.Common
 {

@@ -1,6 +1,8 @@
 using Shouldly;
+using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -8,6 +10,13 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlTableTest
     {
+        private IList<DbObjectType> SelectedObjects;
+        public TSqlTableTest()
+        {
+            RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
+            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Table);
+        }
+
         [Fact]
         public void CreateTable()
         {
@@ -127,7 +136,7 @@ GO
 ";
             const string destination = "";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.TableContraint });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"CREATE TABLE [dbo].[TBL] (
@@ -211,7 +220,7 @@ GO";
     [columnToAlter] [nvarchar](20) NULL)
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.Column });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"ALTER TABLE [dbo].[TBL] ADD [columnToAdd] [nvarchar](20) NOT NULL
@@ -252,7 +261,7 @@ GO
 ALTER TABLE [dbo].[TBL] CHECK CONSTRAINT [FK_Name1]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.TableContraint });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"ALTER TABLE [dbo].[TBL] DROP CONSTRAINT [FK_Name1]
@@ -287,7 +296,7 @@ GO
 ALTER TABLE [dbo].[TBL] CHECK CONSTRAINT [FK_Name1]
 GO";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.TableContraint, DbObjectType.Column });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"ALTER TABLE [dbo].[TBL] DROP CONSTRAINT [FK_Name1]
@@ -349,7 +358,7 @@ ALTER TABLE [dbo].[TBL] ADD  CONSTRAINT [constraintName]  DEFAULT ((1)) FOR [col
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.TableContraint });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"ALTER TABLE [dbo].[TBL] DROP CONSTRAINT [constraintName]
@@ -382,7 +391,7 @@ REFERENCES [dbo].[tbl2] ([ID])
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.Column, DbObjectType.TableContraint });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"ALTER TABLE [dbo].[TBL] DROP CONSTRAINT [FK_constraint]
@@ -442,7 +451,7 @@ GO
 
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.Column, DbObjectType.TableContraint });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"ALTER TABLE [dbo].[tbl] DROP CONSTRAINT [FK_constraint]
@@ -489,7 +498,7 @@ GO
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.Column, DbObjectType.TableContraint });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"ALTER TABLE [schema].[tbl] ADD [col2] [datetime] NOT NULL CONSTRAINT [constraint] DEFAULT (getdate())
@@ -501,7 +510,7 @@ GO
 
 
         [Theory]
-        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.Table, DbObjectType.TableContraint }, MemberType = typeof(TestDbObjectGenerator))]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.Table, DbObjectType.Column, DbObjectType.TableContraint }, MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select table db object, update schema is created without table
@@ -511,7 +520,7 @@ GO
 	[column1] [int] NOT NULL)
 GO
 
-ALTER TABLE [dbo].[TBL] ADD  CONSTRAINT [constraintName]  DEFAULT ((0)) FOR [column1]
+ALTER TABLE [dbo].[TBL] ADD CONSTRAINT [constraintName]  DEFAULT ((0)) FOR [column1]
 GO
 ";
 
