@@ -127,8 +127,11 @@ namespace SqlSchemaCompare.Core
             var destinationDb = destinationObjects.OfType<Member>();
 
             var roleNameDropped = resultProcessDbObject.GetDbObject(DbObjectType.Role, Operation.Drop).Select(x => x.Name);
-            destinationDb = destinationDb.Except(destinationDb.Where(x => roleNameDropped.Contains(x.RoleName)));
-            
+            var userNameDropped = resultProcessDbObject.GetDbObject(DbObjectType.User, Operation.Drop).Select(x => x.Name);
+            destinationDb = destinationDb
+                .Except(destinationDb.Where(x => roleNameDropped.Contains(x.RoleName)))
+                .Except(destinationDb.Where(x => userNameDropped.Contains(x.Name)));
+
             CreateDbObjectByName(originDb, destinationDb, resultProcessDbObject, DbObjectType.Member);
             DropDbObjectByName(originDb, destinationDb, resultProcessDbObject, DbObjectType.Member);
         }

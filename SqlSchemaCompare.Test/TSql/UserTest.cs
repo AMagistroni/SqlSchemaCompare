@@ -89,9 +89,13 @@ GO
             const string origin = "";
             const string destination =
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
-GO";
+GO
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.User });
+ALTER ROLE [role] ADD MEMBER [user]
+GO
+";
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.User, DbObjectType.Role, DbObjectType.Member });
 
             updateSchema.ShouldBe(
 @"DROP USER [user]
