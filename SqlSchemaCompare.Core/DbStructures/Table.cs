@@ -22,6 +22,7 @@ namespace SqlSchemaCompare.Core.DbStructures
             public IEnumerable<string> ColumnName { get; init; }
             public ConstraintTypes ConstraintType { get; init; }
             public string Value { get; init; }
+            public Table Table { get; init; }
         }
         public IList<Column> Columns { get; } = new List<Column>();
         public IList<TableConstraint> Constraints { get; } = new List<TableConstraint>();

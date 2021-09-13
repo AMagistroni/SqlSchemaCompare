@@ -30,7 +30,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 }
                 else if (columnTree.table_constraint() != null)
                 {
-                    table.AddConstraint(CreatePrimaryKeyConstraint(columnTree.table_constraint(), stream, table.Identifier));
+                    table.AddConstraint(CreatePrimaryKeyConstraint(columnTree.table_constraint(), stream, table));
                 }
             }
             return table;
@@ -49,15 +49,16 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             };
         }
 
-        public Table.TableConstraint CreatePrimaryKeyConstraint(TSqlParser.Table_constraintContext constraintContext, ICharStream stream, string tableName)
+        public Table.TableConstraint CreatePrimaryKeyConstraint(TSqlParser.Table_constraintContext constraintContext, ICharStream stream, Table table)
         {
             return new Table.TableConstraint
             {
                 Sql = stream.GetText(new Interval(constraintContext.start.StartIndex, constraintContext.stop.StopIndex)),
-                Name = constraintContext.id_()[0].GetText(),
-                ParentName = tableName,
+                Name = constraintContext.constraint?.GetText(),
+                ParentName = table.Identifier,
                 ColumnName = constraintContext.column_name_list_with_order().id_().Select(x => x.GetText()),
-                ConstraintType = Table.TableConstraint.ConstraintTypes.PrimaryKey
+                ConstraintType = Table.TableConstraint.ConstraintTypes.PrimaryKey,
+                Table = table
             };
         }
 

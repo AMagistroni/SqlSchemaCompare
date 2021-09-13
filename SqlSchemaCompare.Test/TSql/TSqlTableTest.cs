@@ -470,7 +470,7 @@ ALTER TABLE [dbo].[tbl] WITH CHECK ADD CONSTRAINT [FK_constraint] FOREIGN KEY([c
 REFERENCES [dbo].[tblLookup] ([ID])
 GO
 
-ALTER TABLE ADD CONSTRAINT [PK] PRIMARY KEY CLUSTERED 
+ALTER TABLE [dbo].[tblLookup] ADD CONSTRAINT [PK] PRIMARY KEY CLUSTERED 
         (
 	        [ID] ASC, [description] DESC
         )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
@@ -480,6 +480,44 @@ GO
             errors.ShouldBeEmpty();
         }
 
+        [Fact]
+        public void DropConstraintWithoutName()
+        {
+            const string origin =
+@"CREATE TABLE [schema].[tbl](
+	[ID] [int] IDENTITY(0,1) NOT NULL)
+GO";
+
+            const string destination =
+@"CREATE TABLE [schema].[tbl](
+	[ID] [int] IDENTITY(0,1) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
+) ON [db] TEXTIMAGE_ON [db]
+GO";
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
+
+            updateSchema.ShouldBe(
+@"DECLARE @PrimaryKeyName_schema_tbl sysname =
+(        
+    SELECT CONSTRAINT_NAME
+    FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+    WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' AND TABLE_SCHEMA='schema' AND TABLE_NAME = 'tbl'
+)
+
+IF @PrimaryKeyName_schema_tbl IS NOT NULL
+BEGIN
+    DECLARE @SQL_PK_schema_tbl NVARCHAR(MAX) = 'ALTER TABLE [schema].[tbl] DROP CONSTRAINT ' + @PrimaryKeyName_schema_tbl
+    EXEC sp_executesql @SQL_PK_schema_tbl;
+END
+GO
+
+");
+            errors.ShouldBeEmpty();
+        }
 
         [Fact]
         public void AddColumnAndAddDefaultConstraintOnSameStatement()

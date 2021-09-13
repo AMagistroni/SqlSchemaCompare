@@ -48,22 +48,43 @@ namespace SqlSchemaCompare.Core.TSql
         {
             return "GO\r\n";
         }
-        private string BuildTableConstraint(Table.TableConstraint alterTable, Operation operation, ResultProcessDbObject resultProcessDbObject)
+        private string BuildTableConstraint(Table.TableConstraint constraint, Operation operation, ResultProcessDbObject resultProcessDbObject)
         {
             switch (operation)
             {
                 case Operation.Create:
-                    if (!resultProcessDbObject.GetDbObject(DbObjectType.Column, Operation.Create).Any(x => alterTable.ColumnName.Contains(x.Name)))
+                    if (!resultProcessDbObject.GetDbObject(DbObjectType.Column, Operation.Create).Any(x => constraint.ColumnName.Contains(x.Name)))
                     {
-                        if (alterTable.ConstraintType == Table.TableConstraint.ConstraintTypes.PrimaryKey)
+                        if (constraint.ConstraintType == Table.TableConstraint.ConstraintTypes.PrimaryKey)
                         {
-                            return $"ALTER TABLE ADD {alterTable.Sql}";
+                            return $"ALTER TABLE {constraint.ParentName} ADD {constraint.Sql}";
                         }
-                        return alterTable.Sql;
+                        return constraint.Sql;
                     }
                     return string.Empty;
                 case Operation.Drop:
-                    return $"ALTER TABLE {alterTable.ParentName} DROP CONSTRAINT {alterTable.Name}";
+                    if (String.IsNullOrEmpty(constraint.Name))
+                    {
+                        var tableSchema = constraint.Table.Schema.Replace("[", "").Replace("]", "");
+                        var tableName = constraint.Table.Name.Replace("[", "").Replace("]", "");
+                        return 
+@$"DECLARE @PrimaryKeyName_{tableSchema}_{tableName} sysname =
+(        
+    SELECT CONSTRAINT_NAME
+    FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+    WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' AND TABLE_SCHEMA='{tableSchema}' AND TABLE_NAME = '{tableName}'
+)
+
+IF @PrimaryKeyName_{tableSchema}_{tableName} IS NOT NULL
+BEGIN
+    DECLARE @SQL_PK_{tableSchema}_{tableName} NVARCHAR(MAX) = 'ALTER TABLE {constraint.ParentName} DROP CONSTRAINT ' + @PrimaryKeyName_{tableSchema}_{tableName}
+    EXEC sp_executesql @SQL_PK_{tableSchema}_{tableName};
+END";
+                    }
+                    else
+                    {
+                        return $"ALTER TABLE {constraint.ParentName} DROP CONSTRAINT {constraint.Name}";
+                    }
                 default:
                     throw new NotSupportedException("Alter not supported on schema");
             };            
