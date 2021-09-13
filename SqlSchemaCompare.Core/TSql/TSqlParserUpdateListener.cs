@@ -121,16 +121,22 @@ namespace SqlSchemaCompare.Core.TSql
 
         public override void ExitCreate_index([NotNull] TSqlParser.Create_indexContext context)
         {
-            var index = _indexFactory.Create(context, _stream);
-            var table = DbObjects.OfType<Table>().Single(x => x.Identifier == index.ParentName);
-            table.AddIndex(index as DbStructures.Index);
+            if (!ObjectInsideDDL(context))
+            {
+                var index = _indexFactory.Create(context, _stream);
+                var table = DbObjects.OfType<Table>().Single(x => x.Identifier == index.ParentName);
+                table.AddIndex(index as DbStructures.Index);
+            }
         }
 
         public override void ExitAlter_table([NotNull] TSqlParser.Alter_tableContext context)
         {
-            var constraint = _tableFactory.CreateAlterTable(context);
-            var table = DbObjects.OfType<Table>().Single(x => x.Identifier == constraint.ParentName);
-            table.AddConstraint(constraint);
+            if (!ObjectInsideDDL(context))
+            {
+                var constraint = _tableFactory.CreateAlterTable(context);
+                var table = DbObjects.OfType<Table>().Single(x => x.Identifier == constraint.ParentName);
+                table.AddConstraint(constraint);
+            }
         }
 
         public override void ExitCreate_nonclustered_columnstore_index([NotNull] Create_nonclustered_columnstore_indexContext context)

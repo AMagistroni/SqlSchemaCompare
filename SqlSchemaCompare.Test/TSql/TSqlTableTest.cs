@@ -479,7 +479,7 @@ GO
 ");
             errors.ShouldBeEmpty();
         }
-
+        
         [Fact]
         public void DropIndexBeforeAlterColumn()
         {

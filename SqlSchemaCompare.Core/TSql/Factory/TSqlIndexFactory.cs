@@ -11,6 +11,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
         public DbObject Create(ParserRuleContext context, ICharStream stream)
         {
             var indexContext = context as TSqlParser.Create_indexContext;
+            var columnsInclude = indexContext.column_name_list() != null ? indexContext.column_name_list().id_().Select(x => x.GetText()) : Enumerable.Empty<string>();
             return new Index
             {
                 Sql = stream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)),
@@ -18,7 +19,8 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 Schema = string.Empty,
                 Operation = GetOperation(indexContext.GetChild(0).GetText()),
                 ParentName = indexContext.table_name().GetText(),
-                ColumnNames = indexContext.column_name_list_with_order().id_().Select(x => x.GetText()),
+                ColumnNames = indexContext.column_name_list_with_order().id_().Select(x => x.GetText())
+                                .Union(columnsInclude)
             };
         }
     }
