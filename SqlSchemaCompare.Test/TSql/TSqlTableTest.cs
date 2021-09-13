@@ -466,14 +466,64 @@ GO
 ALTER TABLE [dbo].[tblLookup] ALTER COLUMN [ID] [int] NOT NULL
 GO
 
-ALTER TABLE [dbo].[tbl] WITH CHECK ADD CONSTRAINT [FK_constraint] FOREIGN KEY([column1])
-REFERENCES [dbo].[tblLookup] ([ID])
-GO
-
 ALTER TABLE [dbo].[tblLookup] ADD CONSTRAINT [PK] PRIMARY KEY CLUSTERED 
         (
 	        [ID] ASC, [description] DESC
         )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
+GO
+
+ALTER TABLE [dbo].[tbl] WITH CHECK ADD CONSTRAINT [FK_constraint] FOREIGN KEY([column1])
+REFERENCES [dbo].[tblLookup] ([ID])
+GO
+
+");
+            errors.ShouldBeEmpty();
+        }
+
+        [Fact]
+        public void DropIndexBeforeAlterColumn()
+        {
+            const string origin =
+@"CREATE TABLE [dbo].[tbl](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[column1] [int] NOT NULL)
+GO
+
+CREATE NONCLUSTERED INDEX [idx] ON [dbo].[tbl]
+(
+	[column1] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
+GO
+
+";
+
+            const string destination =
+@"CREATE TABLE [dbo].[tbl](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[column1] [tinyint] NOT NULL)
+GO
+
+CREATE NONCLUSTERED INDEX [idx] ON [dbo].[tbl]
+(
+	[column1] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
+GO
+
+";
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
+
+            updateSchema.ShouldBe(
+@"DROP INDEX [idx] ON [dbo].[tbl]
+GO
+
+ALTER TABLE [dbo].[tbl] ALTER COLUMN [column1] [int] NOT NULL
+GO
+
+CREATE NONCLUSTERED INDEX [idx] ON [dbo].[tbl]
+(
+	[column1] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
 GO
 
 ");
@@ -548,7 +598,7 @@ GO
 
 
         [Theory]
-        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.Table, DbObjectType.Column, DbObjectType.TableContraint }, MemberType = typeof(TestDbObjectGenerator))]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.Table, DbObjectType.Column, DbObjectType.TablePrimaryKeyContraint, DbObjectType.TableDefaultContraint, DbObjectType.TableForeignKeyContraint }, MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select table db object, update schema is created without table

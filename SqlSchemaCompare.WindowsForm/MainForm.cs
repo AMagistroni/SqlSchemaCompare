@@ -319,7 +319,6 @@ namespace SqlSchemaCompare.WindowsForm
             ChkTrigger.Checked = ChkAll.Checked;
             ChkTableType.Checked = ChkAll.Checked;
             ChkOther.Checked = ChkAll.Checked;
-            ChkIndex.Checked = ChkAll.Checked;
         }
 
         private IEnumerable<DbObjectType> SelectedObjectType()
@@ -343,8 +342,6 @@ namespace SqlSchemaCompare.WindowsForm
                 selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Type));
             if (ChkOther.Checked)
                 selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Other));
-            if (ChkIndex.Checked)
-                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Index));
 
             return selectedObjectType;
         }

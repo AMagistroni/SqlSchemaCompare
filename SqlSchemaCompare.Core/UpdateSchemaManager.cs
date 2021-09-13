@@ -30,11 +30,16 @@ namespace SqlSchemaCompare.Core
             ( DbObjectType.Schema, Operation.Create ),
             
             ( DbObjectType.Table, Operation.Create ),
-            ( DbObjectType.TableContraint, Operation.Drop),            
+            ( DbObjectType.TableDefaultContraint, Operation.Drop),
+            ( DbObjectType.TableForeignKeyContraint, Operation.Drop),
+            ( DbObjectType.TablePrimaryKeyContraint, Operation.Drop),
+            ( DbObjectType.Index, Operation.Drop),
             ( DbObjectType.Column, Operation.Create),
             ( DbObjectType.Column, Operation.Drop ),
             ( DbObjectType.Column, Operation.Alter ),
-            ( DbObjectType.TableContraint, Operation.Create),
+            ( DbObjectType.TablePrimaryKeyContraint, Operation.Create),
+            ( DbObjectType.TableForeignKeyContraint, Operation.Create),
+            ( DbObjectType.TableDefaultContraint, Operation.Create),
             ( DbObjectType.Table, Operation.Drop ),
 
             ( DbObjectType.StoreProcedure, Operation.Drop),
@@ -57,8 +62,7 @@ namespace SqlSchemaCompare.Core
             
             ( DbObjectType.Type, Operation.Drop ),
             ( DbObjectType.Type, Operation.Create ),
-            
-            ( DbObjectType.Index, Operation.Drop ),
+                        
             ( DbObjectType.Index, Operation.Create ),
             
             ( DbObjectType.Schema, Operation.Drop ),
@@ -79,7 +83,6 @@ namespace SqlSchemaCompare.Core
             ProcessGenericDbObject<View>(sourceObjects, destinationObjects, resultProcessDbObject, DbObjectType.View);
             ProcessTrigger(sourceObjects, destinationObjects, resultProcessDbObject);            
             ProcessDbObjectWithoutAlter<TypeDbObject>(sourceObjects, destinationObjects, resultProcessDbObject, DbObjectType.Type);
-            ProcdessIndex(sourceObjects, destinationObjects, resultProcessDbObject);
 
             StringBuilder updateSchemaStringBuild = new();
             if (resultProcessDbObject.OperationsOnDbObject.Any())
@@ -132,8 +135,8 @@ namespace SqlSchemaCompare.Core
                 .Except(destinationDb.Where(x => roleNameDropped.Contains(x.RoleName)))
                 .Except(destinationDb.Where(x => userNameDropped.Contains(x.Name)));
 
-            CreateDbObjectByName(originDb, destinationDb, resultProcessDbObject, DbObjectType.Member);
-            DropDbObjectByName(originDb, destinationDb, resultProcessDbObject, DbObjectType.Member);
+            CreateDbObjectByName(originDb, destinationDb, resultProcessDbObject);
+            DropDbObjectByName(originDb, destinationDb, resultProcessDbObject);
         }
 
         private void ProcessTrigger(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
@@ -154,8 +157,8 @@ namespace SqlSchemaCompare.Core
             var originDb = sourceObjects.OfType<User>();
             var destinationDb = destinationObjects.OfType<User>();
 
-            var toCreate = CreateDbObjectByName(originDb, destinationDb, resultProcessDbObject, DbObjectType.User);
-            DropDbObjectByName(originDb, destinationDb, resultProcessDbObject, DbObjectType.User);
+            var toCreate = CreateDbObjectByName(originDb, destinationDb, resultProcessDbObject);
+            DropDbObjectByName(originDb, destinationDb, resultProcessDbObject);
 
             var toAlter = originDb
                     .Except(toCreate)
@@ -169,8 +172,8 @@ namespace SqlSchemaCompare.Core
             var originDb = sourceObjects.OfType<Role>();
             var destinationDb = destinationObjects.OfType<Role>();
             
-            CreateDbObject(originDb, destinationDb, resultProcessDbObject, DbObjectType.Role);
-            DropDbObject(originDb, destinationDb, resultProcessDbObject, DbObjectType.Role);            
+            CreateDbObject(originDb, destinationDb, resultProcessDbObject);
+            DropDbObject(originDb, destinationDb, resultProcessDbObject);            
         }
 
         private void ProcessSchema(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
@@ -178,8 +181,8 @@ namespace SqlSchemaCompare.Core
             var originDb = sourceObjects.OfType<Schema>();
             var destinationDb = destinationObjects.OfType<Schema>();
             
-            CreateDbObject(originDb, destinationDb, resultProcessDbObject, DbObjectType.Schema);
-            DropDbObject(originDb, destinationDb, resultProcessDbObject, DbObjectType.Schema);
+            CreateDbObject(originDb, destinationDb, resultProcessDbObject);
+            DropDbObject(originDb, destinationDb, resultProcessDbObject);
         }
 
         private void ProcessTable(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
@@ -193,12 +196,13 @@ namespace SqlSchemaCompare.Core
                 if (!destinationIdentifier.Contains(tableOrigin.Identifier))
                 {
                     resultProcessDbObject.AddOperation(tableOrigin.Constraints, Operation.Create);
+                    resultProcessDbObject.AddOperation(tableOrigin.Indexes, Operation.Create);
                     resultProcessDbObject.AddOperation<Table>(tableOrigin, Operation.Create);
                 }
                 else
                 {
                     var destinationTable = destinationDb.Single(x => x.Identifier == tableOrigin.Identifier);
-                    var constraintToCreate = CreateDbObject(tableOrigin.Constraints, destinationTable.Constraints, resultProcessDbObject, DbObjectType.Table);
+                    var constraintToCreate = CreateDbObject(tableOrigin.Constraints, destinationTable.Constraints, resultProcessDbObject);
 
                     var constraintToDrop = DropDbObject(tableOrigin.Constraints, destinationTable.Constraints)
                         .GroupBy(x => x.Name)
@@ -210,18 +214,28 @@ namespace SqlSchemaCompare.Core
 
                     resultProcessDbObject.AddOperation(constraintToDrop, Operation.Drop);
                     resultProcessDbObject.AddOperation(constraintsToAlter, Operation.Drop);
-                    resultProcessDbObject.AddOperation(constraintsToAlter, Operation.Create);                    
+                    resultProcessDbObject.AddOperation(constraintsToAlter, Operation.Create);
+
+                    var indexToCreate = CreateDbObjectByName(tableOrigin.Indexes, destinationTable.Indexes, resultProcessDbObject);
+                    DropDbObjectByName(tableOrigin.Indexes, destinationTable.Indexes, resultProcessDbObject);
+
+                    var indexToAlter = tableOrigin.Indexes
+                        .Except(indexToCreate)
+                        .Where(x => !destinationTable.Indexes.Contains(x)).ToList(); //discard object present in origin, present in destination and equals
+
+                    resultProcessDbObject.AddOperation(indexToAlter, Operation.Drop);
+                    resultProcessDbObject.AddOperation(indexToAlter, Operation.Create);
 
                     if (tableOrigin != destinationTable)
                     {
                         //columns different
-                        ProcessTableColumn(tableOrigin, destinationTable, destinationObjects, resultProcessDbObject);
+                        ProcessTableColumn(tableOrigin, destinationTable, resultProcessDbObject);
                     }
                 }
             }
-            DropDbObject(originDb, destinationDb, resultProcessDbObject, DbObjectType.Table);
+            DropDbObject(originDb, destinationDb, resultProcessDbObject);
         }
-        private void ProcessTableColumn(Table table, Table destinationTable, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
+        private void ProcessTableColumn(Table table, Table destinationTable, ResultProcessDbObject resultProcessDbObject)
         {
             IList<Table.Column> columnsToAdd;
             IList<Table.Column> columnsToDrop;
@@ -250,34 +264,28 @@ namespace SqlSchemaCompare.Core
             resultProcessDbObject.AddOperation(columnsToDrop, Operation.Drop);
 
             var columnsOfCostraintToDropAndCreate = destinationTable
-                .Constraints.SelectMany(x => x.ColumnName)
+                .Constraints.SelectMany(x => x.ColumnNames)
                 .Intersect(columnsToAlter.Select(x => x.Name));
-    
-            var constrainttoDropAndCreate = destinationTable.Constraints
-                .Where(x => columnsOfCostraintToDropAndCreate.Intersect(x.ColumnName).Any())
-                .Except(resultProcessDbObject.GetDbObject(DbObjectType.TableContraint, Operation.Drop))//constraint that we have to drop
+
+            var constraintToDropAndCreate = destinationTable.Constraints
+                .Where(x => columnsOfCostraintToDropAndCreate.Intersect(x.ColumnNames).Any())
+                .Except(resultProcessDbObject.GetDbObject(DbObjectType.TableDefaultContraint, Operation.Drop)
+                    .Union(resultProcessDbObject.GetDbObject(DbObjectType.TableForeignKeyContraint, Operation.Drop))
+                    .Union(resultProcessDbObject.GetDbObject(DbObjectType.TablePrimaryKeyContraint, Operation.Drop))) //constraint that we have to drop
                 .ToList();            
-            resultProcessDbObject.AddOperation(constrainttoDropAndCreate, Operation.Drop);
-            resultProcessDbObject.AddOperation(constrainttoDropAndCreate, Operation.Create);
-        }
+            resultProcessDbObject.AddOperation(constraintToDropAndCreate, Operation.Drop);
+            resultProcessDbObject.AddOperation(constraintToDropAndCreate, Operation.Create);
 
-        private void ProcdessIndex(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
-        {
-            var originDb = sourceObjects.OfType<Index>();
-            var destinationDb = destinationObjects.OfType<Index>();
+            var columnsOfIndexToDropAndCreate = destinationTable
+                .Indexes.SelectMany(x => x.ColumnNames)
+                .Intersect(columnsToAlter.Select(x => x.Name));
 
-            var tableNameToDrop = resultProcessDbObject.GetDbObject(DbObjectType.Table, Operation.Drop).Select(x => x.Identifier);
-            destinationDb = destinationDb.Except(destinationDb.Where(x => tableNameToDrop.Contains(x.TableName)));
-
-            var toCreate = CreateDbObjectByName(originDb, destinationDb, resultProcessDbObject, DbObjectType.Index);
-            DropDbObjectByName(originDb, destinationDb, resultProcessDbObject, DbObjectType.Index);
-
-            var toAlter = originDb
-                .Except(toCreate)
-                .Where(x => !destinationDb.Contains(x)).ToList(); //discard object present in origin, present in destination and equals
-            
-            resultProcessDbObject.AddOperation(toAlter, Operation.Drop);
-            resultProcessDbObject.AddOperation(toAlter, Operation.Create);
+            var indexToDropAndCreate = destinationTable.Indexes
+                .Where(x => columnsOfIndexToDropAndCreate.Intersect(x.ColumnNames).Any())
+                .Except(resultProcessDbObject.GetDbObject(DbObjectType.Index, Operation.Drop))//constraint that we have to drop
+                .ToList();
+            resultProcessDbObject.AddOperation(indexToDropAndCreate, Operation.Drop);
+            resultProcessDbObject.AddOperation(indexToDropAndCreate, Operation.Create);
         }
 
         private void ProcessDbObjectWithoutAlter<T>(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T: DbObject
@@ -285,8 +293,8 @@ namespace SqlSchemaCompare.Core
             var originDb = sourceObjects.OfType<T>();
             var destinationDb = destinationObjects.OfType<T>();
 
-            var toCreate = CreateDbObjectByName<T>(originDb, destinationDb, resultProcessDbObject, dbObjectType);
-            DropDbObjectByName<T>(originDb, destinationDb, resultProcessDbObject, dbObjectType);
+            var toCreate = CreateDbObjectByName<T>(originDb, destinationDb, resultProcessDbObject);
+            DropDbObjectByName<T>(originDb, destinationDb, resultProcessDbObject);
 
             var toAlter = originDb
                 .Except(toCreate)
@@ -302,8 +310,8 @@ namespace SqlSchemaCompare.Core
             var originDb = sourceObjects.OfType<T>();
             var destinationDb = destinationObjects.OfType<T>();
 
-            var toCreate = CreateDbObject<T>(originDb, destinationDb, resultProcessDbObject, dbObjectType);
-            var toDrop = DropDbObject<T>(originDb, destinationDb, resultProcessDbObject, dbObjectType);
+            var toCreate = CreateDbObject<T>(originDb, destinationDb, resultProcessDbObject);
+            var toDrop = DropDbObject<T>(originDb, destinationDb, resultProcessDbObject);
 
             var toAlter = originDb
                 .Except(toCreate)
@@ -313,7 +321,7 @@ namespace SqlSchemaCompare.Core
 
             return (toCreate, toAlter, toDrop);
         }
-        private List<T> CreateDbObject<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T : DbObject
+        private List<T> CreateDbObject<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject) where T : DbObject
         {
             var toCreate = sourceObjects
                 .Where(dbObject => sourceObjects
@@ -324,7 +332,7 @@ namespace SqlSchemaCompare.Core
             resultProcessDbObject.AddOperation<T>(toCreate, Operation.Create);
             return toCreate;
         }       
-        private List<T> CreateDbObjectByName<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T : DbObject
+        private List<T> CreateDbObjectByName<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject) where T : DbObject
         {
             var toCreate = sourceObjects
                 .Where(dbObject => sourceObjects
@@ -335,7 +343,7 @@ namespace SqlSchemaCompare.Core
             resultProcessDbObject.AddOperation<T>(toCreate, Operation.Create);
             return toCreate;       
         }
-        private List<T> DropDbObject<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T : DbObject
+        private List<T> DropDbObject<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject) where T : DbObject
         {
             var toDrop = DropDbObject<T>(sourceObjects, destinationObjects);
             resultProcessDbObject.AddOperation<T>(toDrop, Operation.Drop);            
@@ -351,7 +359,7 @@ namespace SqlSchemaCompare.Core
                     .Contains(dbObject.Identifier)) // object with completeName to be dropped
                 .ToList();
         }
-        private void DropDbObjectByName<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject, DbObjectType dbObjectType) where T : DbObject
+        private void DropDbObjectByName<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject) where T : DbObject
         {
             var toDrop = destinationObjects
                 .Where(dbObject => destinationObjects

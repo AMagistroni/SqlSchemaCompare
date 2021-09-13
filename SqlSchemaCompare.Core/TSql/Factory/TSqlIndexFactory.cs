@@ -2,6 +2,7 @@
 using Antlr4.Runtime.Misc;
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
+using System.Linq;
 
 namespace SqlSchemaCompare.Core.TSql.Factory
 {
@@ -16,7 +17,8 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 Name = indexContext.id_()[0].GetText(),
                 Schema = string.Empty,
                 Operation = GetOperation(indexContext.GetChild(0).GetText()),
-                TableName = indexContext.table_name().GetText()
+                ParentName = indexContext.table_name().GetText(),
+                ColumnNames = indexContext.column_name_list_with_order().id_().Select(x => x.GetText()),
             };
         }
     }

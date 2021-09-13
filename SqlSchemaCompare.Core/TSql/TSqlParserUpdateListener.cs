@@ -121,7 +121,9 @@ namespace SqlSchemaCompare.Core.TSql
 
         public override void ExitCreate_index([NotNull] TSqlParser.Create_indexContext context)
         {
-            DbObjects.Add(_indexFactory.Create(context, _stream));
+            var index = _indexFactory.Create(context, _stream);
+            var table = DbObjects.OfType<Table>().Single(x => x.Identifier == index.ParentName);
+            table.AddIndex(index as DbStructures.Index);
         }
 
         public override void ExitAlter_table([NotNull] TSqlParser.Alter_tableContext context)

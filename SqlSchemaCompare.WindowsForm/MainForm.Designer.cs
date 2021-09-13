@@ -58,7 +58,6 @@ namespace SqlSchemaCompare.WindowsForm
             this.ofdUpdateSchemaFile = new System.Windows.Forms.OpenFileDialog();
             this.GrpDbObjects = new System.Windows.Forms.GroupBox();
             this.ChkOther = new System.Windows.Forms.CheckBox();
-            this.ChkIndex = new System.Windows.Forms.CheckBox();
             this.ChkTrigger = new System.Windows.Forms.CheckBox();
             this.ChkTableType = new System.Windows.Forms.CheckBox();
             this.ChkSchema = new System.Windows.Forms.CheckBox();
@@ -353,7 +352,6 @@ namespace SqlSchemaCompare.WindowsForm
             // GrpDbObjects
             // 
             this.GrpDbObjects.Controls.Add(this.ChkOther);
-            this.GrpDbObjects.Controls.Add(this.ChkIndex);
             this.GrpDbObjects.Controls.Add(this.ChkTrigger);
             this.GrpDbObjects.Controls.Add(this.ChkTableType);
             this.GrpDbObjects.Controls.Add(this.ChkSchema);
@@ -377,24 +375,12 @@ namespace SqlSchemaCompare.WindowsForm
             this.ChkOther.AutoSize = true;
             this.ChkOther.Checked = true;
             this.ChkOther.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ChkOther.Location = new System.Drawing.Point(6, 336);
+            this.ChkOther.Location = new System.Drawing.Point(7, 306);
             this.ChkOther.Name = "ChkOther";
             this.ChkOther.Size = new System.Drawing.Size(114, 24);
             this.ChkOther.TabIndex = 10;
             this.ChkOther.Text = "Other object";
             this.ChkOther.UseVisualStyleBackColor = true;
-            // 
-            // ChkIndex
-            // 
-            this.ChkIndex.AutoSize = true;
-            this.ChkIndex.Checked = true;
-            this.ChkIndex.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ChkIndex.Location = new System.Drawing.Point(6, 306);
-            this.ChkIndex.Name = "ChkIndex";
-            this.ChkIndex.Size = new System.Drawing.Size(67, 24);
-            this.ChkIndex.TabIndex = 8;
-            this.ChkIndex.Text = "Index";
-            this.ChkIndex.UseVisualStyleBackColor = true;
             // 
             // ChkTrigger
             // 
@@ -583,7 +569,6 @@ namespace SqlSchemaCompare.WindowsForm
         private System.Windows.Forms.CheckBox ChkTable;
         private System.Windows.Forms.CheckBox ChkAll;
         private System.Windows.Forms.CheckBox ChkOther;
-        private System.Windows.Forms.CheckBox ChkIndex;
         private System.Windows.Forms.CheckBox ChkTrigger;
         private System.Windows.Forms.CheckBox ChkTableType;
         private System.Windows.Forms.CheckBox ChkSchema;

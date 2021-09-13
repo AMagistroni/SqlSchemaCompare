@@ -14,7 +14,9 @@ namespace SqlSchemaCompare.Core.TSql
             return dbObject.DbObjectType switch
             {
                 DbObjectType.Table => BuildCreateDropTable(dbObject as Table, operation),
-                DbObjectType.TableContraint => BuildTableConstraint(dbObject as Table.TableConstraint, operation, resultProcessDbObject),
+                DbObjectType.TableDefaultContraint => BuildTableConstraint(dbObject as TableConstraint, operation, resultProcessDbObject),
+                DbObjectType.TablePrimaryKeyContraint => BuildTableConstraint(dbObject as TableConstraint, operation, resultProcessDbObject),
+                DbObjectType.TableForeignKeyContraint => BuildTableConstraint(dbObject as TableConstraint, operation, resultProcessDbObject),
                 DbObjectType.Column => BuildColumn(dbObject as Table.Column, operation),
                 DbObjectType.View => BuildView(dbObject as View, operation),
                 DbObjectType.StoreProcedure => BuildStoreProcedure(dbObject as StoreProcedure, operation),
@@ -48,14 +50,14 @@ namespace SqlSchemaCompare.Core.TSql
         {
             return "GO\r\n";
         }
-        private string BuildTableConstraint(Table.TableConstraint constraint, Operation operation, ResultProcessDbObject resultProcessDbObject)
+        private string BuildTableConstraint(TableConstraint constraint, Operation operation, ResultProcessDbObject resultProcessDbObject)
         {
             switch (operation)
             {
                 case Operation.Create:
-                    if (!resultProcessDbObject.GetDbObject(DbObjectType.Column, Operation.Create).Any(x => constraint.ColumnName.Contains(x.Name)))
+                    if (!resultProcessDbObject.GetDbObject(DbObjectType.Column, Operation.Create).Any(x => constraint.ColumnNames.Contains(x.Name)))
                     {
-                        if (constraint.ConstraintType == Table.TableConstraint.ConstraintTypes.PrimaryKey)
+                        if (constraint is Table.TablePrimaryKeyConstraint)
                         {
                             return $"ALTER TABLE {constraint.ParentName} ADD {constraint.Sql}";
                         }
@@ -106,7 +108,7 @@ END";
             {
                 case Operation.Create:
                     var sql = $"ALTER TABLE {column.ParentName} ADD { column.Sql}";
-                    var constraintRelated = column.Table.Constraints.SingleOrDefault(x => x.ColumnName.Contains(column.Name) && x.ConstraintType == Table.TableConstraint.ConstraintTypes.Default);
+                    var constraintRelated = column.Table.Constraints.OfType<Table.TableDefaultConstraint>().SingleOrDefault(x => x.ColumnNames.Contains(column.Name));
                     if (constraintRelated != null)
                     {
                         sql = $"{sql} CONSTRAINT {constraintRelated.Name} DEFAULT {constraintRelated.Value}";
@@ -193,7 +195,7 @@ END";
             return operation switch
             {
                 Operation.Create => dbObject.Sql,
-                Operation.Drop => $"DROP INDEX {dbObject.Identifier} ON {dbObject.TableName}",
+                Operation.Drop => $"DROP INDEX {dbObject.Identifier} ON {dbObject.ParentName}",
                 _ => throw new NotSupportedException($"Operation not supported on TYPE"),
             };
         }
