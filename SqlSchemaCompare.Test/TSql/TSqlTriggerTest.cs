@@ -43,7 +43,7 @@ GO
 {enableSql}
 GO"
                 ); ;
-            var dbobject = dbObjects.Single() as Trigger;
+            var dbobject = dbObjects.First() as Trigger;
 
             dbobject.Name.ShouldBe("[trg1]");
             dbobject.Schema.ShouldBeEmpty();

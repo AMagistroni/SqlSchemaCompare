@@ -34,11 +34,17 @@ namespace SqlSchemaCompare.Core.DbStructures
         public void AdColumns(Column Colum) => Columns.Add(Colum);
         public void AddConstraint(TableConstraint tableConstraint) => Constraints.Add(tableConstraint);
         public void AddIndex(Index index) => Indexes.Add(index);
+        public bool PrimaryKeyDefinedInsideCreateTable { get; set; }
     }
 }
 
 public abstract class TableConstraint : DbObject
 {
-    public Table Table { get; init; }
+    public Table Table { get; set; }
     public IEnumerable<string> ColumnNames { get; init; }
+
+    public void SetTable(Table table)
+    {
+        Table = table;
+    }
 }

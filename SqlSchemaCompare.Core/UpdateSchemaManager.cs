@@ -3,6 +3,7 @@ using SqlSchemaCompare.Core.DbStructures;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static SqlSchemaCompare.Core.DbStructures.Table;
 
 namespace SqlSchemaCompare.Core
 {
@@ -195,7 +196,11 @@ namespace SqlSchemaCompare.Core
             {
                 if (!destinationIdentifier.Contains(tableOrigin.Identifier))
                 {
-                    resultProcessDbObject.AddOperation(tableOrigin.Constraints, Operation.Create);
+                    if (tableOrigin.PrimaryKeyDefinedInsideCreateTable)
+                        resultProcessDbObject.AddOperation(tableOrigin.Constraints.Where(x => x is not TablePrimaryKeyConstraint).ToList(), Operation.Create);
+                    else
+                        resultProcessDbObject.AddOperation(tableOrigin.Constraints, Operation.Create);
+
                     resultProcessDbObject.AddOperation(tableOrigin.Indexes, Operation.Create);
                     resultProcessDbObject.AddOperation<Table>(tableOrigin, Operation.Create);
                 }

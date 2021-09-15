@@ -100,6 +100,7 @@ namespace SqlSchemaCompare.Core.TSql
             var enabled = _triggerFactory.CreateEnable(context, _stream);
             var trigger = DbObjects.OfType<Trigger>().Single(x => x.Name == enabled.Name);
             trigger.SetEnabled(enabled);
+            DbObjects.Add(enabled);
         }
 
         public override void ExitDisable_trigger([NotNull] TSqlParser.Disable_triggerContext context)
@@ -107,6 +108,7 @@ namespace SqlSchemaCompare.Core.TSql
             var enabled = _triggerFactory.CreateDisable(context, _stream);
             var trigger = DbObjects.OfType<Trigger>().Single(x => x.Name == enabled.Name);
             trigger.SetEnabled(enabled);
+            DbObjects.Add(enabled);
         }
         public override void ExitAlter_db_role([NotNull] TSqlParser.Alter_db_roleContext context)
         {
@@ -126,6 +128,18 @@ namespace SqlSchemaCompare.Core.TSql
                 var index = _indexFactory.Create(context, _stream);
                 var table = DbObjects.OfType<Table>().Single(x => x.Identifier == index.ParentName);
                 table.AddIndex(index as DbStructures.Index);
+                DbObjects.Add(index);
+            }
+        }
+
+        public override void ExitAlter_index([NotNull] TSqlParser.Alter_indexContext context)
+        {
+            if (!ObjectInsideDDL(context))
+            {
+                var index = _indexFactory.CreateAlter(context, _stream);
+                var table = DbObjects.OfType<Table>().Single(x => x.Identifier == index.ParentName);
+                table.AddIndex(index as DbStructures.Index);
+                DbObjects.Add(index);
             }
         }
 
@@ -136,6 +150,8 @@ namespace SqlSchemaCompare.Core.TSql
                 var constraint = _tableFactory.CreateAlterTable(context);
                 var table = DbObjects.OfType<Table>().Single(x => x.Identifier == constraint.ParentName);
                 table.AddConstraint(constraint);
+                constraint.SetTable(table);
+                DbObjects.Add(constraint);
             }
         }
 

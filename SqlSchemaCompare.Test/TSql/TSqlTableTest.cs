@@ -25,22 +25,43 @@ namespace SqlSchemaCompare.Test.TSql
 							[Id] ASC
 						) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db1]";
 
-            var sqlTable = $@"CREATE TABLE [schema].[TableName](
-							[Id] [int] IDENTITY(1,1) NOT NULL,
-							[col1] [char](8) NULL,
-						{constraint}
-						) ON [db1]";
+            var sqlTable = 
+$@"CREATE TABLE [schema].[TableName](
+    [Id] [int] IDENTITY(1,1) NOT NULL,
+	[col1] [char](8) NULL,
+    [col2] [DateTime] NOT NULL,
+	{constraint}
+) ON [db1]
+GO
+
+ALTER TABLE [schema].[TableName]  WITH NOCHECK ADD  CONSTRAINT [FK_Name1] FOREIGN KEY([col1])
+    REFERENCES [dbo].[TBL2] ([ID])
+    ON DELETE CASCADE
+GO
+
+ALTER TABLE [schema].[TableName] ADD  CONSTRAINT [constraintName]  DEFAULT (getdate()) FOR [column1]
+GO
+";
 
             var sql = $@"{sqlTable}
 						GO";
 
             var objectFactory = new TSqlObjectFactory();
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
-            var table = dbObjects.Single() as Table;
+            var table = dbObjects.First() as Table;
 
             table.Name.ShouldBe("[TableName]");
             table.Schema.ShouldBe("[schema]");
-            table.Sql.ShouldBe(sqlTable);
+            table.Sql.ShouldBe(
+@"CREATE TABLE [schema].[TableName](
+    [Id] [int] IDENTITY(1,1) NOT NULL,
+	[col1] [char](8) NULL,
+    [col2] [DateTime] NOT NULL,
+	CONSTRAINT [PK_TableName_Id] PRIMARY KEY CLUSTERED 
+						(
+							[Id] ASC
+						) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db1]
+) ON [db1]");
 
             var column1 = table.Columns.ElementAt(0);
             column1.Name.ShouldBe("[Id]");
@@ -48,9 +69,11 @@ namespace SqlSchemaCompare.Test.TSql
 
             var column2 = table.Columns.ElementAt(1);
             column2.Name.ShouldBe("[col1]");
-            column2.Sql.ShouldBe("[col1] [char](8) NULL");
+            column2.Sql.ShouldBe("[col1] [char](8) NULL");            
 
-            table.Constraints.Single().Sql.ShouldBe(constraint);
+            table.Constraints.First().Sql.ShouldBe(constraint);
+            table.Constraints[1].Table.ShouldBe(table);
+            table.Constraints[2].Table.ShouldBe(table);
             errors.Count().ShouldBe(0);
         }
         [Fact]
@@ -123,7 +146,12 @@ GO
             const string origin =
 @"CREATE TABLE [dbo].[TBL] (
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [Date] NOT NULL)
+	[column1] [Date] NOT NULL,
+    CONSTRAINT [PK] PRIMARY KEY NONCLUSTERED 
+    (
+	    [ID] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+)
 GO
 
 ALTER TABLE [dbo].[TBL]  WITH NOCHECK ADD  CONSTRAINT [FK_Name1] FOREIGN KEY([column1])
@@ -141,7 +169,12 @@ GO
             updateSchema.ShouldBe(
 @"CREATE TABLE [dbo].[TBL] (
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [Date] NOT NULL)
+	[column1] [Date] NOT NULL,
+    CONSTRAINT [PK] PRIMARY KEY NONCLUSTERED 
+    (
+	    [ID] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+)
 GO
 
 ALTER TABLE [dbo].[TBL]  WITH NOCHECK ADD  CONSTRAINT [FK_Name1] FOREIGN KEY([column1])
@@ -324,7 +357,7 @@ GO
 
             var objectFactory = new TSqlObjectFactory();
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(origin);
-            var table = dbObjects.Single() as Table;
+            var table = dbObjects.First() as Table;
 
             table.Identifier.ShouldBe("[dbo].[TBL]");
 

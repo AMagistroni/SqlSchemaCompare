@@ -23,5 +23,18 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                                 .Union(columnsInclude)
             };
         }
+
+        public DbObject CreateAlter(ParserRuleContext context, ICharStream stream)
+        {
+            var indexContext = context as TSqlParser.Alter_indexContext;
+            return new Index
+            {
+                Sql = stream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)),
+                Name = indexContext.id_().GetText(),
+                Schema = string.Empty,
+                Operation = GetOperation(indexContext.GetChild(0).GetText()),
+                ParentName = indexContext.table_name().GetText()
+            };
+        }
     }
 }

@@ -31,7 +31,7 @@ GO";
 
             var objectFactory = new TSqlObjectFactory();
             (var objects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
-            var table = objects.Single() as Table;
+            var table = objects.First() as Table;
 
             table.Indexes.Single().Name.ShouldBe("[indexName]");
             table.Indexes.Single().Schema.ShouldBeEmpty();

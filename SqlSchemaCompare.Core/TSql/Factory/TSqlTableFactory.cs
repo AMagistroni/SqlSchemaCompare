@@ -32,6 +32,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 else if (columnTree.table_constraint() != null)
                 {
                     table.AddConstraint(CreatePrimaryKeyConstraint(columnTree.table_constraint(), stream, table));
+                    table.PrimaryKeyDefinedInsideCreateTable = true;
                 }
             }
             return table;
