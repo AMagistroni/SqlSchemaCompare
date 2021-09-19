@@ -13,16 +13,16 @@ namespace SqlSchemaCompare.Core.TSql
         {
             return dbObject.DbObjectType switch
             {
-                DbObjectType.Table => BuildCreateDropTable(dbObject as Table, operation),
+                DbObjectType.Table => BuildGenericDbObjects("TABLE", dbObject as Table, operation),
                 DbObjectType.TableDefaultContraint => BuildTableConstraint(dbObject as TableConstraint, operation, resultProcessDbObject),
                 DbObjectType.TablePrimaryKeyContraint => BuildTableConstraint(dbObject as TableConstraint, operation, resultProcessDbObject),
                 DbObjectType.TableForeignKeyContraint => BuildTableConstraint(dbObject as TableConstraint, operation, resultProcessDbObject),
                 DbObjectType.Column => BuildColumn(dbObject as Table.Column, operation),
                 DbObjectType.View => BuildView(dbObject as View, operation),
-                DbObjectType.StoreProcedure => BuildStoreProcedure(dbObject as StoreProcedure, operation),
-                DbObjectType.Function => BuildFunction(dbObject as Function, operation),
+                DbObjectType.StoreProcedure => BuildGenericDbObjects("PROCEDURE", dbObject as StoreProcedure, operation),
+                DbObjectType.Function => BuildGenericDbObjects("FUNCTION", dbObject as Function, operation),
                 DbObjectType.Schema => BuildCreateDrop(dbObject as Schema, "SCHEMA", operation),
-                DbObjectType.Trigger => BuildTrigger(dbObject as Trigger, operation),
+                DbObjectType.Trigger => BuildGenericDbObjects("TRIGGER", dbObject as Trigger, operation),
                 DbObjectType.User => BuildUser(dbObject as User, operation),
                 DbObjectType.Role => BuildCreateDrop(dbObject as Role, "ROLE", operation),
                 DbObjectType.Type => BuildCreateDrop(dbObject as TypeDbObject, "TYPE", operation),
@@ -145,11 +145,6 @@ END";
                     throw new NotSupportedException($"Operation not supported on store {user}");
             }
         }
-
-        private string BuildTrigger(Trigger trigger, Operation operation)
-        {
-            return BuildGenericDbObjects("TRIGGER", trigger, operation);
-        }
         private string BuildEnableTrigger(Trigger.EnabledDbObject enabledDbObject, Operation operation)
         {
             var partialSql = enabledDbObject.Sql[enabledDbObject.Sql.IndexOf(" ")..];
@@ -158,22 +153,6 @@ END";
             else
                 return $"DISABLE{partialSql}";
         }
-
-        private string BuildFunction(Function function, Operation operation)
-        {
-            return BuildGenericDbObjects("FUNCTION", function, operation);
-        }
-
-        private string BuildStoreProcedure(StoreProcedure storeProcedure, Operation operation)
-        {
-            return BuildGenericDbObjects("PROCEDURE", storeProcedure, operation);
-        }
-
-        private string BuildCreateDropTable(Table table, Operation operation)
-        {
-            return BuildGenericDbObjects("TABLE", table, operation);
-        }
-
         private string BuildCreateDrop(DbObject dbObject, string objectName, Operation operation)
         {
             return operation switch

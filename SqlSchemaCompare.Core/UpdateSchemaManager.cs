@@ -334,8 +334,7 @@ namespace SqlSchemaCompare.Core
             var toCreate = sourceObjects
                 .Where(dbObject => sourceObjects
                     .Select(x => x.Identifier)
-                    .Except(destinationObjects.Select(x => x.Identifier)) //looking for complete name present in origin and absent from destination
-                    .OrderBy(x => x).ToList() // list of completeName to be created
+                    .Except(destinationObjects.Select(x => x.Identifier)) //looking for complete name present in origin and absent from destination                    
                     .Contains(dbObject.Identifier)).ToList(); // object with completeName 
             resultProcessDbObject.AddOperation<T>(toCreate, Operation.Create);
             return toCreate;
@@ -345,8 +344,7 @@ namespace SqlSchemaCompare.Core
             var toCreate = sourceObjects
                 .Where(dbObject => sourceObjects
                     .Select(x => x.Name)
-                    .Except(destinationObjects.Select(x => x.Name)) //looking for complete name present in origin and absent from destination
-                    .OrderBy(x => x).ToList() // list of completeName to be created
+                    .Except(destinationObjects.Select(x => x.Name)) //looking for name present in origin and absent from destination                    
                     .Contains(dbObject.Name)).ToList(); // object with completeName 
             resultProcessDbObject.AddOperation<T>(toCreate, Operation.Create);
             return toCreate;       
@@ -363,7 +361,6 @@ namespace SqlSchemaCompare.Core
                 .Where(dbObject => destinationObjects
                     .Select(x => x.Identifier)
                     .Except(sourceObjects.Select(x => x.Identifier)) //looking for complete name present in destination and absent from origin
-                    .OrderBy(x => x).ToList() // list of completeName to be dropped
                     .Contains(dbObject.Identifier)) // object with completeName to be dropped
                 .ToList();
         }
@@ -380,7 +377,6 @@ namespace SqlSchemaCompare.Core
                 .Where(dbObject => destinationObjects
                     .Select(x => x.Name)
                     .Except(sourceObjects.Select(x => x.Name)) //looking for complete name present in destination and absent from origin
-                    .OrderBy(x => x).ToList() // list of completeName to be dropped
                     .Contains(dbObject.Name)) // object with completeName to be dropped
                 .ToList();
             return toDrop;
