@@ -1,4 +1,5 @@
 ﻿using SqlSchemaCompare.Core.DbStructures;
+using System;
 
 namespace SqlSchemaCompare.Core.TSql.Factory
 {
@@ -11,7 +12,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 return Operation.Create;
             else if (operation == "ALTER")
                 return Operation.Alter;
-            else return Operation.Drop;
+            else throw new NotImplementedException();
         }
     }
 }

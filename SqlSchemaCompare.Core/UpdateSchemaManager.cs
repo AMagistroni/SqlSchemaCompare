@@ -10,7 +10,6 @@ namespace SqlSchemaCompare.Core
     public class UpdateSchemaManager
     {
         private readonly ISchemaBuilder _schemaBuilder;
-        private IEnumerable<DbObjectType> _selectedObjectType;
         public UpdateSchemaManager(ISchemaBuilder schemaBuilder)
         {
             _schemaBuilder = schemaBuilder;
@@ -71,7 +70,6 @@ namespace SqlSchemaCompare.Core
 
         public string UpdateSchema(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, IEnumerable<DbObjectType> selectedObjectType)
         {
-            _selectedObjectType = selectedObjectType;
             ResultProcessDbObject resultProcessDbObject = new();
 
             ProcessUser(sourceObjects, destinationObjects, resultProcessDbObject);
@@ -97,7 +95,7 @@ namespace SqlSchemaCompare.Core
 
                 foreach (var objectToWrite in OrderItemSchema)
                 {
-                    if (_selectedObjectType.Contains(objectToWrite.DbObjectType))
+                    if (selectedObjectType.Contains(objectToWrite.DbObjectType))
                     {
                         var dbObjects = objectToWrite.Operation switch
                         {
@@ -222,10 +220,15 @@ namespace SqlSchemaCompare.Core
                     resultProcessDbObject.AddOperation(constraintsToAlter, Operation.Create);
 
                     var indexToCreate = CreateDbObjectByName(tableOrigin.Indexes, destinationTable.Indexes, resultProcessDbObject);
-                    DropDbObjectByName(tableOrigin.Indexes, destinationTable.Indexes, resultProcessDbObject);
+                    var indexToDrop = DropDbObjectByName(tableOrigin.Indexes, destinationTable.Indexes)
+                                        .GroupBy(x => x.Identifier)
+                                        .Select(x => x.First()).ToList();
+                    var identifierToDrop = indexToDrop.Select(x => x.Identifier);
+                    resultProcessDbObject.AddOperation(indexToDrop, Operation.Drop);
 
                     var indexToAlter = tableOrigin.Indexes
                         .Except(indexToCreate)
+                        .Where(x => !identifierToDrop.Contains(x.Identifier)) // Discard index dropped from index to alter
                         .Where(x => !destinationTable.Indexes.Contains(x)).ToList(); //discard object present in origin, present in destination and equals
 
                     resultProcessDbObject.AddOperation(indexToAlter, Operation.Drop);
@@ -242,9 +245,9 @@ namespace SqlSchemaCompare.Core
         }
         private void ProcessTableColumn(Table table, Table destinationTable, ResultProcessDbObject resultProcessDbObject)
         {
-            IList<Table.Column> columnsToAdd;
-            IList<Table.Column> columnsToDrop;
-            IList<Table.Column> columnsToAlter;
+            IList<Column> columnsToAdd;
+            IList<Column> columnsToDrop;
+            IList<Column> columnsToAlter;
 
             columnsToAdd = table.Columns
                             .Where(x =>
@@ -364,7 +367,14 @@ namespace SqlSchemaCompare.Core
                     .Contains(dbObject.Identifier)) // object with completeName to be dropped
                 .ToList();
         }
-        private void DropDbObjectByName<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject) where T : DbObject
+
+        private List<T> DropDbObjectByName<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects, ResultProcessDbObject resultProcessDbObject) where T : DbObject
+        {
+            var toDrop = DropDbObjectByName(sourceObjects, destinationObjects);
+            resultProcessDbObject.AddOperation<T>(toDrop, Operation.Drop);
+            return toDrop;
+        }
+        private List<T> DropDbObjectByName<T>(IEnumerable<T> sourceObjects, IEnumerable<T> destinationObjects) where T : DbObject
         {
             var toDrop = destinationObjects
                 .Where(dbObject => destinationObjects
@@ -373,7 +383,7 @@ namespace SqlSchemaCompare.Core
                     .OrderBy(x => x).ToList() // list of completeName to be dropped
                     .Contains(dbObject.Name)) // object with completeName to be dropped
                 .ToList();
-            resultProcessDbObject.AddOperation<T>(toDrop, Operation.Drop);
+            return toDrop;
         }        
     }
 }

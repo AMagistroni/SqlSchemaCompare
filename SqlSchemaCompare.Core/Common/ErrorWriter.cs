@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SqlSchemaCompare.Core.Common
 {
-    public class ErrorWriter: IErrorWriter
+    public class ErrorWriter : IErrorWriter
     {
         public string GetErrors(IEnumerable<ErrorParser> errorsOrigin, IEnumerable<ErrorParser> errorsDestination)
         {

@@ -38,13 +38,7 @@ namespace SqlSchemaCompare.Core.TSql
             return "--";
         }
 
-        public string BuildUse(string databaseName)
-        {
-            if (databaseName.Contains("["))
-                return $"USE {databaseName}";
-            else
-                return $"USE [{databaseName}]";
-        }
+        public string BuildUse(string databaseName) => $"USE {databaseName}";
 
         public string BuildSeparator()
         {

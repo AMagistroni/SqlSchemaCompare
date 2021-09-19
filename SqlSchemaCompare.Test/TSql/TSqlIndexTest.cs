@@ -130,18 +130,30 @@ GO
             // When present db object in destination absent from origin
             // Expect updateSchema contains drop statement
 
-            const string origin = "CREATE TABLE [dbo].[table] ([ID] [INT] NOT NULL)";
+            const string origin = "CREATE TABLE [dbo].[table] ([ID] [INT] NOT NULL, [ID2] [int] NOT NULL)";
             const string destination =
 @"CREATE DATABASE [dbName]
 GO
 
-CREATE TABLE [dbo].[table] ([ID] [INT] NOT NULL)
+CREATE TABLE [dbo].[table] ([ID] [INT] NOT NULL, [ID2] [int] NOT NULL)
 GO
 
 CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
 (
 	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
+GO
+
+ALTER INDEX [indexName] on [dbo].[table] DISABLE
+GO
+
+CREATE NONCLUSTERED INDEX [indexName2] ON [dbo].[table]
+(
+	[ID2] ASC
+) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
+GO
+
+ALTER INDEX [indexName2] on [dbo].[table] DISABLE
 GO";
 
             (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
@@ -151,6 +163,9 @@ GO";
 GO
 
 DROP INDEX [indexName] ON [dbo].[table]
+GO
+
+DROP INDEX [indexName2] ON [dbo].[table]
 GO
 
 ");

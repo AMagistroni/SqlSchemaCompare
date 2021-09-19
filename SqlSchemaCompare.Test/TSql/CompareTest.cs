@@ -28,6 +28,7 @@ GO"
             errors.ShouldBeEmpty();
             file2.ShouldBeEmpty();
         }
+
         [Fact]
         public void CompareEqualFile()
         {

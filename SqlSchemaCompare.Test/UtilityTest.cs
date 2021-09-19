@@ -2,9 +2,7 @@
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SqlSchemaCompare.Test
 {

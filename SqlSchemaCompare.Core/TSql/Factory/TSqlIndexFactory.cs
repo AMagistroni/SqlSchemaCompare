@@ -33,7 +33,8 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 Name = indexContext.id_().GetText(),
                 Schema = string.Empty,
                 Operation = GetOperation(indexContext.GetChild(0).GetText()),
-                ParentName = indexContext.table_name().GetText()
+                ParentName = indexContext.table_name().GetText(),
+                ColumnNames = Enumerable.Empty<string>()
             };
         }
     }
