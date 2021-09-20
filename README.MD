@@ -8,15 +8,15 @@ Extract from SqlManagement the database creation schemas of the origin and desti
 
 1. Choose the origin schema database.
 2. Choose the destination schema database.
-3. Load schema.
+3. Choose an output directory where errors and diff schema will be saved
+4. Load schema.
 
 ![Second step](Doc/Secondscreen.PNG)
 
-1. Choose a suffix(_diff is the default) and an output directory where the files will be saved.
-2. Choose a file name. It will contain the update schema.
-3. Choose the db objects that you want compare or you want update.
-4. Click compare to generate two files with the difference between schemas.
-5. Click create update file to create a file with sql statement to modify the destination as origin database.
+1. Choose a file name. It will contain the update schema.
+2. Choose the db objects that you want compare or you want update.
+3. Choose a suffix(_diff is the default) and click compare to generate two files with the difference between schemas.
+4. Click create update file to create a file with sql statement to modify the destination as origin database.
 
 Use clear to load other schemas
 ## Compare
