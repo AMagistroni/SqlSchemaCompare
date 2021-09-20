@@ -30,6 +30,9 @@ namespace SqlSchemaCompare.WindowsForm
         private void InitializeComponent()
         {
             this.GrpMain = new System.Windows.Forms.GroupBox();
+            this.btnOutputDirectory = new System.Windows.Forms.Button();
+            this.txtOutputDirectory = new System.Windows.Forms.TextBox();
+            this.lblOutputDirectory = new System.Windows.Forms.Label();
             this.BtnClear = new System.Windows.Forms.Button();
             this.BtnLoadSchema = new System.Windows.Forms.Button();
             this.BtnSwapOriginDestination = new System.Windows.Forms.Button();
@@ -46,9 +49,6 @@ namespace SqlSchemaCompare.WindowsForm
             this.ofdOriginSchema = new System.Windows.Forms.OpenFileDialog();
             this.ofdDestinationSchema = new System.Windows.Forms.OpenFileDialog();
             this.lblInfo = new System.Windows.Forms.Label();
-            this.btnOutputDirectory = new System.Windows.Forms.Button();
-            this.txtOutputDirectory = new System.Windows.Forms.TextBox();
-            this.lblOutputDirectory = new System.Windows.Forms.Label();
             this.fbdOutputDirectory = new System.Windows.Forms.FolderBrowserDialog();
             this.GrpUpdateSchema = new System.Windows.Forms.GroupBox();
             this.btnUpdateSchema = new System.Windows.Forms.Button();
@@ -77,6 +77,9 @@ namespace SqlSchemaCompare.WindowsForm
             // 
             // GrpMain
             // 
+            this.GrpMain.Controls.Add(this.btnOutputDirectory);
+            this.GrpMain.Controls.Add(this.txtOutputDirectory);
+            this.GrpMain.Controls.Add(this.lblOutputDirectory);
             this.GrpMain.Controls.Add(this.BtnClear);
             this.GrpMain.Controls.Add(this.BtnLoadSchema);
             this.GrpMain.Controls.Add(this.BtnSwapOriginDestination);
@@ -90,17 +93,47 @@ namespace SqlSchemaCompare.WindowsForm
             this.GrpMain.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.GrpMain.Name = "GrpMain";
             this.GrpMain.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.GrpMain.Size = new System.Drawing.Size(494, 222);
+            this.GrpMain.Size = new System.Drawing.Size(494, 278);
             this.GrpMain.TabIndex = 0;
             this.GrpMain.TabStop = false;
             this.GrpMain.Text = "Schema";
+            // 
+            // btnOutputDirectory
+            // 
+            this.btnOutputDirectory.Image = global::SqlSchemaCompare.WindowsForm.Properties.Resources.folder;
+            this.btnOutputDirectory.Location = new System.Drawing.Point(435, 162);
+            this.btnOutputDirectory.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnOutputDirectory.Name = "btnOutputDirectory";
+            this.btnOutputDirectory.Size = new System.Drawing.Size(40, 36);
+            this.btnOutputDirectory.TabIndex = 11;
+            this.btnOutputDirectory.UseVisualStyleBackColor = true;
+            this.btnOutputDirectory.Click += new System.EventHandler(this.BtnOutputDirectory_Click);
+            // 
+            // txtOutputDirectory
+            // 
+            this.txtOutputDirectory.Enabled = false;
+            this.txtOutputDirectory.Location = new System.Drawing.Point(159, 162);
+            this.txtOutputDirectory.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.txtOutputDirectory.Name = "txtOutputDirectory";
+            this.txtOutputDirectory.Size = new System.Drawing.Size(263, 27);
+            this.txtOutputDirectory.TabIndex = 10;
+            // 
+            // lblOutputDirectory
+            // 
+            this.lblOutputDirectory.AutoSize = true;
+            this.lblOutputDirectory.Location = new System.Drawing.Point(14, 165);
+            this.lblOutputDirectory.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblOutputDirectory.Name = "lblOutputDirectory";
+            this.lblOutputDirectory.Size = new System.Drawing.Size(118, 20);
+            this.lblOutputDirectory.TabIndex = 9;
+            this.lblOutputDirectory.Text = "Output directory";
             // 
             // BtnClear
             // 
             this.BtnClear.Enabled = false;
             this.BtnClear.Image = global::SqlSchemaCompare.WindowsForm.Properties.Resources.gear;
             this.BtnClear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnClear.Location = new System.Drawing.Point(407, 169);
+            this.BtnClear.Location = new System.Drawing.Point(407, 225);
             this.BtnClear.Name = "BtnClear";
             this.BtnClear.Size = new System.Drawing.Size(70, 36);
             this.BtnClear.TabIndex = 8;
@@ -113,7 +146,7 @@ namespace SqlSchemaCompare.WindowsForm
             // 
             this.BtnLoadSchema.Image = global::SqlSchemaCompare.WindowsForm.Properties.Resources.gear;
             this.BtnLoadSchema.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnLoadSchema.Location = new System.Drawing.Point(14, 169);
+            this.BtnLoadSchema.Location = new System.Drawing.Point(14, 225);
             this.BtnLoadSchema.Name = "BtnLoadSchema";
             this.BtnLoadSchema.Size = new System.Drawing.Size(128, 36);
             this.BtnLoadSchema.TabIndex = 7;
@@ -214,7 +247,7 @@ namespace SqlSchemaCompare.WindowsForm
             // 
             this.btnCompare.Image = global::SqlSchemaCompare.WindowsForm.Properties.Resources.gear;
             this.btnCompare.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCompare.Location = new System.Drawing.Point(14, 130);
+            this.btnCompare.Location = new System.Drawing.Point(14, 76);
             this.btnCompare.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnCompare.Name = "btnCompare";
             this.btnCompare.Size = new System.Drawing.Size(101, 36);
@@ -226,7 +259,7 @@ namespace SqlSchemaCompare.WindowsForm
             // 
             // txtSuffix
             // 
-            this.txtSuffix.Location = new System.Drawing.Point(161, 30);
+            this.txtSuffix.Location = new System.Drawing.Point(161, 37);
             this.txtSuffix.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtSuffix.Name = "txtSuffix";
             this.txtSuffix.Size = new System.Drawing.Size(132, 27);
@@ -246,41 +279,12 @@ namespace SqlSchemaCompare.WindowsForm
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
-            this.lblInfo.Location = new System.Drawing.Point(17, 597);
+            this.lblInfo.Location = new System.Drawing.Point(17, 602);
             this.lblInfo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(52, 20);
             this.lblInfo.TabIndex = 2;
             this.lblInfo.Text = "lblInfo";
-            // 
-            // btnOutputDirectory
-            // 
-            this.btnOutputDirectory.Image = global::SqlSchemaCompare.WindowsForm.Properties.Resources.folder;
-            this.btnOutputDirectory.Location = new System.Drawing.Point(437, 70);
-            this.btnOutputDirectory.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnOutputDirectory.Name = "btnOutputDirectory";
-            this.btnOutputDirectory.Size = new System.Drawing.Size(40, 36);
-            this.btnOutputDirectory.TabIndex = 2;
-            this.btnOutputDirectory.UseVisualStyleBackColor = true;
-            this.btnOutputDirectory.Click += new System.EventHandler(this.BtnOutputDirectory_Click);
-            // 
-            // txtOutputDirectory
-            // 
-            this.txtOutputDirectory.Location = new System.Drawing.Point(161, 70);
-            this.txtOutputDirectory.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.txtOutputDirectory.Name = "txtOutputDirectory";
-            this.txtOutputDirectory.Size = new System.Drawing.Size(263, 27);
-            this.txtOutputDirectory.TabIndex = 1;
-            // 
-            // lblOutputDirectory
-            // 
-            this.lblOutputDirectory.AutoSize = true;
-            this.lblOutputDirectory.Location = new System.Drawing.Point(14, 73);
-            this.lblOutputDirectory.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblOutputDirectory.Name = "lblOutputDirectory";
-            this.lblOutputDirectory.Size = new System.Drawing.Size(118, 20);
-            this.lblOutputDirectory.TabIndex = 0;
-            this.lblOutputDirectory.Text = "Output directory";
             // 
             // GrpUpdateSchema
             // 
@@ -289,7 +293,7 @@ namespace SqlSchemaCompare.WindowsForm
             this.GrpUpdateSchema.Controls.Add(this.label2);
             this.GrpUpdateSchema.Controls.Add(this.btnCreateUpdateFile);
             this.GrpUpdateSchema.Enabled = false;
-            this.GrpUpdateSchema.Location = new System.Drawing.Point(17, 423);
+            this.GrpUpdateSchema.Location = new System.Drawing.Point(16, 435);
             this.GrpUpdateSchema.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.GrpUpdateSchema.Name = "GrpUpdateSchema";
             this.GrpUpdateSchema.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -328,18 +332,15 @@ namespace SqlSchemaCompare.WindowsForm
             // 
             // GrpCompare
             // 
-            this.GrpCompare.Controls.Add(this.btnOutputDirectory);
             this.GrpCompare.Controls.Add(this.txtSuffix);
-            this.GrpCompare.Controls.Add(this.txtOutputDirectory);
             this.GrpCompare.Controls.Add(this.btnCompare);
-            this.GrpCompare.Controls.Add(this.lblOutputDirectory);
             this.GrpCompare.Controls.Add(this.lblSuffix);
             this.GrpCompare.Enabled = false;
-            this.GrpCompare.Location = new System.Drawing.Point(17, 241);
+            this.GrpCompare.Location = new System.Drawing.Point(16, 300);
             this.GrpCompare.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.GrpCompare.Name = "GrpCompare";
             this.GrpCompare.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.GrpCompare.Size = new System.Drawing.Size(495, 174);
+            this.GrpCompare.Size = new System.Drawing.Size(495, 125);
             this.GrpCompare.TabIndex = 5;
             this.GrpCompare.TabStop = false;
             this.GrpCompare.Text = "Compare";
@@ -364,7 +365,7 @@ namespace SqlSchemaCompare.WindowsForm
             this.GrpDbObjects.Enabled = false;
             this.GrpDbObjects.Location = new System.Drawing.Point(527, 31);
             this.GrpDbObjects.Name = "GrpDbObjects";
-            this.GrpDbObjects.Size = new System.Drawing.Size(176, 546);
+            this.GrpDbObjects.Size = new System.Drawing.Size(176, 558);
             this.GrpDbObjects.TabIndex = 6;
             this.GrpDbObjects.TabStop = false;
             this.GrpDbObjects.Text = "Db objects";
@@ -498,7 +499,7 @@ namespace SqlSchemaCompare.WindowsForm
             // 
             // ProgressBar
             // 
-            this.ProgressBar.Location = new System.Drawing.Point(527, 588);
+            this.ProgressBar.Location = new System.Drawing.Point(527, 602);
             this.ProgressBar.Name = "ProgressBar";
             this.ProgressBar.Size = new System.Drawing.Size(176, 29);
             this.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -548,16 +549,10 @@ namespace SqlSchemaCompare.WindowsForm
         private System.Windows.Forms.Label lblSuffix;
         private System.Windows.Forms.Button btnCompare;
         private System.Windows.Forms.Label lblInfo;
-        private System.Windows.Forms.Button btnOutputDirectory;
-        private System.Windows.Forms.TextBox txtOutputDirectory;
-        private System.Windows.Forms.Label lblOutputDirectory;
         private System.Windows.Forms.FolderBrowserDialog fbdOutputDirectory;
         private System.Windows.Forms.Button btnCreateUpdateFile;
         private System.Windows.Forms.GroupBox GrpUpdateSchema;
         private System.Windows.Forms.GroupBox GrpCompare;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnUpdateSchema;
-        private System.Windows.Forms.TextBox txtUpdateSchemaFile;
         private System.Windows.Forms.OpenFileDialog ofdUpdateSchemaFile;
         private System.Windows.Forms.Button BtnSwapOriginDestination;
         private System.Windows.Forms.Button BtnLoadSchema;
@@ -575,6 +570,12 @@ namespace SqlSchemaCompare.WindowsForm
         private System.ComponentModel.BackgroundWorker BackgroundWorker;
         private System.Windows.Forms.ProgressBar ProgressBar;
         private System.Windows.Forms.Button BtnClear;
+        private System.Windows.Forms.Button btnOutputDirectory;
+        private System.Windows.Forms.TextBox txtOutputDirectory;
+        private System.Windows.Forms.Label lblOutputDirectory;
+        private System.Windows.Forms.Button btnUpdateSchema;
+        private System.Windows.Forms.TextBox txtUpdateSchemaFile;
+        private System.Windows.Forms.Label label2;
     }
 }
 

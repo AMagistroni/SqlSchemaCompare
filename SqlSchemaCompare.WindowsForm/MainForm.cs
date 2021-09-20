@@ -100,6 +100,13 @@ namespace SqlSchemaCompare.WindowsForm
                 return false;
             }
 
+            txtOutputDirectory.Text = txtOutputDirectory.Text.Trim();
+            if (txtOutputDirectory.Text == string.Empty)
+            {
+                MessageBox.Show("Select an output directory", ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+
             return true;
         }
 
@@ -113,14 +120,7 @@ namespace SqlSchemaCompare.WindowsForm
             {
                 if (!MandatoryFieldArePresent())
                     return;
-
-                txtOutputDirectory.Text = txtOutputDirectory.Text.Trim();
-                if (txtOutputDirectory.Text == string.Empty)
-                {
-                    MessageBox.Show("Select an output directory", ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
-                }
-
+                
                 EnableDisableMainForm(PleaseWait, false);
 
                 string fileNameDiffOrigin = GetFileNameDiff(txtOriginSchema.Text);
@@ -181,6 +181,7 @@ namespace SqlSchemaCompare.WindowsForm
         {
             lblInfo.Text = text;
 
+            btnOutputDirectory.Enabled = !isAfterLoad;
             btnOriginSchema.Enabled = !isAfterLoad;
             btnDestinationSchema.Enabled = !isAfterLoad;
             BtnLoadSchema.Enabled = !isAfterLoad;
@@ -228,7 +229,7 @@ namespace SqlSchemaCompare.WindowsForm
                 if (File.Exists(txtUpdateSchemaFile.Text))
                     File.Delete(txtUpdateSchemaFile.Text);
 
-                var errorFile = GetErrorFileName("_errorsUpdateSchema");
+                var errorFile = GetErrorFileName("ErrorsUpdateSchema.txt");
                 if (File.Exists(errorFile))
                     File.Delete(errorFile);
 
@@ -257,11 +258,10 @@ namespace SqlSchemaCompare.WindowsForm
 
         private string GetErrorFileName(string suffix)
         {
-            var indexDot = txtUpdateSchemaFile.Text.LastIndexOf('.');
-            if (indexDot > 0)
-                return $"{txtUpdateSchemaFile.Text.Substring(0, indexDot)}{suffix}.{txtUpdateSchemaFile.Text.Substring(indexDot + 1)}";
+            if (txtOutputDirectory.Text.EndsWith('\\'))
+                return $"{txtOutputDirectory.Text}{suffix}";
             else
-                return $"{txtUpdateSchemaFile.Text}_errors";
+                return $"{txtOutputDirectory.Text}\\{suffix}";
         }
 
         private void BtnSwapOriginDestination_Click(object sender, EventArgs e)
@@ -280,7 +280,7 @@ namespace SqlSchemaCompare.WindowsForm
             if (!MandatoryFieldArePresent())
                 return;
 
-            var errorFile = GetErrorFileName("_errorsLoadSchema");
+            var errorFile = GetErrorFileName("ErrorsLoadSchema.txt");
             if (File.Exists(errorFile))
                 File.Delete(errorFile);
 
