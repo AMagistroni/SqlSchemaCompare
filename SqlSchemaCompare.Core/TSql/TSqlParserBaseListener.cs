@@ -3597,6 +3597,19 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitAlter_index([NotNull] TSqlParser.Alter_indexContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.rebuild_partition"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRebuild_partition([NotNull] TSqlParser.Rebuild_partitionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.rebuild_partition"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRebuild_partition([NotNull] TSqlParser.Rebuild_partitionContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_columnstore_index"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

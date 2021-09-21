@@ -3055,6 +3055,17 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitAlter_index([NotNull] TSqlParser.Alter_indexContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.rebuild_partition"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRebuild_partition([NotNull] TSqlParser.Rebuild_partitionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.rebuild_partition"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRebuild_partition([NotNull] TSqlParser.Rebuild_partitionContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_columnstore_index"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

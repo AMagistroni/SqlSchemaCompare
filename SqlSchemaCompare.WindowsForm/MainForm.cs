@@ -221,7 +221,7 @@ namespace SqlSchemaCompare.WindowsForm
                 txtUpdateSchemaFile.Text = txtUpdateSchemaFile.Text.Trim();
                 if (txtUpdateSchemaFile.Text == string.Empty)
                 {
-                    MessageBox.Show("Select a file diff", ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Select an update schema file", ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
 
