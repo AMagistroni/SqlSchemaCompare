@@ -70,7 +70,14 @@ GO";
 @"CREATE VIEW [dbo].[vw1]
 AS
     SELECT * FROM [dbo].[tbl1]
-GO";
+GO
+
+CREATE UNIQUE CLUSTERED INDEX [IndexName] ON [dbo].[vw1]
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+";
             const string destination = "";
 
             (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
@@ -79,6 +86,12 @@ GO";
 @"CREATE VIEW [dbo].[vw1]
 AS
     SELECT * FROM [dbo].[tbl1]
+GO
+
+CREATE UNIQUE CLUSTERED INDEX [IndexName] ON [dbo].[vw1]
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
 ");
@@ -96,7 +109,14 @@ GO
 @"CREATE VIEW [dbo].[vw1]
 AS
     SELECT * FROM [dbo].[tbl1]
-GO";
+GO
+
+CREATE UNIQUE CLUSTERED INDEX [IndexName] ON [dbo].[vw1]
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+";
 
             (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
@@ -118,6 +138,12 @@ GO
 @"CREATE VIEW [dbo].[vw1]
 AS
     SELECT * FROM [dbo].[tbl1]
+GO
+
+CREATE UNIQUE CLUSTERED INDEX [IndexName] ON [dbo].[vw1]
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO";
             const string destination =
 @"CREATE VIEW [dbo].[vw1]
@@ -133,12 +159,76 @@ AS
     SELECT * FROM [dbo].[tbl1]
 GO
 
+CREATE UNIQUE CLUSTERED INDEX [IndexName] ON [dbo].[vw1]
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+");
+            errors.ShouldBeEmpty();
+        }
+
+
+        [Fact]
+        public void AlterIndexOnView()
+        {
+            // When present db object in destination and in origin and are different
+            // Expect updateSchema contains alter statement
+
+            const string origin =
+@"CREATE VIEW [dbo].[VIEW] 
+WITH SCHEMABINDING 
+AS
+    SELECT [ID]     
+    FROM dbo.tbl
+GO
+
+CREATE UNIQUE CLUSTERED INDEX[indexName] ON[dbo].[VIEW]
+(
+    [ID] ASC
+) WITH(PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON[PRIMARY]
+GO
+";
+            const string destination =
+@"CREATE VIEW [dbo].[VIEW] 
+WITH SCHEMABINDING 
+AS
+    SELECT [ID]     
+    FROM dbo.tbl2
+GO
+
+CREATE UNIQUE CLUSTERED INDEX[indexName] ON[dbo].[VIEW]
+(
+    [ID] DESC
+) WITH(PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON[PRIMARY]
+";
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
+
+            updateSchema.ShouldBe(
+@"DROP INDEX [indexName] ON [dbo].[VIEW]
+GO
+
+ALTER VIEW [dbo].[VIEW] 
+WITH SCHEMABINDING 
+AS
+    SELECT [ID]     
+    FROM dbo.tbl
+GO
+
+CREATE UNIQUE CLUSTERED INDEX[indexName] ON[dbo].[VIEW]
+(
+    [ID] ASC
+) WITH(PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON[PRIMARY]
+GO
+
 ");
             errors.ShouldBeEmpty();
         }
 
         [Theory]
-        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.View } , MemberType = typeof(TestDbObjectGenerator))]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.View, DbObjectType.Index } , MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select view db object, update schema is created without view

@@ -5,6 +5,7 @@ using SqlSchemaCompare.Core.DbStructures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static SqlSchemaCompare.Core.DbStructures.Table;
 
 namespace SqlSchemaCompare.Core.TSql.Factory
 {
@@ -63,7 +64,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             };
         }
 
-        internal TableConstraint CreateAlterTable(ParserRuleContext context)
+        internal DbObject CreateAlterTable(ParserRuleContext context)
         {
             var alterTableContext = context as TSqlParser.Alter_tableContext;
 
@@ -71,9 +72,18 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             {
                 return CreateForeignKeyConstraint(alterTableContext);
             }
-            else if (alterTableContext.column_def_table_constraints() != null) {
-                return CreateDefaultConstraint(alterTableContext);
+            else if (alterTableContext.SET() is not null)
+            {
+                return new TableSet
+                {
+                    Sql = alterTableContext.Start.InputStream.GetText(new Interval(alterTableContext.start.StartIndex, alterTableContext.stop.StopIndex)),
+                    Name = alterTableContext.constraint != null ? alterTableContext.constraint.GetText() : default,
+                    ParentName = alterTableContext.children[2].GetText(),
+                };
             }
+            else if (alterTableContext.column_def_table_constraints() != null || alterTableContext.CHECK() != null || alterTableContext.NOCHECK() != null) {
+                return CreateDefaultConstraint(alterTableContext);
+            }            
 
             throw new NotImplementedException();
         }
@@ -91,15 +101,27 @@ namespace SqlSchemaCompare.Core.TSql.Factory
 
         private Table.TableDefaultConstraint CreateDefaultConstraint(TSqlParser.Alter_tableContext alterTableContext)
         {
-            var constraint = ((TSqlParser.Column_def_table_constraintContext)alterTableContext.column_def_table_constraints().children[0]).table_constraint();
-            return new Table.TableDefaultConstraint
+            if (alterTableContext.column_def_table_constraints() is not null)
             {
-                Sql = alterTableContext.Start.InputStream.GetText(new Interval(alterTableContext.start.StartIndex, alterTableContext.stop.StopIndex)),
-                Name = constraint.CONSTRAINT() != null ? constraint.id_()[0].GetText() : string.Empty,
-                ParentName = alterTableContext.children[2].GetText(),
-                ColumnNames = new List<string> { constraint.forColumn.GetText() },
-                Value = constraint.DEFAULT() != null ? constraint.default_value_column.GetText() : string.Empty
-            };
+                var constraint = ((TSqlParser.Column_def_table_constraintContext)alterTableContext.column_def_table_constraints().children[0]).table_constraint();
+                return new Table.TableDefaultConstraint
+                {
+                    Sql = alterTableContext.Start.InputStream.GetText(new Interval(alterTableContext.start.StartIndex, alterTableContext.stop.StopIndex)),
+                    Name = constraint.CONSTRAINT() != null ? constraint.id_()[0].GetText() : string.Empty,
+                    ParentName = alterTableContext.children[2].GetText(),
+                    ColumnNames = new List<string> { constraint.forColumn.GetText() },
+                    Value = constraint.DEFAULT() != null ? constraint.default_value_column.GetText() : string.Empty
+                };
+            }
+            else
+            {
+                return new Table.TableDefaultConstraint
+                {
+                    Sql = alterTableContext.Start.InputStream.GetText(new Interval(alterTableContext.start.StartIndex, alterTableContext.stop.StopIndex)),
+                    ParentName = alterTableContext.children[2].GetText(),
+                    Value = alterTableContext.search_condition().GetText()
+                };
+            }
         }
     }
 }

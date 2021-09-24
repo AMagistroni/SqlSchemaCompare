@@ -12,7 +12,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             var triggerContext = context as TSqlParser.Create_or_alter_triggerContext;
             return new Trigger()
             {
-                Sql = stream.GetText(new Interval(triggerContext.start.StartIndex, triggerContext.stop.StopIndex)),
+                Sql = GetSqlWithoutGOStatement(context, stream),
                 Name = triggerContext.create_or_alter_ddl_trigger().simple_name().GetText(),
                 Schema = string.Empty,
                 Operation = GetOperation(triggerContext.GetChild(0).GetChild(0).GetText())

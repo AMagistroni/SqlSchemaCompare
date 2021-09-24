@@ -28,11 +28,18 @@ namespace SqlSchemaCompare.Core.DbStructures
             public override DbObjectType DbObjectType => DbObjectType.TablePrimaryKeyContraint;
         }
 
+        public class TableSet : DbObject
+        {
+            public override DbObjectType DbObjectType => DbObjectType.TableSet;
+        }
+
         public IList<Column> Columns { get; } = new List<Column>();
         public IList<TableConstraint> Constraints { get; } = new List<TableConstraint>();
+        public IList<TableSet> TableSetList { get; } = new List<TableSet>();
         public IList<Index> Indexes { get; } = new List<Index>();
         public void AdColumns(Column Colum) => Columns.Add(Colum);
         public void AddConstraint(TableConstraint tableConstraint) => Constraints.Add(tableConstraint);
+        public void AddSet(TableSet tableSet) => TableSetList.Add(tableSet);
         public void AddIndex(Index index) => Indexes.Add(index);
         public bool PrimaryKeyDefinedInsideCreateTable { get; set; }
     }

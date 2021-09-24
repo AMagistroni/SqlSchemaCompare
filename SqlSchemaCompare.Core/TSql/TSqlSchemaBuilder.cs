@@ -29,6 +29,7 @@ namespace SqlSchemaCompare.Core.TSql
                 DbObjectType.Index => BuildIndex(dbObject as Index, operation),
                 DbObjectType.Member => BuildMember(dbObject as Member, operation),
                 DbObjectType.EnableTrigger => BuildEnableTrigger(dbObject as Trigger.EnabledDbObject, operation),
+                DbObjectType.TableSet => dbObject.Sql,
                 _ => throw new NotImplementedException(),
             };
         }

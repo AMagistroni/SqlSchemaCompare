@@ -14,7 +14,7 @@ namespace SqlSchemaCompare.Test.TSql
         public TSqlIndexTest()
         {
             RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
-            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Index);
+            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Table);
         }
         [Fact]
         public void CreateIndex()

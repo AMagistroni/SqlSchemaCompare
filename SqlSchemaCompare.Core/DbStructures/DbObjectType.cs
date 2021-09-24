@@ -16,6 +16,7 @@
         TableDefaultContraint,
         TableForeignKeyContraint,
         TablePrimaryKeyContraint,
+        TableSet,
         Column,
         EnableTrigger,
         Database,

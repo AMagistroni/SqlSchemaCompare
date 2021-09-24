@@ -41,6 +41,7 @@ namespace SqlSchemaCompare.Core
             ( DbObjectType.TableForeignKeyContraint, Operation.Create),
             ( DbObjectType.TableDefaultContraint, Operation.Create),
             ( DbObjectType.Table, Operation.Drop ),
+            ( DbObjectType.TableSet, Operation.Create),
 
             ( DbObjectType.StoreProcedure, Operation.Drop),
             ( DbObjectType.StoreProcedure, Operation.Create ),            
@@ -79,7 +80,7 @@ namespace SqlSchemaCompare.Core
             ProcessTable(sourceObjects, destinationObjects, resultProcessDbObject);
             ProcessGenericDbObject<StoreProcedure>(sourceObjects, destinationObjects, resultProcessDbObject, DbObjectType.StoreProcedure);
             ProcessGenericDbObject<Function>(sourceObjects, destinationObjects, resultProcessDbObject, DbObjectType.Function);
-            ProcessGenericDbObject<View>(sourceObjects, destinationObjects, resultProcessDbObject, DbObjectType.View);
+            ProcessView(sourceObjects, destinationObjects, resultProcessDbObject);
             ProcessTrigger(sourceObjects, destinationObjects, resultProcessDbObject);            
             ProcessDbObjectWithoutAlter<TypeDbObject>(sourceObjects, destinationObjects, resultProcessDbObject, DbObjectType.Type);
 
@@ -122,6 +123,39 @@ namespace SqlSchemaCompare.Core
             }
             return updateSchemaStringBuild.ToString();
         }        
+
+        private void ProcessView(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
+        {
+            ProcessGenericDbObject<View>(sourceObjects, destinationObjects, resultProcessDbObject, DbObjectType.View);
+            var originDb = sourceObjects.OfType<View>();
+            var destinationDb = destinationObjects.OfType<View>();
+            foreach (var viewOrigin in originDb)
+            {
+                var destinationView = destinationDb.SingleOrDefault(x => x.Identifier == viewOrigin.Identifier);
+                if (destinationView == null)
+                    resultProcessDbObject.AddOperation(viewOrigin.Indexes, Operation.Create);
+                else
+                    ProcessSingleIndex(viewOrigin.Indexes, destinationView.Indexes, resultProcessDbObject);
+            }
+        }
+
+        private void ProcessSingleIndex(IEnumerable<Index> originIndexes, IEnumerable<Index> destinationIndexes, ResultProcessDbObject resultProcessDbObject)
+        {
+            var indexToCreate = CreateDbObjectByName(originIndexes, destinationIndexes, resultProcessDbObject);
+            var indexToDrop = DropDbObjectByName(originIndexes, destinationIndexes)
+                                .GroupBy(x => x.Identifier)
+                                .Select(x => x.First()).ToList();
+            var identifierToDrop = indexToDrop.Select(x => x.Identifier);
+            resultProcessDbObject.AddOperation(indexToDrop, Operation.Drop);
+
+            var indexToAlter = originIndexes
+                .Except(indexToCreate)
+                .Where(x => !identifierToDrop.Contains(x.Identifier)) // Discard index dropped from index to alter
+                .Where(x => !destinationIndexes.Contains(x)).ToList(); //discard object present in origin, present in destination and equals
+
+            resultProcessDbObject.AddOperation(indexToAlter, Operation.Drop);
+            resultProcessDbObject.AddOperation(indexToAlter, Operation.Create);
+        }
 
         private void ProcessMember(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
         {
@@ -201,6 +235,7 @@ namespace SqlSchemaCompare.Core
 
                     resultProcessDbObject.AddOperation(tableOrigin.Indexes, Operation.Create);
                     resultProcessDbObject.AddOperation<Table>(tableOrigin, Operation.Create);
+                    resultProcessDbObject.AddOperation<TableSet>(tableOrigin.TableSetList, Operation.Create);
                 }
                 else
                 {
@@ -218,27 +253,15 @@ namespace SqlSchemaCompare.Core
                     resultProcessDbObject.AddOperation(constraintToDrop, Operation.Drop);
                     resultProcessDbObject.AddOperation(constraintsToAlter, Operation.Drop);
                     resultProcessDbObject.AddOperation(constraintsToAlter, Operation.Create);
-
-                    var indexToCreate = CreateDbObjectByName(tableOrigin.Indexes, destinationTable.Indexes, resultProcessDbObject);
-                    var indexToDrop = DropDbObjectByName(tableOrigin.Indexes, destinationTable.Indexes)
-                                        .GroupBy(x => x.Identifier)
-                                        .Select(x => x.First()).ToList();
-                    var identifierToDrop = indexToDrop.Select(x => x.Identifier);
-                    resultProcessDbObject.AddOperation(indexToDrop, Operation.Drop);
-
-                    var indexToAlter = tableOrigin.Indexes
-                        .Except(indexToCreate)
-                        .Where(x => !identifierToDrop.Contains(x.Identifier)) // Discard index dropped from index to alter
-                        .Where(x => !destinationTable.Indexes.Contains(x)).ToList(); //discard object present in origin, present in destination and equals
-
-                    resultProcessDbObject.AddOperation(indexToAlter, Operation.Drop);
-                    resultProcessDbObject.AddOperation(indexToAlter, Operation.Create);
+                    
+                    ProcessSingleIndex(tableOrigin.Indexes, destinationTable.Indexes, resultProcessDbObject);
 
                     if (tableOrigin != destinationTable)
                     {
                         //columns different
                         ProcessTableColumn(tableOrigin, destinationTable, resultProcessDbObject);
                     }
+                    resultProcessDbObject.AddOperation<TableSet>(tableOrigin.TableSetList.Except(destinationTable.TableSetList).ToList(), Operation.Create);
                 }
             }
             DropDbObject(originDb, destinationDb, resultProcessDbObject);

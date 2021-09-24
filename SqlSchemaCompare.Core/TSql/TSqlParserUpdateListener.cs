@@ -5,6 +5,7 @@ using SqlSchemaCompare.Core.TSql.Factory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static SqlSchemaCompare.Core.DbStructures.Table;
 using static SqlSchemaCompare.Core.TSql.TSqlParser;
 
 namespace SqlSchemaCompare.Core.TSql
@@ -126,8 +127,14 @@ namespace SqlSchemaCompare.Core.TSql
             if (!ObjectInsideDDL(context))
             {
                 var index = _indexFactory.Create(context, _stream);
-                var table = DbObjects.OfType<Table>().Single(x => x.Identifier == index.ParentName);
-                table.AddIndex(index as DbStructures.Index);
+                var table = DbObjects.OfType<Table>().SingleOrDefault(x => x.Identifier == index.ParentName);
+                if (table != null) 
+                    table.AddIndex(index as DbStructures.Index);
+                else
+                {
+                    var view = DbObjects.OfType<View>().SingleOrDefault(x => x.Identifier == index.ParentName);
+                    view.AddIndex(index as DbStructures.Index);
+                }
                 DbObjects.Add(index);
             }
         }
@@ -137,7 +144,7 @@ namespace SqlSchemaCompare.Core.TSql
             if (!ObjectInsideDDL(context))
             {
                 var index = _indexFactory.CreateAlter(context, _stream);
-                var table = DbObjects.OfType<Table>().Single(x => x.Identifier == index.ParentName);
+                var table = DbObjects.OfType<Table>().SingleOrDefault(x => x.Identifier == index.ParentName);
                 table.AddIndex(index as DbStructures.Index);
                 DbObjects.Add(index);
             }
@@ -147,11 +154,19 @@ namespace SqlSchemaCompare.Core.TSql
         {
             if (!ObjectInsideDDL(context))
             {
-                var constraint = _tableFactory.CreateAlterTable(context);
-                var table = DbObjects.OfType<Table>().Single(x => x.Identifier == constraint.ParentName);
-                table.AddConstraint(constraint);
-                constraint.SetTable(table);
-                DbObjects.Add(constraint);
+                var dbObject = _tableFactory.CreateAlterTable(context);
+                var table = DbObjects.OfType<Table>().Single(x => x.Identifier == dbObject.ParentName);
+                if (dbObject is TableConstraint)
+                {
+                    var constraint = dbObject as TableConstraint;
+                    table.AddConstraint(constraint);
+                    constraint.SetTable(table);
+                    DbObjects.Add(constraint);
+                }
+                else
+                {
+                    table.AddSet(dbObject as TableSet);
+                }
             }
         }
 

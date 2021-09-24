@@ -15,9 +15,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             {
                 return new View()
                 {
-                    Sql = viewContext.stop.Text == "GO"
-                        ? stream.GetText(new Interval(viewContext.start.StartIndex, viewContext.stop.StopIndex - 4))
-                        : stream.GetText(new Interval(viewContext.start.StartIndex, viewContext.stop.StopIndex)),
+                    Sql = GetSqlWithoutGOStatement(context, stream),
                     Name = viewContext.simple_name().name.GetText(),
                     Schema = viewContext.simple_name().schema.GetText(),
                     Body = stream.GetText(new Interval(bodyContext.start.StartIndex, bodyContext.stop.StopIndex)),

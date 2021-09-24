@@ -105,6 +105,9 @@ GO
 
 ALTER TABLE [dbo].[TBL] CHECK CONSTRAINT [FK_Name2]
 GO
+
+ALTER TABLE [dbo].[TBL] SET (LOCK_ESCALATION = DISABLE)
+GO
 ";
             const string destination =
 @"CREATE TABLE [dbo].[TBL] (
@@ -128,6 +131,9 @@ ALTER TABLE [dbo].[TBL]  WITH NOCHECK ADD  CONSTRAINT [FK_Name2] FOREIGN KEY([co
 GO
 
 ALTER TABLE [dbo].[TBL] CHECK CONSTRAINT [FK_Name2]
+GO
+
+ALTER TABLE [dbo].[TBL] SET (LOCK_ESCALATION = DISABLE)
 GO
 ";
 
@@ -612,7 +618,8 @@ GO
 ALTER TABLE [schema].[tbl] ADD CONSTRAINT [constraint] DEFAULT (getdate()) FOR [col2]
 GO
 
-";
+ALTER TABLE [schema].[tbl] SET (LOCK_ESCALATION = DISABLE)
+GO";
 
             const string destination =
 @"CREATE TABLE [schema].[tbl] (col1 INT not null)
@@ -625,10 +632,39 @@ GO
 @"ALTER TABLE [schema].[tbl] ADD [col2] [datetime] NOT NULL CONSTRAINT [constraint] DEFAULT (getdate())
 GO
 
+ALTER TABLE [schema].[tbl] SET (LOCK_ESCALATION = DISABLE)
+GO
+
 ");
             errors.ShouldBeEmpty();
         }
 
+        [Fact]
+        public void SimpleDbObjectsDifferent()
+        {
+            const string origin =
+@"CREATE TABLE [schema].[tbl] (col1 INT not null, [col2] [datetime] NOT NULL)
+GO
+
+ALTER TABLE [schema].[tbl] SET (LOCK_ESCALATION = DISABLE)
+GO";
+
+            const string destination =
+@"CREATE TABLE [schema].[tbl] (col1 INT not null, [col2] [datetime] NOT NULL)
+GO
+
+ALTER TABLE [schema].[tbl] SET (LOCK_ESCALATION = TABLE)
+GO";
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
+
+            updateSchema.ShouldBe(
+@"ALTER TABLE [schema].[tbl] SET (LOCK_ESCALATION = DISABLE)
+GO
+
+");
+            errors.ShouldBeEmpty();
+        }
 
         [Theory]
         [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.Table, DbObjectType.Column, DbObjectType.TablePrimaryKeyContraint, DbObjectType.TableDefaultContraint, DbObjectType.TableForeignKeyContraint }, MemberType = typeof(TestDbObjectGenerator))]
