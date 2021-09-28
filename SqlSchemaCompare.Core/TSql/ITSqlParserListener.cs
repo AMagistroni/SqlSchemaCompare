@@ -3264,6 +3264,17 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitFunction_option([NotNull] TSqlParser.Function_optionContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.partition_with"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPartition_with([NotNull] TSqlParser.Partition_withContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.partition_with"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPartition_with([NotNull] TSqlParser.Partition_withContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_statistics"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

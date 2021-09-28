@@ -3844,6 +3844,19 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitFunction_option([NotNull] TSqlParser.Function_optionContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.partition_with"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPartition_with([NotNull] TSqlParser.Partition_withContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.partition_with"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPartition_with([NotNull] TSqlParser.Partition_withContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_statistics"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
