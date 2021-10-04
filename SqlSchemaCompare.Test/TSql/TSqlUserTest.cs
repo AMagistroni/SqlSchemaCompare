@@ -10,7 +10,7 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlUserTest
     {
-        private IList<DbObjectType> SelectedObjects;
+        private readonly IList<DbObjectType> SelectedObjects;
         public TSqlUserTest()
         {
             RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
@@ -94,7 +94,7 @@ GO
         {
             // When present db object in destination absent from origin
             // Expect updateSchema contains drop statement
-           
+
             const string origin = "";
             const string destination =
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
@@ -137,7 +137,7 @@ GO
         }
 
         [Theory]
-        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.User, DbObjectType.Role, DbObjectType.Member } , MemberType = typeof(TestDbObjectGenerator))]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.User, DbObjectType.Role, DbObjectType.Member }, MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select user db object, update schema is created without user
@@ -146,10 +146,10 @@ GO
 @"CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]
 GO";
             string destination = string.Empty;
-            
+
             (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
             updateSchema.ShouldBeEmpty();
-            errors.ShouldBeEmpty();                 
+            errors.ShouldBeEmpty();
         }
     }
 }

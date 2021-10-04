@@ -21,6 +21,7 @@ namespace SqlSchemaCompare.Core.DbStructures
         public class TableForeignKeyConstraint : TableConstraint
         {
             public override DbObjectType DbObjectType => DbObjectType.TableForeignKeyContraint;
+            public string TableIdentifierPrimaryKey { get; set; }
         }
 
         public class TablePrimaryKeyConstraint : TableConstraint
@@ -43,15 +44,15 @@ namespace SqlSchemaCompare.Core.DbStructures
         public void AddIndex(Index index) => Indexes.Add(index);
         public bool PrimaryKeyDefinedInsideCreateTable { get; set; }
     }
-}
 
-public abstract class TableConstraint : DbObject
-{
-    public Table Table { get; set; }
-    public IEnumerable<string> ColumnNames { get; init; }
-
-    public void SetTable(Table table)
+    public abstract class TableConstraint : DbObject
     {
-        Table = table;
+        public Table Table { get; set; }
+        public IEnumerable<string> ColumnNames { get; init; }
+
+        public void SetTable(Table table)
+        {
+            Table = table;
+        }
     }
 }

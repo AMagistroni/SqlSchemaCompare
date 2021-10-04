@@ -10,7 +10,7 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlSchemaTest
     {
-        private IList<DbObjectType> SelectedObjects;
+        private readonly IList<DbObjectType> SelectedObjects;
         public TSqlSchemaTest()
         {
             RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
@@ -41,7 +41,7 @@ namespace SqlSchemaCompare.Test.TSql
             const string origin = "CREATE SCHEMA [sch1]";
             const string destination = "CREATE SCHEMA [sch1]";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
+            (string updateSchema, _) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBeEmpty();
         }
@@ -70,7 +70,7 @@ GO
         {
             // When present db object in destination absent from origin
             // Expect updateSchema contains drop statement
-       
+
             const string origin = "";
             const string destination = "CREATE SCHEMA [sch1]";
 
@@ -92,10 +92,10 @@ GO
 
             const string origin = "CREATE SCHEMA [sch1]";
             string destination = string.Empty;
-            
+
             (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
             updateSchema.ShouldBeEmpty();
-            errors.ShouldBeEmpty();     
+            errors.ShouldBeEmpty();
         }
     }
 }

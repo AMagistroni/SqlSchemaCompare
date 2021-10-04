@@ -10,7 +10,7 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlViewTest
     {
-        private IList<DbObjectType> SelectedObjects;
+        private readonly IList<DbObjectType> SelectedObjects;
         public TSqlViewTest()
         {
             RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
@@ -21,9 +21,9 @@ namespace SqlSchemaCompare.Test.TSql
         {
             const string body = "SELECT * FROM Db.dbo.Table1";
 
-            var viewSql = $@"CREATE VIEW [dbo].[view]
-	                    AS
-	                    {body}";
+            string viewSql = $@"CREATE VIEW [dbo].[view]
+                        AS
+                        {body}";
 
             var objectFactory = new TSqlObjectFactory();
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(viewSql);
@@ -74,7 +74,7 @@ GO
 
 CREATE UNIQUE CLUSTERED INDEX [IndexName] ON [dbo].[vw1]
 (
-	[ID] ASC
+    [ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 ";
@@ -90,7 +90,7 @@ GO
 
 CREATE UNIQUE CLUSTERED INDEX [IndexName] ON [dbo].[vw1]
 (
-	[ID] ASC
+    [ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
@@ -103,7 +103,7 @@ GO
         {
             // When present db object in destination absent from origin
             // Expect updateSchema contains drop statement
-          
+
             const string origin = "";
             const string destination =
 @"CREATE VIEW [dbo].[vw1]
@@ -113,7 +113,7 @@ GO
 
 CREATE UNIQUE CLUSTERED INDEX [IndexName] ON [dbo].[vw1]
 (
-	[ID] ASC
+    [ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 ";
@@ -133,7 +133,7 @@ GO
         {
             // When present db object in destination and in origin and are different
             // Expect updateSchema contains alter statement
-        
+
             const string origin =
 @"CREATE VIEW [dbo].[vw1]
 AS
@@ -142,7 +142,7 @@ GO
 
 CREATE UNIQUE CLUSTERED INDEX [IndexName] ON [dbo].[vw1]
 (
-	[ID] ASC
+    [ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO";
             const string destination =
@@ -161,14 +161,13 @@ GO
 
 CREATE UNIQUE CLUSTERED INDEX [IndexName] ON [dbo].[vw1]
 (
-	[ID] ASC
+    [ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
 ");
             errors.ShouldBeEmpty();
         }
-
 
         [Fact]
         public void AlterIndexOnView()
@@ -228,7 +227,7 @@ GO
         }
 
         [Theory]
-        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.View, DbObjectType.Index } , MemberType = typeof(TestDbObjectGenerator))]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.View, DbObjectType.Index }, MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select view db object, update schema is created without view

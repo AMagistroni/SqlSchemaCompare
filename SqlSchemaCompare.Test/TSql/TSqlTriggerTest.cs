@@ -10,7 +10,7 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlTriggerTest
     {
-        private IList<DbObjectType> SelectedObjects;
+        private readonly IList<DbObjectType> SelectedObjects;
         public TSqlTriggerTest()
         {
             RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
@@ -23,14 +23,14 @@ namespace SqlSchemaCompare.Test.TSql
 @"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
-	create_table, alter_table, drop_table,
-	create_trigger, alter_trigger, drop_trigger,
-	create_view, alter_view, drop_view,
-	create_function, alter_function, drop_function,
-	create_index, alter_index, drop_index
+    create_table, alter_table, drop_table,
+    create_trigger, alter_trigger, drop_trigger,
+    create_view, alter_view, drop_view,
+    create_function, alter_function, drop_function,
+    create_index, alter_index, drop_index
 AS 
 begin
-	declare @variable int	
+    declare @variable int	
 end";
 
             const string enableSql = "ENABLE TRIGGER [trg1] ON DATABASE";
@@ -42,7 +42,7 @@ GO
 
 {enableSql}
 GO"
-                ); ;
+                );
             var dbobject = dbObjects.First() as Trigger;
 
             dbobject.Name.ShouldBe("[trg1]");
@@ -65,14 +65,14 @@ GO"
 @"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
-	create_table, alter_table, drop_table,
-	create_trigger, alter_trigger, drop_trigger,
-	create_view, alter_view, drop_view,
-	create_function, alter_function, drop_function,
-	create_index, alter_index, drop_index
+    create_table, alter_table, drop_table,
+    create_trigger, alter_trigger, drop_trigger,
+    create_view, alter_view, drop_view,
+    create_function, alter_function, drop_function,
+    create_index, alter_index, drop_index
 AS 
 begin
-	declare @variable int	
+    declare @variable int	
 end
 GO
 
@@ -82,14 +82,14 @@ GO";
 @"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
-	create_table, alter_table, drop_table,
-	create_trigger, alter_trigger, drop_trigger,
-	create_view, alter_view, drop_view,
-	create_function, alter_function, drop_function,
-	create_index, alter_index, drop_index
+    create_table, alter_table, drop_table,
+    create_trigger, alter_trigger, drop_trigger,
+    create_view, alter_view, drop_view,
+    create_function, alter_function, drop_function,
+    create_index, alter_index, drop_index
 AS 
 begin
-	declare @variable int	
+    declare @variable int	
 end
 GO
 
@@ -112,14 +112,14 @@ GO";
 @"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
-	create_table, alter_table, drop_table,
-	create_trigger, alter_trigger, drop_trigger,
-	create_view, alter_view, drop_view,
-	create_function, alter_function, drop_function,
-	create_index, alter_index, drop_index
+    create_table, alter_table, drop_table,
+    create_trigger, alter_trigger, drop_trigger,
+    create_view, alter_view, drop_view,
+    create_function, alter_function, drop_function,
+    create_index, alter_index, drop_index
 AS 
 begin
-	declare @variable int	
+    declare @variable int	
 end
 GO
 
@@ -133,14 +133,14 @@ GO";
 @"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
-	create_table, alter_table, drop_table,
-	create_trigger, alter_trigger, drop_trigger,
-	create_view, alter_view, drop_view,
-	create_function, alter_function, drop_function,
-	create_index, alter_index, drop_index
+    create_table, alter_table, drop_table,
+    create_trigger, alter_trigger, drop_trigger,
+    create_view, alter_view, drop_view,
+    create_function, alter_function, drop_function,
+    create_index, alter_index, drop_index
 AS 
 begin
-	declare @variable int	
+    declare @variable int	
 end
 GO
 
@@ -161,14 +161,14 @@ GO
 @"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
-	create_table, alter_table, drop_table,
-	create_trigger, alter_trigger, drop_trigger,
-	create_view, alter_view, drop_view,
-	create_function, alter_function, drop_function,
-	create_index, alter_index, drop_index
+    create_table, alter_table, drop_table,
+    create_trigger, alter_trigger, drop_trigger,
+    create_view, alter_view, drop_view,
+    create_function, alter_function, drop_function,
+    create_index, alter_index, drop_index
 AS 
 begin
-	declare @variable int	
+    declare @variable int	
 end
 GO
 
@@ -191,19 +191,19 @@ GO
         {
             // When present db object in destination and in origin and are different
             // Expect updateSchema contains alter statement
- 
+
             const string origin =
     @"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
-	create_table, alter_table, drop_table,
-	create_trigger, alter_trigger, drop_trigger,
-	create_view, alter_view, drop_view,
-	create_function, alter_function, drop_function,
-	create_index, alter_index, drop_index
+    create_table, alter_table, drop_table,
+    create_trigger, alter_trigger, drop_trigger,
+    create_view, alter_view, drop_view,
+    create_function, alter_function, drop_function,
+    create_index, alter_index, drop_index
 AS 
 begin
-	declare @variable int	
+    declare @variable int	
 end
 GO
 
@@ -214,13 +214,13 @@ GO
 @"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
-	create_table, alter_table, drop_table,
-	create_trigger, alter_trigger, drop_trigger,
-	create_view, alter_view, drop_view,
-	create_index, alter_index, drop_index
+    create_table, alter_table, drop_table,
+    create_trigger, alter_trigger, drop_trigger,
+    create_view, alter_view, drop_view,
+    create_index, alter_index, drop_index
 AS 
 begin
-	declare @variable int	
+    declare @variable int	
 end
 GO
 
@@ -234,14 +234,14 @@ GO
 @"ALTER TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
-	create_table, alter_table, drop_table,
-	create_trigger, alter_trigger, drop_trigger,
-	create_view, alter_view, drop_view,
-	create_function, alter_function, drop_function,
-	create_index, alter_index, drop_index
+    create_table, alter_table, drop_table,
+    create_trigger, alter_trigger, drop_trigger,
+    create_view, alter_view, drop_view,
+    create_function, alter_function, drop_function,
+    create_index, alter_index, drop_index
 AS 
 begin
-	declare @variable int	
+    declare @variable int	
 end
 GO
 
@@ -257,19 +257,19 @@ GO
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select trigger db object, update schema is created without trigger
-          
+
             const string origin =
 @"CREATE TRIGGER [trg1]
 ON DATABASE 
 for create_procedure, alter_procedure, drop_procedure,
-	create_table, alter_table, drop_table,
-	create_trigger, alter_trigger, drop_trigger,
-	create_view, alter_view, drop_view,
-	create_function, alter_function, drop_function,
-	create_index, alter_index, drop_index
+    create_table, alter_table, drop_table,
+    create_trigger, alter_trigger, drop_trigger,
+    create_view, alter_view, drop_view,
+    create_function, alter_function, drop_function,
+    create_index, alter_index, drop_index
 AS 
 begin
-	declare @variable int	
+    declare @variable int	
 end
 GO
 

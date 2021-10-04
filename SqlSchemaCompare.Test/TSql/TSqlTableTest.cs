@@ -10,7 +10,7 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlTableTest
     {
-        private IList<DbObjectType> SelectedObjects;
+        private readonly IList<DbObjectType> SelectedObjects;
         public TSqlTableTest()
         {
             RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
@@ -21,16 +21,16 @@ namespace SqlSchemaCompare.Test.TSql
         public void CreateTable()
         {
             const string constraint = @"CONSTRAINT [PK_TableName_Id] PRIMARY KEY CLUSTERED 
-						(
-							[Id] ASC
-						) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db1]";
+                        (
+                            [Id] ASC
+                        ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db1]";
 
-            var sqlTable = 
+            string sqlTable =
 $@"CREATE TABLE [schema].[TableName](
     [Id] [int] IDENTITY(1,1) NOT NULL,
-	[col1] [char](8) NULL,
+    [col1] [char](8) NULL,
     [col2] [DateTime] NOT NULL,
-	{constraint}
+    {constraint}
 ) ON [db1]
 GO
 
@@ -44,7 +44,7 @@ GO
 ";
 
             var sql = $@"{sqlTable}
-						GO";
+                        GO";
 
             var objectFactory = new TSqlObjectFactory();
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
@@ -55,23 +55,23 @@ GO
             table.Sql.ShouldBe(
 @"CREATE TABLE [schema].[TableName](
     [Id] [int] IDENTITY(1,1) NOT NULL,
-	[col1] [char](8) NULL,
+    [col1] [char](8) NULL,
     [col2] [DateTime] NOT NULL,
-	CONSTRAINT [PK_TableName_Id] PRIMARY KEY CLUSTERED 
-						(
-							[Id] ASC
-						) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db1]
+    CONSTRAINT [PK_TableName_Id] PRIMARY KEY CLUSTERED 
+                        (
+                            [Id] ASC
+                        ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db1]
 ) ON [db1]");
 
-            var column1 = table.Columns.ElementAt(0);
+            var column1 = table.Columns[0];
             column1.Name.ShouldBe("[Id]");
             column1.Sql.ShouldBe("[Id] [int] IDENTITY(1,1) NOT NULL");
 
-            var column2 = table.Columns.ElementAt(1);
+            var column2 = table.Columns[1];
             column2.Name.ShouldBe("[col1]");
-            column2.Sql.ShouldBe("[col1] [char](8) NULL");            
+            column2.Sql.ShouldBe("[col1] [char](8) NULL");
 
-            table.Constraints.First().Sql.ShouldBe(constraint);
+            table.Constraints[0].Sql.ShouldBe(constraint);
             table.Constraints[1].Table.ShouldBe(table);
             table.Constraints[2].Table.ShouldBe(table);
             errors.Count().ShouldBe(0);
@@ -84,10 +84,10 @@ GO
 
             const string origin =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] IDENTITY(1,1) NOT NULL,
+    [ID] [int] IDENTITY(1,1) NOT NULL,
     [Description1] [varchar](max) NULL,
     [Description2] varchar(max) NULL,
-	[column1] [Date] NOT NULL)
+    [column1] [Date] NOT NULL)
 GO
 
 ALTER TABLE [dbo].[TBL]  WITH NOCHECK ADD  CONSTRAINT [FK_Name1] FOREIGN KEY([column1])
@@ -111,10 +111,10 @@ GO
 ";
             const string destination =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] IDENTITY(1,1) NOT NULL,
+    [ID] [int] IDENTITY(1,1) NOT NULL,
     [Description1] [varchar](max) NULL,
     [Description2] varchar(max) NULL,
-	[column1] [Date] NOT NULL)
+    [column1] [Date] NOT NULL)
 GO
 
 ALTER TABLE [dbo].[TBL]  WITH NOCHECK ADD  CONSTRAINT [FK_Name1] FOREIGN KEY([column1])
@@ -151,11 +151,11 @@ GO
 
             const string origin =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [Date] NOT NULL,
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [Date] NOT NULL,
     CONSTRAINT [PK] PRIMARY KEY NONCLUSTERED 
     (
-	    [ID] ASC
+        [ID] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
 )
 GO
@@ -174,11 +174,11 @@ GO
 
             updateSchema.ShouldBe(
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [Date] NOT NULL,
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [Date] NOT NULL,
     CONSTRAINT [PK] PRIMARY KEY NONCLUSTERED 
     (
-	    [ID] ASC
+        [ID] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
 )
 GO
@@ -208,8 +208,8 @@ CREATE SCHEMA [schema]
 GO
 
 CREATE TABLE [schema].[table] (
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [Date] NOT NULL)
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [Date] NOT NULL)
 GO
 
 ALTER TABLE [schema].[table]  WITH NOCHECK ADD  CONSTRAINT [FK_Name1] FOREIGN KEY([column1])
@@ -219,7 +219,7 @@ GO
 
 CREATE NONCLUSTERED INDEX [indexName] ON [schema].[table]
 (
-	[ID] ASC
+    [ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO
 
@@ -248,14 +248,14 @@ GO
 
             const string origin =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[columnToAdd] [nvarchar](20) NOT NULL,
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [columnToAdd] [nvarchar](20) NOT NULL,
     [columnToAlter] [nvarchar](20) NOT NULL)
 GO";
             const string destination =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[columnToDrop] [nvarchar](20) NOT NULL,
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [columnToDrop] [nvarchar](20) NOT NULL,
     [columnToAlter] [nvarchar](20) NULL)
 GO";
 
@@ -283,13 +283,13 @@ GO
 
             const string origin =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [nvarchar](20) NOT NULL)
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [nvarchar](20) NOT NULL)
 GO";
             const string destination =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [nvarchar](20) NOT NULL)
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [nvarchar](20) NOT NULL)
 GO
 
 ALTER TABLE [dbo].[TBL]  WITH NOCHECK ADD  CONSTRAINT [FK_Name1] FOREIGN KEY([column1])
@@ -318,13 +318,13 @@ GO
 
             const string origin =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [nvarchar](20) NULL)
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [nvarchar](20) NULL)
 GO";
             const string destination =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [nvarchar](20) NOT NULL)
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [nvarchar](20) NOT NULL)
 GO
 
 ALTER TABLE [dbo].[TBL]  WITH NOCHECK ADD  CONSTRAINT [FK_Name1] FOREIGN KEY([column1])
@@ -353,8 +353,8 @@ GO
         {
             const string origin =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] NOT NULL,
-	[column1] [Date] NOT NULL)
+    [ID] [int] NOT NULL,
+    [column1] [Date] NOT NULL)
 GO
 
 ALTER TABLE [dbo].[TBL] ADD  CONSTRAINT [constraintName]  DEFAULT (getdate()) FOR [column1]
@@ -379,8 +379,8 @@ GO
         {
             const string origin =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] NOT NULL,
-	[column1] [int] NOT NULL)
+    [ID] [int] NOT NULL,
+    [column1] [int] NOT NULL)
 GO
 
 ALTER TABLE [dbo].[TBL] ADD  CONSTRAINT [constraintName]  DEFAULT ((0)) FOR [column1]
@@ -389,8 +389,8 @@ GO
 
             const string destination =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] NOT NULL,
-	[column1] [int] NOT NULL)
+    [ID] [int] NOT NULL,
+    [column1] [int] NOT NULL)
 GO
 
 ALTER TABLE [dbo].[TBL] ADD  CONSTRAINT [constraintName]  DEFAULT ((1)) FOR [column1]
@@ -421,8 +421,8 @@ GO
 
             const string destination =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] NOT NULL,
-	[column1] [int] NOT NULL)
+    [ID] [int] NOT NULL,
+    [column1] [int] NOT NULL)
 GO
 
 ALTER TABLE [dbo].[TBL] WITH CHECK ADD CONSTRAINT [FK_constraint] FOREIGN KEY([column1])
@@ -448,16 +448,16 @@ GO
         {
             const string origin =
 @"CREATE TABLE [dbo].[tbl](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [int] NOT NULL)
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [int] NOT NULL)
 GO
 
 CREATE TABLE [dbo].[tblLookup](
-	[ID] [int] NOT NULL,
-	[description] [nvarchar](50) NOT NULL,
+    [ID] [int] NOT NULL,
+    [description] [nvarchar](50) NOT NULL,
         CONSTRAINT [PK] PRIMARY KEY CLUSTERED 
         (
-	        [ID] ASC, [description] DESC
+            [ID] ASC, [description] DESC
         )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
 ) ON [db]
 GO
@@ -470,16 +470,16 @@ REFERENCES [dbo].[tblLookup] ([ID])
 
             const string destination =
 @"CREATE TABLE [dbo].[tbl](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [tinyint] NOT NULL)
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [tinyint] NOT NULL)
 GO
 
 CREATE TABLE [dbo].[tblLookup](
-	[ID] [tinyint] NOT NULL,
-	[description] [nvarchar](50) NOT NULL,
+    [ID] [tinyint] NOT NULL,
+    [description] [nvarchar](50) NOT NULL,
         CONSTRAINT [PK] PRIMARY KEY CLUSTERED 
         (
-	        [ID] ASC, [description] DESC
+            [ID] ASC, [description] DESC
         )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
 ) ON [db]
 GO
@@ -507,7 +507,7 @@ GO
 
 ALTER TABLE [dbo].[tblLookup] ADD CONSTRAINT [PK] PRIMARY KEY CLUSTERED 
         (
-	        [ID] ASC, [description] DESC
+            [ID] ASC, [description] DESC
         )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
 GO
 
@@ -518,19 +518,19 @@ GO
 ");
             errors.ShouldBeEmpty();
         }
-        
+
         [Fact]
         public void DropIndexBeforeAlterColumn()
         {
             const string origin =
 @"CREATE TABLE [dbo].[tbl](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [int] NOT NULL)
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [int] NOT NULL)
 GO
 
 CREATE NONCLUSTERED INDEX [idx] ON [dbo].[tbl]
 (
-	[column1] ASC
+    [column1] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
 GO
 
@@ -538,13 +538,13 @@ GO
 
             const string destination =
 @"CREATE TABLE [dbo].[tbl](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [tinyint] NOT NULL)
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [tinyint] NOT NULL)
 GO
 
 CREATE NONCLUSTERED INDEX [idx] ON [dbo].[tbl]
 (
-	[column1] ASC
+    [column1] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
 GO
 
@@ -561,8 +561,78 @@ GO
 
 CREATE NONCLUSTERED INDEX [idx] ON [dbo].[tbl]
 (
-	[column1] ASC
+    [column1] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
+GO
+
+");
+            errors.ShouldBeEmpty();
+        }
+
+        [Fact]
+        public void DropPrimaryKeyWithForeignKey()
+        {
+            const string origin =
+@"CREATE TABLE [dbo].[tbl](
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [int] NOT NULL,
+    CONSTRAINT [PK_Origin] PRIMARY KEY CLUSTERED 
+    (
+        [ID] ASC
+    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [DB]
+) ON [DB]
+GO
+
+CREATE TABLE [dbo].[tblForeignKey](
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [IDForeign] [int] NOT NULL)
+GO
+
+ALTER TABLE [dbo].[tblForeignKey] WITH CHECK ADD CONSTRAINT [FK] FOREIGN KEY([IDForeign])
+REFERENCES [dbo].[tbl] ([ID])
+GO
+
+";
+
+            const string destination =
+@"CREATE TABLE [dbo].[tbl](
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [int] NOT NULL,
+    CONSTRAINT [PK_Destination] PRIMARY KEY CLUSTERED
+    (
+        [ID] ASC
+    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [DB]
+) ON [DB]
+GO
+
+CREATE TABLE [dbo].[tblForeignKey](
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [IDForeign] [int] NOT NULL)
+GO
+
+ALTER TABLE [dbo].[tblForeignKey] WITH CHECK ADD CONSTRAINT [FK] FOREIGN KEY([IDForeign])
+REFERENCES [dbo].[tbl] ([ID])
+GO
+
+";
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
+
+            updateSchema.ShouldBe(
+@"ALTER TABLE [dbo].[tblForeignKey] DROP CONSTRAINT [FK]
+GO
+
+ALTER TABLE [dbo].[tbl] DROP CONSTRAINT [PK_Destination]
+GO
+
+ALTER TABLE [dbo].[tbl] ADD CONSTRAINT [PK_Origin] PRIMARY KEY CLUSTERED 
+    (
+        [ID] ASC
+    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [DB]
+GO
+
+ALTER TABLE [dbo].[tblForeignKey] WITH CHECK ADD CONSTRAINT [FK] FOREIGN KEY([IDForeign])
+REFERENCES [dbo].[tbl] ([ID])
 GO
 
 ");
@@ -574,15 +644,15 @@ GO
         {
             const string origin =
 @"CREATE TABLE [schema].[tbl](
-	[ID] [int] IDENTITY(0,1) NOT NULL)
+    [ID] [int] IDENTITY(0,1) NOT NULL)
 GO";
 
             const string destination =
 @"CREATE TABLE [schema].[tbl](
-	[ID] [int] IDENTITY(0,1) NOT NULL,
+    [ID] [int] IDENTITY(0,1) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
-	[ID] ASC
+    [ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db]
 ) ON [db] TEXTIMAGE_ON [db]
 GO";
@@ -673,8 +743,8 @@ GO
             // When user not select table db object, update schema is created without table
             const string origin =
 @"CREATE TABLE [dbo].[TBL] (
-	[ID] [int] NOT NULL,
-	[column1] [int] NOT NULL)
+    [ID] [int] NOT NULL,
+    [column1] [int] NOT NULL)
 GO
 
 ALTER TABLE [dbo].[TBL] ADD CONSTRAINT [constraintName]  DEFAULT ((0)) FOR [column1]

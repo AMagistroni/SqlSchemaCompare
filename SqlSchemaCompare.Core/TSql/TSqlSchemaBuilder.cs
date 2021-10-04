@@ -30,7 +30,7 @@ namespace SqlSchemaCompare.Core.TSql
                 DbObjectType.Member => BuildMember(dbObject as Member, operation),
                 DbObjectType.EnableTrigger => BuildEnableTrigger(dbObject as Trigger.EnabledDbObject, operation),
                 DbObjectType.TableSet => dbObject.Sql,
-                _ => throw new NotImplementedException(),
+                _ => throw new NotSupportedException(),
             };
         }
 
@@ -64,7 +64,7 @@ namespace SqlSchemaCompare.Core.TSql
                     {
                         var tableSchema = constraint.Table.Schema.Replace("[", "").Replace("]", "");
                         var tableName = constraint.Table.Name.Replace("[", "").Replace("]", "");
-                        return 
+                        return
 @$"DECLARE @PrimaryKeyName_{tableSchema}_{tableName} sysname =
 (        
     SELECT CONSTRAINT_NAME
@@ -84,7 +84,7 @@ END";
                     }
                 default:
                     throw new NotSupportedException("Alter not supported on schema");
-            };            
+            }
         }
 
         private string BuildMember(Member member, Operation operation)
@@ -128,14 +128,14 @@ END";
                     var stringBuilder = new StringBuilder();
 
                     if (!string.IsNullOrEmpty(user.Schema))
-                        stringBuilder.Append($"DEFAULT_SCHEMA = { user.Schema}");
+                        stringBuilder.Append("DEFAULT_SCHEMA = ").Append(user.Schema);
 
                     if (!string.IsNullOrEmpty(user.Login))
                     {
                         if (stringBuilder.Length > 0)
                             stringBuilder.Append(", ");
 
-                        stringBuilder.Append($"LOGIN = { user.Login}");
+                        stringBuilder.Append("LOGIN = ").Append(user.Login);
                     }
 
                     stringBuilder.Insert(0, $"ALTER USER { user.Name} WITH ");
@@ -160,7 +160,7 @@ END";
             {
                 Operation.Create => dbObject.Sql,
                 Operation.Drop => $"DROP {objectName} {dbObject.Identifier}",
-                _ => throw new NotSupportedException($"Operation not supported on TYPE"),
+                _ => throw new NotSupportedException("Operation not supported on TYPE"),
             };
         }
 
@@ -170,7 +170,7 @@ END";
             {
                 Operation.Create => dbObject.Sql,
                 Operation.Drop => $"DROP INDEX {dbObject.Identifier} ON {dbObject.ParentName}",
-                _ => throw new NotSupportedException($"Operation not supported on TYPE"),
+                _ => throw new NotSupportedException("Operation not supported on TYPE"),
             };
         }
 

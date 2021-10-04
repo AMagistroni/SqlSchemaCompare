@@ -6,9 +6,8 @@ using System.Collections.Generic;
 
 namespace SqlSchemaCompare.Test
 {
-    public class UtilityTest
+    public static class UtilityTest
     {
-
         public static (string file1, string file2, string errors) Compare(string originSchema, string destinationSchema, IEnumerable<DbObjectType> dbObjectTypes)
         {
             var schemaBuilder = new TSqlSchemaBuilder();
@@ -37,6 +36,6 @@ namespace SqlSchemaCompare.Test
             string updateSchema= updateSchemaManager.UpdateSchema(originDbObjects, destinationDbObjects, dbObjectTypes);
 
             return (updateSchema, errors);
-        }        
+        }
     }
 }

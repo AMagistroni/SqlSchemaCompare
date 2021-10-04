@@ -9,10 +9,10 @@ namespace SqlSchemaCompare.Test.TSql
         [Fact]
         public void OrderStatement()
         {
-            string sql =
+            const string sql =
 @"CREATE TABLE [dbo].[tbl_Z]([ID] [int] IDENTITY(0,1) NOT NU)
 GO";
-            var (file1, file2, errors) = UtilityTest.Compare(sql, sql, new DbObjectType[] { DbObjectType.Table });
+            var (_, _, errors) = UtilityTest.Compare(sql, sql, new DbObjectType[] { DbObjectType.Table });
 
             errors.ShouldBe(
 @"**************** ORIGIN **************** 
@@ -25,7 +25,7 @@ no viable alternative at input 'NOTNU'
 Offending token: NU
 Line: 1, CharPosition: 56
 no viable alternative at input 'NOTNU'
-");            
+");
         }
     }
 }

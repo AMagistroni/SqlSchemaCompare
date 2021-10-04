@@ -10,7 +10,7 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlMemberTest
     {
-        private IList<DbObjectType> SelectedObjects;
+        private readonly IList<DbObjectType> SelectedObjects;
         public TSqlMemberTest()
         {
             RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();

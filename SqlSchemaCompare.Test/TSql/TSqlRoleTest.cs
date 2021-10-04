@@ -10,7 +10,7 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlRoleTest
     {
-        private IList<DbObjectType> SelectedObjects;
+        private readonly IList<DbObjectType> SelectedObjects;
         public TSqlRoleTest()
         {
             RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
@@ -19,7 +19,7 @@ namespace SqlSchemaCompare.Test.TSql
         [Fact]
         public void CreateRole()
         {
-            const string schemaSql ="CREATE ROLE [role]";
+            const string schemaSql = "CREATE ROLE [role]";
 
             var objectFactory = new TSqlObjectFactory();
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(schemaSql);

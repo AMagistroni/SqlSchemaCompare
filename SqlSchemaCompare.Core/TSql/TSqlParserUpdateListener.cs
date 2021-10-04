@@ -95,7 +95,7 @@ namespace SqlSchemaCompare.Core.TSql
         {
             DbObjects.Add(_roleFactory.Create(context, _stream));
         }
-        
+
         public override void ExitEnable_trigger([NotNull] TSqlParser.Enable_triggerContext context)
         {
             var enabled = _triggerFactory.CreateEnable(context, _stream);
@@ -128,8 +128,10 @@ namespace SqlSchemaCompare.Core.TSql
             {
                 var index = _indexFactory.Create(context, _stream);
                 var table = DbObjects.OfType<Table>().SingleOrDefault(x => x.Identifier == index.ParentName);
-                if (table != null) 
+                if (table != null)
+                {
                     table.AddIndex(index as DbStructures.Index);
+                }
                 else
                 {
                     var view = DbObjects.OfType<View>().SingleOrDefault(x => x.Identifier == index.ParentName);
@@ -179,7 +181,7 @@ namespace SqlSchemaCompare.Core.TSql
         {
             DbObjects.Add(_simpleDbObjectFactory.Create(context, _stream));
         }
-        public override void ExitCreate_database([NotNull] TSqlParser.Create_databaseContext context) 
+        public override void ExitCreate_database([NotNull] TSqlParser.Create_databaseContext context)
         {
             DbObjects.Add(_databaseFactory.Create(context, _stream));
         }

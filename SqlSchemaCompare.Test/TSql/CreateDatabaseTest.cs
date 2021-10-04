@@ -8,7 +8,7 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class CreateDatabaseTest
     {
-        private IList<DbObjectType> SelectedObjects;
+        private readonly IList<DbObjectType> SelectedObjects;
         public CreateDatabaseTest()
         {
             RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
@@ -28,10 +28,10 @@ namespace SqlSchemaCompare.Test.TSql
 GO
 
 CREATE PROCEDURE [dbo].[proc]	
-	@par as bit = 0
+    @par as bit = 0
 AS
 BEGIN
-	SELECT * from [DBO].[TBL1]
+    SELECT * from [DBO].[TBL1]
 END 
 GO";
 
@@ -54,10 +54,10 @@ GO";
 GO
 
 CREATE PROCEDURE [dbo].[proc]	
-	@par as bit = 0
+    @par as bit = 0
 AS
 BEGIN
-	SELECT * from [DBO].[TBL]
+    SELECT * from [DBO].[TBL]
 END 
 GO";
             const string destination =
@@ -70,10 +70,10 @@ GO";
 GO
 
 CREATE PROCEDURE [dbo].[proc]	
-	@par as bit = 0
+    @par as bit = 0
 AS
 BEGIN
-	SELECT * from [DBO].[TBL1]
+    SELECT * from [DBO].[TBL1]
 END 
 GO";
 
@@ -84,10 +84,10 @@ GO";
 GO
 
 ALTER PROCEDURE [dbo].[proc]	
-	@par as bit = 0
+    @par as bit = 0
 AS
 BEGIN
-	SELECT * from [DBO].[TBL]
+    SELECT * from [DBO].[TBL]
 END
 GO
 

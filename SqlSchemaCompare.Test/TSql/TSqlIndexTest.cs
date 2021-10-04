@@ -10,7 +10,7 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlIndexTest
     {
-        private IList<DbObjectType> SelectedObjects;
+        private readonly IList<DbObjectType> SelectedObjects;
         public TSqlIndexTest()
         {
             RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
@@ -50,7 +50,7 @@ GO";
         [Fact]
         public void CreateClusteredIndex()
         {
-            const string sql ="CREATE CLUSTERED COLUMNSTORE INDEX [indexName] ON [dbo].[table] WITH (DROP_EXISTING = OFF) ON [PRIMARY]";
+            const string sql = "CREATE CLUSTERED COLUMNSTORE INDEX [indexName] ON [dbo].[table] WITH (DROP_EXISTING = OFF) ON [PRIMARY]";
 
             var objectFactory = new TSqlObjectFactory();
             (var objects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
@@ -72,7 +72,7 @@ GO
 
 CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
 (
-	[ID] ASC
+    [ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO";
             const string destination =
@@ -81,7 +81,7 @@ GO
 
 CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
 (
-	[ID] ASC
+    [ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO";
 
@@ -140,7 +140,7 @@ GO
 
 CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
 (
-	[ID] ASC
+    [ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO
 
@@ -149,7 +149,7 @@ GO
 
 CREATE NONCLUSTERED INDEX [indexName2] ON [dbo].[table]
 (
-	[ID2] ASC
+    [ID2] ASC
 ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO
 
@@ -193,7 +193,7 @@ GO
 
 CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
 (
-	[ID] ASC,
+    [ID] ASC,
     [par]
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO";
@@ -226,7 +226,7 @@ GO
 
 CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
 (
-	[ID] ASC
+    [ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO";
             string destination = string.Empty;

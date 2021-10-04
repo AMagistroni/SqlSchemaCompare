@@ -10,7 +10,7 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlStoreProcedureTest
     {
-        private IList<DbObjectType> SelectedObjects;
+        private readonly IList<DbObjectType> SelectedObjects;
         public TSqlStoreProcedureTest()
         {
             RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
@@ -23,7 +23,7 @@ namespace SqlSchemaCompare.Test.TSql
 @par1 as bit = 0
 AS
 BEGIN
-	select * from [dbo].[table1]
+    select * from [dbo].[table1]
 END";
 
             var objectFactory = new TSqlObjectFactory();
@@ -44,18 +44,18 @@ END";
 
             const string origin =
 @"CREATE PROCEDURE [dbo].[proc]	
-	@par as bit = 0
+    @par as bit = 0
 AS
 BEGIN
-	SELECT * from [DBO].[TBL1]
+    SELECT * from [DBO].[TBL1]
 END 
 GO";
             const string destination =
 @"CREATE PROCEDURE [dbo].[proc]	
-	@par as bit = 0
+    @par as bit = 0
 AS
 BEGIN
-	SELECT * from [DBO].[TBL1]
+    SELECT * from [DBO].[TBL1]
 END 
 GO";
 
@@ -76,7 +76,7 @@ GO";
 @par as bit = 0
 AS
 BEGIN
-	SELECT * from [DBO].[TBL1]
+    SELECT * from [DBO].[TBL1]
 END
 GO";
             const string destination = "";
@@ -88,7 +88,7 @@ GO";
 @par as bit = 0
 AS
 BEGIN
-	SELECT * from [DBO].[TBL1]
+    SELECT * from [DBO].[TBL1]
 END
 GO
 
@@ -108,7 +108,7 @@ GO
 @par as bit = 0
 AS
 BEGIN
-	SELECT * from [DBO].[TBL1]
+    SELECT * from [DBO].[TBL1]
 END 
 GO";
 
@@ -133,7 +133,7 @@ GO
 @par as bit = 0
 AS
 BEGIN
-	SELECT * from [DBO].[TBL1]
+    SELECT * from [DBO].[TBL1]
 END
 GO";
             const string destination =
@@ -141,7 +141,7 @@ GO";
 @par as bit = 0
 AS
 BEGIN
-	SELECT * from [DBO].[TBL2]
+    SELECT * from [DBO].[TBL2]
 END
 GO";
 
@@ -152,7 +152,7 @@ GO";
 @par as bit = 0
 AS
 BEGIN
-	SELECT * from [DBO].[TBL1]
+    SELECT * from [DBO].[TBL1]
 END
 GO
 
@@ -160,7 +160,7 @@ GO
             errors.ShouldBeEmpty();
         }
 
-        [Fact] 
+        [Fact]
         public void CreateStoreProcedureWithTableInside()
         {
             // When a store procedure contain a table definition for example tmp table,
@@ -171,7 +171,7 @@ GO
 @par as bit = 0
 AS
 BEGIN
-	CREATE TABLE #tmpTbl  (ID int)
+    CREATE TABLE #tmpTbl  (ID int)
 END
 GO";
 
@@ -185,17 +185,17 @@ GO";
         }
 
         [Theory]
-        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.StoreProcedure } , MemberType = typeof(TestDbObjectGenerator))]
+        [MemberData(nameof(TestDbObjectGenerator.ListDbObjectTypeExceptOne), new DbObjectType[] { DbObjectType.StoreProcedure }, MemberType = typeof(TestDbObjectGenerator))]
         public void UpdateSchemaNotSelectedDbObject(DbObjectType dbObjectTypes)
         {
             // When user not select StoreProcedure db object, update schema is created without StoreProcedure
-        
-            string origin =
+
+            const string origin =
 @"CREATE PROCEDURE [dbo].[proc]	
 @par as bit = 0
 AS
 BEGIN
-	CREATE TABLE #tmpTbl  (ID int)
+    CREATE TABLE #tmpTbl  (ID int)
 END
 GO";
 

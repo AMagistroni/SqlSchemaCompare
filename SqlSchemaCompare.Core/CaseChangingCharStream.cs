@@ -5,8 +5,8 @@ namespace SqlSchemaCompare.Core
 {
     public class CaseChangingCharStream : ICharStream
     {
-        private ICharStream stream;
-        private bool upper;
+        private readonly ICharStream stream;
+        private readonly bool upper;
 
         /// <summary>
         /// Constructs a new CaseChangingCharStream wrapping the given <paramref name="stream"/> forcing

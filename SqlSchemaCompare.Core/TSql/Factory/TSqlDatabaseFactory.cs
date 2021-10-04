@@ -10,7 +10,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
         public DbObject Create(ParserRuleContext context, ICharStream stream)
         {
             var databaseContext = context as TSqlParser.Create_databaseContext;
-            return new Database { 
+            return new Database {
                 Sql = context.Start.InputStream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)),
                 Name = databaseContext.database.GetText()
             };

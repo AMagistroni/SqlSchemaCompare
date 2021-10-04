@@ -25,7 +25,7 @@ namespace SqlSchemaCompare.WindowsForm
 
         private IEnumerable<DbObject> currentOriginDbObjects;
         private IEnumerable<DbObject> currentDestinationDbObjects;
-        private RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new ();
+        private readonly RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new ();
         public MainForm()
         {
             InitializeComponent();
@@ -81,14 +81,14 @@ namespace SqlSchemaCompare.WindowsForm
         private bool MandatoryFieldArePresent()
         {
             txtOriginSchema.Text = txtOriginSchema.Text;
-            if (txtOriginSchema.Text == string.Empty || !File.Exists(txtOriginSchema.Text))
+            if (txtOriginSchema.Text?.Length == 0 || !File.Exists(txtOriginSchema.Text))
             {
                 MessageBox.Show("Select origin generated schema", ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 
             txtDestinationSchema.Text = txtDestinationSchema.Text.Trim();
-            if (txtDestinationSchema.Text == string.Empty || !File.Exists(txtDestinationSchema.Text))
+            if (txtDestinationSchema.Text?.Length == 0 || !File.Exists(txtDestinationSchema.Text))
             {
                 MessageBox.Show("Select destination generated schema", ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
@@ -101,7 +101,7 @@ namespace SqlSchemaCompare.WindowsForm
             }
 
             txtOutputDirectory.Text = txtOutputDirectory.Text.Trim();
-            if (txtOutputDirectory.Text == string.Empty)
+            if (txtOutputDirectory.Text?.Length == 0)
             {
                 MessageBox.Show("Select an output directory", ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
@@ -120,7 +120,7 @@ namespace SqlSchemaCompare.WindowsForm
             {
                 if (!MandatoryFieldArePresent())
                     return;
-                
+
                 EnableDisableMainForm(PleaseWait, false);
 
                 string fileNameDiffOrigin = GetFileNameDiff(txtOriginSchema.Text);
@@ -155,11 +155,11 @@ namespace SqlSchemaCompare.WindowsForm
         }
         private string GetFileNameDiff(string fileName)
         {
-            var indexDot = fileName.LastIndexOf(".");
+            int indexDot = fileName.LastIndexOf(".");
             if (indexDot == 0)
                 return $"{fileName}{formSettings.Suffix}";
             else
-                return $"{fileName.Substring(0, indexDot)}{formSettings.Suffix}{fileName.Substring(indexDot)}";
+                return $"{fileName.Substring(0, indexDot)}{formSettings.Suffix}{fileName[indexDot..]}";
         }
 
         private void EnableDisableMainForm(string text, bool enable)
@@ -219,12 +219,11 @@ namespace SqlSchemaCompare.WindowsForm
                     return;
 
                 txtUpdateSchemaFile.Text = txtUpdateSchemaFile.Text.Trim();
-                if (txtUpdateSchemaFile.Text == string.Empty)
+                if (txtUpdateSchemaFile.Text?.Length == 0)
                 {
                     MessageBox.Show("Select an update schema file", ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
-
 
                 if (File.Exists(txtUpdateSchemaFile.Text))
                     File.Delete(txtUpdateSchemaFile.Text);
@@ -242,7 +241,7 @@ namespace SqlSchemaCompare.WindowsForm
                 var updateSchema = updateSchemaManager.UpdateSchema(currentOriginDbObjects, currentDestinationDbObjects, SelectedObjectType());
 
                 StringBuilder stringResult = new();
-                stringResult.AppendLine($"{schemaBuilder.GetStartCommentInLine()} Update Schema {txtOriginSchema.Text} --> {txtDestinationSchema.Text}");
+                stringResult.Append(schemaBuilder.GetStartCommentInLine()).Append(" Update Schema ").Append(txtOriginSchema.Text).Append(" --> ").AppendLine(txtDestinationSchema.Text);
                 stringResult.AppendLine(updateSchema);
 
                 File.WriteAllText(txtUpdateSchemaFile.Text, stringResult.ToString());
@@ -345,12 +344,12 @@ namespace SqlSchemaCompare.WindowsForm
 
             return selectedObjectType;
         }
-        
+
         private void BtnClear_Click(object sender, EventArgs e)
         {
             LoadClearSchemaCompleted(ChooseCompareUpdate, false);
         }
 
         public record ParametersLoad(string ErrorFile, string Origin, string Destination);
-    }    
+    }
 }

@@ -1,47 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
 namespace SqlSchemaCompare.WindowsForm
 {
-    sealed class FormSettings : ApplicationSettingsBase
+    internal sealed class FormSettings : ApplicationSettingsBase
     {
-        [UserScopedSettingAttribute()]
-        public String OriginSchema
+        [UserScopedSetting()]
+        public string OriginSchema
         {
-            get { return (String)this["OriginSchema"]; }
-            set { this["OriginSchema"] = value; }
+            get => (string)this[nameof(OriginSchema)];
+            set => this[nameof(OriginSchema)] = value;
         }
 
-        [UserScopedSettingAttribute()]
-        public String DestinationSchema
+        [UserScopedSetting()]
+        public string DestinationSchema
         {
-            get { return (String)this["DestinationSchema"]; }
-            set { this["DestinationSchema"] = value; }
+            get => (string)this[nameof(DestinationSchema)];
+            set => this[nameof(DestinationSchema)] = value;
         }
-        [UserScopedSettingAttribute()]
-        public String OutputDirectory
+        [UserScopedSetting()]
+        public string OutputDirectory
         {
-            get { return (String)this["OutputDirectory"]; }
-            set { this["OutputDirectory"] = value; }
-        }
-
-        [UserScopedSettingAttribute()]
-        public String UpdateSchemaFile
-        {
-            get { return (String)this["UpdateSchemaFile"]; }
-            set { this["UpdateSchemaFile"] = value; }
+            get => (string)this[nameof(OutputDirectory)];
+            set => this[nameof(OutputDirectory)] = value;
         }
 
-        [UserScopedSettingAttribute()]
-        [DefaultSettingValueAttribute("_diff")]
-        public String Suffix
+        [UserScopedSetting()]
+        public string UpdateSchemaFile
         {
-            get { return (String)this["Suffix"]; }
-            set { this["Suffix"] = value; }
+            get => (string)this[nameof(UpdateSchemaFile)];
+            set => this[nameof(UpdateSchemaFile)] = value;
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("_diff")]
+        public string Suffix
+        {
+            get => (string)this[nameof(Suffix)];
+            set => this[nameof(Suffix)] = value;
         }
     }
 }

@@ -2,7 +2,6 @@
 using Antlr4.Runtime.Misc;
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
-using System.Collections.Generic;
 
 namespace SqlSchemaCompare.Core.TSql.Factory
 {
@@ -11,7 +10,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
         public DbObject Create(ParserRuleContext context, ICharStream stream)
         {
             var contextTable = context as TSqlParser.Create_typeContext;
-            
+
             return new TypeDbObject
             {
                 Sql = stream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)),

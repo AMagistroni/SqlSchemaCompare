@@ -11,19 +11,16 @@ namespace SqlSchemaCompare.Core.TSql.Factory
         {
             var viewContext = context as TSqlParser.Create_viewContext;
             var bodyContext = viewContext.select_statement_standalone();
-            if (bodyContext.start.StartIndex < bodyContext.stop.StopIndex)
-            {
-                return new View()
+            return bodyContext.start.StartIndex < bodyContext.stop.StopIndex
+                ? new View()
                 {
                     Sql = GetSqlWithoutGOStatement(context, stream),
                     Name = viewContext.simple_name().name.GetText(),
                     Schema = viewContext.simple_name().schema.GetText(),
                     Body = stream.GetText(new Interval(bodyContext.start.StartIndex, bodyContext.stop.StopIndex)),
                     Operation = GetOperation(viewContext.GetChild(0).GetText())
-                };
-            }
-            else
-                return null;
+                }
+                : null;
         }
     }
 }

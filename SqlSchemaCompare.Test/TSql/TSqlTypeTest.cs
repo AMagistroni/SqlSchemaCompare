@@ -10,7 +10,7 @@ namespace SqlSchemaCompare.Test.TSql
 {
     public class TSqlTypeTest
     {
-        private IList<DbObjectType> SelectedObjects;
+        private readonly IList<DbObjectType> SelectedObjects;
         public TSqlTypeTest()
         {
             RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
@@ -19,12 +19,12 @@ namespace SqlSchemaCompare.Test.TSql
         [Fact]
         public void CreateType()
         {
-            var sqlTable = @"CREATE TYPE [schema].[type1] AS TABLE (
-							[Id] [int] IDENTITY(1,1) NOT NULL,
-							[col1] [char](8) NULL)";
+            const string sqlTable = @"CREATE TYPE [schema].[type1] AS TABLE (
+                            [Id] [int] IDENTITY(1,1) NOT NULL,
+                            [col1] [char](8) NULL)";
 
             var sql = $@"{sqlTable}
-						GO";
+                        GO";
 
             var objectFactory = new TSqlObjectFactory();
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
@@ -43,13 +43,13 @@ namespace SqlSchemaCompare.Test.TSql
 
             const string origin =
     @"CREATE TYPE [schema].[type1] AS TABLE (
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [nvarchar](20) NOT NULL)
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [nvarchar](20) NOT NULL)
 GO";
             const string destination =
     @"CREATE TYPE [schema].[type1] AS TABLE (
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[column1] [nvarchar](20) NOT NULL)
+    [ID] [int] IDENTITY(1,1) NOT NULL,
+    [column1] [nvarchar](20) NOT NULL)
 GO";
 
             (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
