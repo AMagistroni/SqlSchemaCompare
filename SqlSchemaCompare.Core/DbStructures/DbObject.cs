@@ -6,6 +6,7 @@
         public abstract DbObjectType DbObjectType { get; }
         public string Schema { get; init; }
         public string Name { get; init; }
+        public string NameCaseInsensitive => Name.ToLower();
         public string Sql { get; set; }
         public string ParentName { get; init; }
 
@@ -47,5 +48,7 @@
                 return string.IsNullOrEmpty(Schema) ? Name : $"{Schema}.{Name}";
             }
         }
+
+        public string IdentifierCaseInsensitive => Identifier.ToLower();
     }
 }

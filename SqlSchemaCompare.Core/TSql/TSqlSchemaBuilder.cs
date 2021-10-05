@@ -17,7 +17,7 @@ namespace SqlSchemaCompare.Core.TSql
                 DbObjectType.TableDefaultContraint => BuildTableConstraint(dbObject as TableConstraint, operation, resultProcessDbObject),
                 DbObjectType.TablePrimaryKeyContraint => BuildTableConstraint(dbObject as TableConstraint, operation, resultProcessDbObject),
                 DbObjectType.TableForeignKeyContraint => BuildTableConstraint(dbObject as TableConstraint, operation, resultProcessDbObject),
-                DbObjectType.Column => BuildColumn(dbObject as Table.Column, operation),
+                DbObjectType.Column => BuildColumn(dbObject as Table.Column, operation, resultProcessDbObject),
                 DbObjectType.View => BuildView(dbObject as View, operation),
                 DbObjectType.StoreProcedure => BuildGenericDbObjects("PROCEDURE", dbObject as StoreProcedure, operation),
                 DbObjectType.Function => BuildGenericDbObjects("FUNCTION", dbObject as Function, operation),
@@ -97,7 +97,7 @@ END";
             };
         }
 
-        private string BuildColumn(Table.Column column, Operation operation)
+        private string BuildColumn(Table.Column column, Operation operation, ResultProcessDbObject resultProcessDbObject)
         {
             switch (operation)
             {
@@ -113,9 +113,19 @@ END";
                     return $"ALTER TABLE {column.ParentName} ALTER COLUMN {column.Sql}";
                 case Operation.Drop:
                     return $"ALTER TABLE {column.ParentName} DROP COLUMN {column.Name}";
+                case Operation.Rename:
+                    var dbObject = resultProcessDbObject.OperationsOnDbObject.Single(x => x.Operation == Operation.Rename && x.DbObject.ParentName == column.ParentName);
+                    return $"sp_rename '{column.ParentName}.{dbObject.Parameter}', '{GetStringWithoutBracket(column.Name)}', 'COLUMN'";
                 default:
                     throw new NotSupportedException("Alter not supported on schema");
             }
+        }
+
+        private string GetStringWithoutBracket(string value)
+        {
+            value = value.StartsWith('[') ? value[1..] : value;
+            value = value.EndsWith(']') ? value[0..^1] : value;
+            return value;
         }
 
         private string BuildUser(User user, Operation operation)

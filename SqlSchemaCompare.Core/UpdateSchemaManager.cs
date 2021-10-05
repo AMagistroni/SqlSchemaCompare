@@ -1,5 +1,6 @@
 ﻿using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
+using SqlSchemaCompare.Core.TSql;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,7 @@ namespace SqlSchemaCompare.Core
             (DbObjectType.TableForeignKeyContraint, Operation.Drop),
             (DbObjectType.TablePrimaryKeyContraint, Operation.Drop),
             (DbObjectType.Index, Operation.Drop),
+            (DbObjectType.Column, Operation.Rename),
             (DbObjectType.Column, Operation.Create),
             (DbObjectType.Column, Operation.Drop),
             (DbObjectType.Column, Operation.Alter),
@@ -98,15 +100,7 @@ namespace SqlSchemaCompare.Core
                 {
                     if (selectedObjectType.Contains(objectToWrite.DbObjectType))
                     {
-                        var dbObjects = objectToWrite.Operation switch
-                        {
-                            Operation.Alter => resultProcessDbObject.GetDbObject(objectToWrite.DbObjectType, Operation.Alter),
-                            Operation.Create => resultProcessDbObject.GetDbObject(objectToWrite.DbObjectType, Operation.Create),
-                            Operation.Disabled => resultProcessDbObject.GetDbObject(objectToWrite.DbObjectType, Operation.Disabled),
-                            Operation.Enabled => resultProcessDbObject.GetDbObject(objectToWrite.DbObjectType, Operation.Enabled),
-                            Operation.Drop => resultProcessDbObject.GetDbObject(objectToWrite.DbObjectType, Operation.Drop),
-                            _ => throw new System.NotSupportedException(),
-                        };
+                        var dbObjects = resultProcessDbObject.GetDbObject(objectToWrite.DbObjectType, objectToWrite.Operation);
 
                         foreach (var dbObject in dbObjects.ToList())
                         {
@@ -235,7 +229,7 @@ namespace SqlSchemaCompare.Core
 
                     resultProcessDbObject.AddOperation(tableOrigin.Indexes, Operation.Create);
                     resultProcessDbObject.AddOperation<Table>(tableOrigin, Operation.Create);
-                    resultProcessDbObject.AddOperation<TableSet>(tableOrigin.TableSetList, Operation.Create);
+                    resultProcessDbObject.AddOperation(tableOrigin.TableSetList, Operation.Create);
                 }
                 else
                 {
@@ -272,7 +266,7 @@ namespace SqlSchemaCompare.Core
                         //columns different
                         ProcessTableColumn(tableOrigin, destinationTable, resultProcessDbObject);
                     }
-                    resultProcessDbObject.AddOperation<TableSet>(tableOrigin.TableSetList.Except(destinationTable.TableSetList).ToList(), Operation.Create);
+                    resultProcessDbObject.AddOperation(tableOrigin.TableSetList.Except(destinationTable.TableSetList).ToList(), Operation.Create);
                 }
             }
             DropDbObject(originDb, destinationDb, resultProcessDbObject);
@@ -282,24 +276,33 @@ namespace SqlSchemaCompare.Core
             IList<Column> columnsToAdd;
             IList<Column> columnsToDrop;
             IList<Column> columnsToAlter;
+            IList<Column> columnsToRename;
+
+            var columnsEqualsCaseInsensitive = table.Columns.Select(x => x.NameCaseInsensitive).Intersect(destinationTable.Columns.Select(x => x.NameCaseInsensitive));
+            columnsToRename = table.Columns.Where(x => columnsEqualsCaseInsensitive.Contains(x.NameCaseInsensitive) && !destinationTable.Columns.Select(x => x.Name).Contains(x.Name)).ToList();
+            foreach (var column in columnsToRename)
+            {
+                resultProcessDbObject.AddOperation<Column>(column, Operation.Rename,
+                    destinationTable.Columns.Single(x => x.IdentifierCaseInsensitive == column.IdentifierCaseInsensitive).Name);
+            }
 
             columnsToAdd = table.Columns
                             .Where(x =>
                                 table.Columns
-                                    .Select(x => x.Name)
-                                    .Except(destinationTable.Columns.Select(x => x.Name))
-                                    .Contains(x.Name)).ToList();
+                                    .Select(x => x.NameCaseInsensitive)
+                                    .Except(destinationTable.Columns.Select(x => x.NameCaseInsensitive))
+                                    .Contains(x.NameCaseInsensitive)).ToList();
 
             columnsToDrop = destinationTable.Columns
                .Where(x =>
                    destinationTable.Columns
-                       .Select(x => x.Name)
-                       .Except(table.Columns.Select(x => x.Name))
-                       .Contains(x.Name)).ToList();
+                       .Select(x => x.NameCaseInsensitive)
+                       .Except(table.Columns.Select(x => x.NameCaseInsensitive))
+                       .Contains(x.NameCaseInsensitive)).ToList();
 
             columnsToAlter = table.Columns
                 .Except(columnsToAdd)
-                .Where(x => !destinationTable.Columns.Contains(x)).ToList();
+                .Where(x => !destinationTable.Columns.Contains(x, new CaseInsensitiveComparer())).ToList();
 
             resultProcessDbObject.AddOperation(columnsToAdd, Operation.Create);
             resultProcessDbObject.AddOperation(columnsToAlter, Operation.Alter);

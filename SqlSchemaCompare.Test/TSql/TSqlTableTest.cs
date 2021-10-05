@@ -710,6 +710,27 @@ GO
         }
 
         [Fact]
+        public void ColumnsDifferentCase()
+        {
+            const string origin =
+@"CREATE TABLE [schema].[tbl] ([col1] INT not null)
+GO";
+
+            const string destination =
+@"CREATE TABLE [schema].[tbl] ([COL1] INT not null)
+GO";
+
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
+
+            updateSchema.ShouldBe(
+@"sp_rename '[schema].[tbl].[COL1]', 'col1', 'COLUMN'
+GO
+
+");
+            errors.ShouldBeEmpty();
+        }
+
+        [Fact]
         public void SimpleDbObjectsDifferent()
         {
             const string origin =
