@@ -3451,6 +3451,17 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitDatabase_optionspec([NotNull] TSqlParser.Database_optionspecContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.query_store_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterQuery_store_options([NotNull] TSqlParser.Query_store_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.query_store_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitQuery_store_options([NotNull] TSqlParser.Query_store_optionsContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.auto_option"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
