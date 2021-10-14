@@ -153,13 +153,11 @@ namespace SqlSchemaCompare.WindowsForm
                 EnableDisableMainForm(string.Empty, true);
             }
         }
-        private string GetFileNameDiff(string fileName)
+        private string GetFileNameDiff(string fullPathFileName)
         {
-            int indexDot = fileName.LastIndexOf(".");
-            if (indexDot == 0)
-                return $"{fileName}{formSettings.Suffix}";
-            else
-                return $"{fileName.Substring(0, indexDot)}{formSettings.Suffix}{fileName[indexDot..]}";
+            return Path.HasExtension(fullPathFileName)
+                ? $"{txtOutputDirectory.Text}\\{Path.GetFileNameWithoutExtension(fullPathFileName)}{formSettings.Suffix}.{Path.GetExtension(fullPathFileName)}"
+                : $"{txtOutputDirectory.Text}\\{Path.GetFileName(fullPathFileName)}{formSettings.Suffix}";
         }
 
         private void EnableDisableMainForm(string text, bool enable)
@@ -257,10 +255,7 @@ namespace SqlSchemaCompare.WindowsForm
 
         private string GetErrorFileName(string suffix)
         {
-            if (txtOutputDirectory.Text.EndsWith('\\'))
-                return $"{txtOutputDirectory.Text}{suffix}";
-            else
-                return $"{txtOutputDirectory.Text}\\{suffix}";
+            return txtOutputDirectory.Text.EndsWith('\\') ? txtOutputDirectory.Text + suffix : $"{txtOutputDirectory.Text}\\{suffix}";
         }
 
         private void BtnSwapOriginDestination_Click(object sender, EventArgs e)
