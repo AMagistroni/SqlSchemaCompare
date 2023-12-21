@@ -140,8 +140,8 @@ GO
         [Fact]
         public void DiscardSchema_table()
         {
-            string sql1 =
-$@"CREATE TABLE [schema].[TableName](
+            const string sql1 =
+@"CREATE TABLE [schema].[TableName](
     [Id] [int] IDENTITY(1,1) NOT NULL,
     [col1] [char](8) NULL
 ) ON [db1]

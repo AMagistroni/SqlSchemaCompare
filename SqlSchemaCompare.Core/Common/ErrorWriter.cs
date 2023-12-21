@@ -13,10 +13,10 @@ namespace SqlSchemaCompare.Core.Common
             return errorSchemaStringBuild.ToString();
         }
 
-        private StringBuilder GetErrors(IEnumerable<ErrorParser> errors, bool origin)
+        private static StringBuilder GetErrors(IEnumerable<ErrorParser> errors, bool origin)
         {
             StringBuilder errorSchemaStringBuild = new();
-            if (errors.Count() > 0)
+            if (errors.Any())
             {
                 if (origin)
                     errorSchemaStringBuild.AppendLine("**************** ORIGIN **************** ");
