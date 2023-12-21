@@ -5482,17 +5482,277 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitCheckpoint_statement([NotNull] TSqlParser.Checkpoint_statementContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_special"/>.
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_checkalloc_option"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterDbcc_special([NotNull] TSqlParser.Dbcc_specialContext context) { }
+	public virtual void EnterDbcc_checkalloc_option([NotNull] TSqlParser.Dbcc_checkalloc_optionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_special"/>.
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_checkalloc_option"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitDbcc_special([NotNull] TSqlParser.Dbcc_specialContext context) { }
+	public virtual void ExitDbcc_checkalloc_option([NotNull] TSqlParser.Dbcc_checkalloc_optionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_checkalloc"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_checkalloc([NotNull] TSqlParser.Dbcc_checkallocContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_checkalloc"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_checkalloc([NotNull] TSqlParser.Dbcc_checkallocContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_checkcatalog"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_checkcatalog([NotNull] TSqlParser.Dbcc_checkcatalogContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_checkcatalog"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_checkcatalog([NotNull] TSqlParser.Dbcc_checkcatalogContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_checkconstraints_option"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_checkconstraints_option([NotNull] TSqlParser.Dbcc_checkconstraints_optionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_checkconstraints_option"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_checkconstraints_option([NotNull] TSqlParser.Dbcc_checkconstraints_optionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_checkconstraints"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_checkconstraints([NotNull] TSqlParser.Dbcc_checkconstraintsContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_checkconstraints"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_checkconstraints([NotNull] TSqlParser.Dbcc_checkconstraintsContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_checkdb_table_option"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_checkdb_table_option([NotNull] TSqlParser.Dbcc_checkdb_table_optionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_checkdb_table_option"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_checkdb_table_option([NotNull] TSqlParser.Dbcc_checkdb_table_optionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_checkdb"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_checkdb([NotNull] TSqlParser.Dbcc_checkdbContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_checkdb"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_checkdb([NotNull] TSqlParser.Dbcc_checkdbContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_checkfilegroup_option"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_checkfilegroup_option([NotNull] TSqlParser.Dbcc_checkfilegroup_optionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_checkfilegroup_option"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_checkfilegroup_option([NotNull] TSqlParser.Dbcc_checkfilegroup_optionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_checkfilegroup"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_checkfilegroup([NotNull] TSqlParser.Dbcc_checkfilegroupContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_checkfilegroup"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_checkfilegroup([NotNull] TSqlParser.Dbcc_checkfilegroupContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_checktable"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_checktable([NotNull] TSqlParser.Dbcc_checktableContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_checktable"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_checktable([NotNull] TSqlParser.Dbcc_checktableContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_cleantable"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_cleantable([NotNull] TSqlParser.Dbcc_cleantableContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_cleantable"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_cleantable([NotNull] TSqlParser.Dbcc_cleantableContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_clonedatabase_option"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_clonedatabase_option([NotNull] TSqlParser.Dbcc_clonedatabase_optionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_clonedatabase_option"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_clonedatabase_option([NotNull] TSqlParser.Dbcc_clonedatabase_optionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_clonedatabase"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_clonedatabase([NotNull] TSqlParser.Dbcc_clonedatabaseContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_clonedatabase"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_clonedatabase([NotNull] TSqlParser.Dbcc_clonedatabaseContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_pdw_showspaceused"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_pdw_showspaceused([NotNull] TSqlParser.Dbcc_pdw_showspaceusedContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_pdw_showspaceused"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_pdw_showspaceused([NotNull] TSqlParser.Dbcc_pdw_showspaceusedContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_proccache"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_proccache([NotNull] TSqlParser.Dbcc_proccacheContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_proccache"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_proccache([NotNull] TSqlParser.Dbcc_proccacheContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_showcontig_option"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_showcontig_option([NotNull] TSqlParser.Dbcc_showcontig_optionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_showcontig_option"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_showcontig_option([NotNull] TSqlParser.Dbcc_showcontig_optionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_showcontig"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_showcontig([NotNull] TSqlParser.Dbcc_showcontigContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_showcontig"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_showcontig([NotNull] TSqlParser.Dbcc_showcontigContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_shrinklog"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_shrinklog([NotNull] TSqlParser.Dbcc_shrinklogContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_shrinklog"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_shrinklog([NotNull] TSqlParser.Dbcc_shrinklogContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_dbreindex"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_dbreindex([NotNull] TSqlParser.Dbcc_dbreindexContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_dbreindex"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_dbreindex([NotNull] TSqlParser.Dbcc_dbreindexContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_dll_free"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_dll_free([NotNull] TSqlParser.Dbcc_dll_freeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_dll_free"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_dll_free([NotNull] TSqlParser.Dbcc_dll_freeContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_dropcleanbuffers"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDbcc_dropcleanbuffers([NotNull] TSqlParser.Dbcc_dropcleanbuffersContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_dropcleanbuffers"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDbcc_dropcleanbuffers([NotNull] TSqlParser.Dbcc_dropcleanbuffersContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_clause"/>.
@@ -5506,32 +5766,6 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitDbcc_clause([NotNull] TSqlParser.Dbcc_clauseContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_command"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterDbcc_command([NotNull] TSqlParser.Dbcc_commandContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_command"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitDbcc_command([NotNull] TSqlParser.Dbcc_commandContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.dbcc_options"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterDbcc_options([NotNull] TSqlParser.Dbcc_optionsContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.dbcc_options"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitDbcc_options([NotNull] TSqlParser.Dbcc_optionsContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.execute_clause"/>.
@@ -6717,6 +6951,58 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitXml_data_type_methods([NotNull] TSqlParser.Xml_data_type_methodsContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dateparts_9"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDateparts_9([NotNull] TSqlParser.Dateparts_9Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dateparts_9"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDateparts_9([NotNull] TSqlParser.Dateparts_9Context context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dateparts_12"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDateparts_12([NotNull] TSqlParser.Dateparts_12Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dateparts_12"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDateparts_12([NotNull] TSqlParser.Dateparts_12Context context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dateparts_15"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDateparts_15([NotNull] TSqlParser.Dateparts_15Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dateparts_15"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDateparts_15([NotNull] TSqlParser.Dateparts_15Context context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.dateparts_datetrunc"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDateparts_datetrunc([NotNull] TSqlParser.Dateparts_datetruncContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.dateparts_datetrunc"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDateparts_datetrunc([NotNull] TSqlParser.Dateparts_datetruncContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.value_method"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -6912,6 +7198,19 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitWith_table_hints([NotNull] TSqlParser.With_table_hintsContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.deprecated_table_hint"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDeprecated_table_hint([NotNull] TSqlParser.Deprecated_table_hintContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.deprecated_table_hint"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDeprecated_table_hint([NotNull] TSqlParser.Deprecated_table_hintContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.insert_with_table_hints"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -6990,17 +7289,17 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitTable_value_constructor([NotNull] TSqlParser.Table_value_constructorContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.expression_list"/>.
+	/// Enter a parse tree produced by <see cref="TSqlParser.expression_list_"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterExpression_list([NotNull] TSqlParser.Expression_listContext context) { }
+	public virtual void EnterExpression_list_([NotNull] TSqlParser.Expression_list_Context context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.expression_list"/>.
+	/// Exit a parse tree produced by <see cref="TSqlParser.expression_list_"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitExpression_list([NotNull] TSqlParser.Expression_listContext context) { }
+	public virtual void ExitExpression_list_([NotNull] TSqlParser.Expression_list_Context context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.ranking_windowed_function"/>.
