@@ -8,7 +8,8 @@ namespace SqlSchemaCompare.Test
 {
     public static class UtilityTest
     {
-        public static (string file1, string file2, string errors) Compare(string originSchema, string destinationSchema, IEnumerable<DbObjectType> dbObjectTypes)
+        public static (string file1, string file2, string errors)
+            Compare(string originSchema, string destinationSchema, Configuration configuration, IEnumerable<DbObjectType> dbObjectTypes)
         {
             var schemaBuilder = new TSqlSchemaBuilder();
             var dbObjectFactory = new TSqlObjectFactory();
@@ -17,7 +18,7 @@ namespace SqlSchemaCompare.Test
             var loadSchemaManager = new LoadSchemaManager(dbObjectFactory, errorWriter);
             var (originDbObjects, destinationDbObjects, errors) = loadSchemaManager.LoadSchema(originSchema, destinationSchema);
 
-            var compareSchemaManager = new CompareSchemaManager(schemaBuilder);
+            var compareSchemaManager = new CompareSchemaManager(configuration, schemaBuilder);
             var (file1, file2) = compareSchemaManager.Compare(originDbObjects, destinationDbObjects, dbObjectTypes);
 
             return (file1, file2, errors);

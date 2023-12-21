@@ -1,4 +1,5 @@
-﻿using SqlSchemaCompare.Core;
+﻿using Newtonsoft.Json;
+using SqlSchemaCompare.Core;
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Windows.Forms;
 
 namespace SqlSchemaCompare.WindowsForm
@@ -25,7 +27,7 @@ namespace SqlSchemaCompare.WindowsForm
 
         private IEnumerable<DbObject> currentOriginDbObjects;
         private IEnumerable<DbObject> currentDestinationDbObjects;
-        private readonly RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new ();
+        private readonly RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
         public MainForm()
         {
             InitializeComponent();
@@ -41,6 +43,7 @@ namespace SqlSchemaCompare.WindowsForm
             txtSuffix.Text = formSettings.Suffix;
             txtOutputDirectory.Text = formSettings.OutputDirectory;
             txtUpdateSchemaFile.Text = formSettings.UpdateSchemaFile;
+            txtConfiguration.Text = formSettings.Configuration;
 
             errorWriter = new ErrorWriter();
         }
@@ -139,7 +142,7 @@ namespace SqlSchemaCompare.WindowsForm
                 ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
                 IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
 
-                CompareSchemaManager schemaCompare = new(schemaBuilder);
+                CompareSchemaManager schemaCompare = new(GetConfiguration(), schemaBuilder);
                 (var file1, var file2) = schemaCompare.Compare(currentOriginDbObjects, currentDestinationDbObjects, SelectedObjectType());
 
                 File.WriteAllText(fileNameDiffOrigin, file1);
@@ -152,6 +155,13 @@ namespace SqlSchemaCompare.WindowsForm
                 MessageBox.Show(exc.Message + exc.StackTrace);
                 EnableDisableMainForm(string.Empty, true);
             }
+        }
+
+        private Configuration GetConfiguration()
+        {
+            return string.IsNullOrEmpty(txtConfiguration.Text)
+                ? new Configuration()
+                : JsonConvert.DeserializeObject<Configuration>(File.ReadAllText(txtConfiguration.Text));
         }
         private string GetFileNameDiff(string fullPathFileName)
         {
@@ -260,10 +270,7 @@ namespace SqlSchemaCompare.WindowsForm
 
         private void BtnSwapOriginDestination_Click(object sender, EventArgs e)
         {
-            var swap = txtOriginSchema.Text;
-            txtOriginSchema.Text = txtDestinationSchema.Text;
-            txtDestinationSchema.Text = swap;
-
+            (txtDestinationSchema.Text, txtOriginSchema.Text) = (txtOriginSchema.Text, txtDestinationSchema.Text);
             formSettings.OriginSchema = txtOriginSchema.Text;
             formSettings.DestinationSchema = txtDestinationSchema.Text;
             formSettings.Save();
@@ -343,6 +350,28 @@ namespace SqlSchemaCompare.WindowsForm
         private void BtnClear_Click(object sender, EventArgs e)
         {
             LoadClearSchemaCompleted(ChooseCompareUpdate, false);
+        }
+
+        private void BtnConfiguration_Click(object sender, EventArgs e)
+        {
+            DialogResult result = ofdConfiguration.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                txtConfiguration.Text = ofdConfiguration.FileName;
+                formSettings.Configuration = txtConfiguration.Text;
+                formSettings.Save();
+            }
+        }
+
+        private void BtnGetConfiguration_Click(object sender, EventArgs e)
+        {
+            var conf = new Configuration
+            {
+                DiscardObjects = new List<string> { "[schema].[table to discard]" },
+                DiscardSchemas = new List<string> { "[schema to discard]" },
+            };
+            Clipboard.SetText(JsonConvert.SerializeObject(conf));
+            lblInfo.Text = "Configuration copied into clipboard";
         }
 
         public record ParametersLoad(string ErrorFile, string Origin, string Destination);

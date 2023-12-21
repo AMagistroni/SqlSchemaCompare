@@ -18,6 +18,13 @@ namespace SqlSchemaCompare.WindowsForm
             set => this[nameof(DestinationSchema)] = value;
         }
         [UserScopedSetting()]
+        public string Configuration
+        {
+            get => (string)this[nameof(Configuration)];
+            set => this[nameof(Configuration)] = value;
+        }
+
+        [UserScopedSetting()]
         public string OutputDirectory
         {
             get => (string)this[nameof(OutputDirectory)];

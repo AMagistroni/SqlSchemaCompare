@@ -12,7 +12,7 @@ namespace SqlSchemaCompare.Test.TSql
             const string sql =
 @"CREATE TABLE [dbo].[tbl_Z]([ID] [int] IDENTITY(0,1) NOT NU)
 GO";
-            var (_, _, errors) = UtilityTest.Compare(sql, sql, new DbObjectType[] { DbObjectType.Table });
+            var (_, _, errors) = UtilityTest.Compare(sql, sql, new Core.Common.Configuration(), new DbObjectType[] { DbObjectType.Table });
 
             errors.ShouldBe(
 @"**************** ORIGIN **************** 
