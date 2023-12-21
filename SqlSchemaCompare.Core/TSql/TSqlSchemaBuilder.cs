@@ -45,7 +45,7 @@ namespace SqlSchemaCompare.Core.TSql
         {
             return "GO\r\n";
         }
-        private string BuildTableConstraint(TableConstraint constraint, Operation operation, ResultProcessDbObject resultProcessDbObject)
+        private static string BuildTableConstraint(TableConstraint constraint, Operation operation, ResultProcessDbObject resultProcessDbObject)
         {
             switch (operation)
             {
@@ -87,7 +87,7 @@ END";
             }
         }
 
-        private string BuildMember(Member member, Operation operation)
+        private static string BuildMember(Member member, Operation operation)
         {
             return operation switch
             {
@@ -97,7 +97,7 @@ END";
             };
         }
 
-        private string BuildColumn(Table.Column column, Operation operation, ResultProcessDbObject resultProcessDbObject)
+        private static string BuildColumn(Table.Column column, Operation operation, ResultProcessDbObject resultProcessDbObject)
         {
             switch (operation)
             {
@@ -121,14 +121,14 @@ END";
             }
         }
 
-        private string GetStringWithoutBracket(string value)
+        private static string GetStringWithoutBracket(string value)
         {
             value = value.StartsWith('[') ? value[1..] : value;
             value = value.EndsWith(']') ? value[0..^1] : value;
             return value;
         }
 
-        private string BuildUser(User user, Operation operation)
+        private static string BuildUser(User user, Operation operation)
         {
             switch (operation)
             {
@@ -156,15 +156,15 @@ END";
                     throw new NotSupportedException($"Operation not supported on store {user}");
             }
         }
-        private string BuildEnableTrigger(Trigger.EnabledDbObject enabledDbObject, Operation operation)
+        private static string BuildEnableTrigger(Trigger.EnabledDbObject enabledDbObject, Operation operation)
         {
-            var partialSql = enabledDbObject.Sql[enabledDbObject.Sql.IndexOf(" ")..];
+            var partialSql = enabledDbObject.Sql[enabledDbObject.Sql.IndexOf(' ')..];
             if (operation == Operation.Enabled)
                 return $"ENABLE{partialSql}";
             else
                 return $"DISABLE{partialSql}";
         }
-        private string BuildCreateDrop(DbObject dbObject, string objectName, Operation operation)
+        private static string BuildCreateDrop(DbObject dbObject, string objectName, Operation operation)
         {
             return operation switch
             {
@@ -174,7 +174,7 @@ END";
             };
         }
 
-        private string BuildIndex(Index dbObject, Operation operation)
+        private static string BuildIndex(Index dbObject, Operation operation)
         {
             return operation switch
             {
@@ -184,12 +184,12 @@ END";
             };
         }
 
-        private string BuildView(View view, Operation operation)
+        private static string BuildView(View view, Operation operation)
         {
             return BuildGenericDbObjects("VIEW", view, operation);
         }
 
-        private string BuildGenericDbObjects(string objectName, DbObject dbObject, Operation operation)
+        private static string BuildGenericDbObjects(string objectName, DbObject dbObject, Operation operation)
         {
             return operation switch
             {
@@ -200,7 +200,7 @@ END";
             };
         }
 
-        private string RemoveStartString(string startString, string schema)
+        private static string RemoveStartString(string startString, string schema)
         {
             var indexStart = schema.IndexOf(startString, StringComparison.OrdinalIgnoreCase);
             if (indexStart != 0)

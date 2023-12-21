@@ -8,14 +8,8 @@ using static SqlSchemaCompare.Core.DbStructures.Table;
 
 namespace SqlSchemaCompare.Core
 {
-    public class UpdateSchemaManager
+    public class UpdateSchemaManager(ISchemaBuilder schemaBuilder)
     {
-        private readonly ISchemaBuilder _schemaBuilder;
-        public UpdateSchemaManager(ISchemaBuilder schemaBuilder)
-        {
-            _schemaBuilder = schemaBuilder;
-        }
-
         private static List<(DbObjectType DbObjectType, Operation Operation)> OrderItemSchema => new()
         {
             (DbObjectType.User, Operation.Create),
@@ -92,8 +86,8 @@ namespace SqlSchemaCompare.Core
                 var destinationDb = destinationObjects.OfType<Database>();
                 if (destinationDb.Any())
                 {
-                    updateSchemaStringBuild.AppendLine(_schemaBuilder.BuildUse(destinationDb.First().Name));
-                    updateSchemaStringBuild.AppendLine(_schemaBuilder.BuildSeparator());
+                    updateSchemaStringBuild.AppendLine(schemaBuilder.BuildUse(destinationDb.First().Name));
+                    updateSchemaStringBuild.AppendLine(schemaBuilder.BuildSeparator());
                 }
 
                 foreach (var objectToWrite in OrderItemSchema)
@@ -104,12 +98,12 @@ namespace SqlSchemaCompare.Core
 
                         foreach (var dbObject in dbObjects.ToList())
                         {
-                            var sql = _schemaBuilder.Build(dbObject, objectToWrite.Operation, resultProcessDbObject);
+                            var sql = schemaBuilder.Build(dbObject, objectToWrite.Operation, resultProcessDbObject);
                             if (!string.IsNullOrEmpty(sql))
                             {
                                 updateSchemaStringBuild
                                     .AppendLine(sql)
-                                    .AppendLine(_schemaBuilder.BuildSeparator());
+                                    .AppendLine(schemaBuilder.BuildSeparator());
                             }
                         }
                     }

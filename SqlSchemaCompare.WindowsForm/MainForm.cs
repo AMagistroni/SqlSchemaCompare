@@ -245,7 +245,7 @@ namespace SqlSchemaCompare.WindowsForm
 
                 var (origin, destination) = GetSchema();
 
-                ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
+                TSqlSchemaBuilder schemaBuilder = new();
                 UpdateSchemaManager updateSchemaManager = new(schemaBuilder);
                 var updateSchema = updateSchemaManager.UpdateSchema(currentOriginDbObjects, currentDestinationDbObjects, SelectedObjectType());
 
@@ -323,7 +323,7 @@ namespace SqlSchemaCompare.WindowsForm
             ChkOther.Checked = ChkAll.Checked;
         }
 
-        private IEnumerable<DbObjectType> SelectedObjectType()
+        private List<DbObjectType> SelectedObjectType()
         {
             var selectedObjectType = new List<DbObjectType>();
             if (ChkFunction.Checked)
@@ -368,8 +368,8 @@ namespace SqlSchemaCompare.WindowsForm
         {
             var conf = new Configuration
             {
-                DiscardObjects = new List<string> { "[schema].[table to discard]" },
-                DiscardSchemas = new List<string> { "[schema to discard]" },
+                DiscardObjects = ["[schema].[table to discard]"],
+                DiscardSchemas = ["[schema to discard]"],
             };
             Clipboard.SetText(JsonConvert.SerializeObject(conf));
             lblInfo.Text = "Configuration copied into clipboard";

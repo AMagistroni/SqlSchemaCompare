@@ -3,23 +3,14 @@ using Antlr4.Runtime.Misc;
 
 namespace SqlSchemaCompare.Core
 {
-    public class CaseChangingCharStream : ICharStream
+    /// <summary>
+    /// Constructs a new CaseChangingCharStream wrapping the given <paramref name="stream"/> forcing
+    /// all characters to upper case or lower case.
+    /// </summary>
+    /// <param name="stream">The stream to wrap.</param>
+    /// <param name="upper">If true force each symbol to upper case, otherwise force to lower.</param>
+    public class CaseChangingCharStream(ICharStream stream, bool upper) : ICharStream
     {
-        private readonly ICharStream stream;
-        private readonly bool upper;
-
-        /// <summary>
-        /// Constructs a new CaseChangingCharStream wrapping the given <paramref name="stream"/> forcing
-        /// all characters to upper case or lower case.
-        /// </summary>
-        /// <param name="stream">The stream to wrap.</param>
-        /// <param name="upper">If true force each symbol to upper case, otherwise force to lower.</param>
-        public CaseChangingCharStream(ICharStream stream, bool upper)
-        {
-            this.stream = stream;
-            this.upper = upper;
-        }
-
         public int Index
         {
             get
