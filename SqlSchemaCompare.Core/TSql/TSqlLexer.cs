@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from C:\Git\SqlSchemaCompareGenerator\SqlSchemaCompareGenerator.Console\TSqlLexer.g4 by ANTLR 4.6.6
+// Generated from C:\GitHub\SqlSchemaCompare\SqlSchemaCompareGenerator\SqlSchemaCompareGenerator.Console\TSqlLexer.g4 by ANTLR 4.6.6
 
 // Unreachable code detected
 #pragma warning disable 0162

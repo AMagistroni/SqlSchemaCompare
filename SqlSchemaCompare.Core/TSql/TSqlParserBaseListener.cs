@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from C:\Git\SqlSchemaCompareGenerator\SqlSchemaCompareGenerator.Console\TSqlParser.g4 by ANTLR 4.6.6
+// Generated from C:\GitHub\SqlSchemaCompare\SqlSchemaCompareGenerator\SqlSchemaCompareGenerator.Console\TSqlParser.g4 by ANTLR 4.6.6
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -852,6 +852,19 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitAlter_application_role([NotNull] TSqlParser.Alter_application_roleContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.alter_xml_schema_collection"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAlter_xml_schema_collection([NotNull] TSqlParser.Alter_xml_schema_collectionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.alter_xml_schema_collection"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAlter_xml_schema_collection([NotNull] TSqlParser.Alter_xml_schema_collectionContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_application_role"/>.
@@ -2414,6 +2427,58 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitCreate_cryptographic_provider([NotNull] TSqlParser.Create_cryptographic_providerContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.create_endpoint"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCreate_endpoint([NotNull] TSqlParser.Create_endpointContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.create_endpoint"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCreate_endpoint([NotNull] TSqlParser.Create_endpointContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.endpoint_encryption_alogorithm_clause"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEndpoint_encryption_alogorithm_clause([NotNull] TSqlParser.Endpoint_encryption_alogorithm_clauseContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.endpoint_encryption_alogorithm_clause"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEndpoint_encryption_alogorithm_clause([NotNull] TSqlParser.Endpoint_encryption_alogorithm_clauseContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.endpoint_authentication_clause"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEndpoint_authentication_clause([NotNull] TSqlParser.Endpoint_authentication_clauseContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.endpoint_authentication_clause"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEndpoint_authentication_clause([NotNull] TSqlParser.Endpoint_authentication_clauseContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.endpoint_listener_clause"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEndpoint_listener_clause([NotNull] TSqlParser.Endpoint_listener_clauseContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.endpoint_listener_clause"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEndpoint_listener_clause([NotNull] TSqlParser.Endpoint_listener_clauseContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_event_notification"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -2817,6 +2882,84 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitAlter_resource_governor([NotNull] TSqlParser.Alter_resource_governorContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.alter_database_audit_specification"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAlter_database_audit_specification([NotNull] TSqlParser.Alter_database_audit_specificationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.alter_database_audit_specification"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAlter_database_audit_specification([NotNull] TSqlParser.Alter_database_audit_specificationContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.audit_action_spec_group"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAudit_action_spec_group([NotNull] TSqlParser.Audit_action_spec_groupContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.audit_action_spec_group"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAudit_action_spec_group([NotNull] TSqlParser.Audit_action_spec_groupContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.audit_action_specification"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAudit_action_specification([NotNull] TSqlParser.Audit_action_specificationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.audit_action_specification"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAudit_action_specification([NotNull] TSqlParser.Audit_action_specificationContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.action_specification"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAction_specification([NotNull] TSqlParser.Action_specificationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.action_specification"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAction_specification([NotNull] TSqlParser.Action_specificationContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.audit_class_name"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAudit_class_name([NotNull] TSqlParser.Audit_class_nameContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.audit_class_name"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAudit_class_name([NotNull] TSqlParser.Audit_class_nameContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.audit_securable"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAudit_securable([NotNull] TSqlParser.Audit_securableContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.audit_securable"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAudit_securable([NotNull] TSqlParser.Audit_securableContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.alter_db_role"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -2828,6 +2971,19 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitAlter_db_role([NotNull] TSqlParser.Alter_db_roleContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.create_database_audit_specification"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCreate_database_audit_specification([NotNull] TSqlParser.Create_database_audit_specificationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.create_database_audit_specification"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCreate_database_audit_specification([NotNull] TSqlParser.Create_database_audit_specificationContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_db_role"/>.
@@ -3088,6 +3244,19 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitAlter_service([NotNull] TSqlParser.Alter_serviceContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.opt_arg_clause"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterOpt_arg_clause([NotNull] TSqlParser.Opt_arg_clauseContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.opt_arg_clause"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitOpt_arg_clause([NotNull] TSqlParser.Opt_arg_clauseContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_service"/>.
