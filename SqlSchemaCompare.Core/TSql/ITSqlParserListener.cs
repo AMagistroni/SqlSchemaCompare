@@ -3187,6 +3187,28 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitCreate_index([NotNull] TSqlParser.Create_indexContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.create_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCreate_index_options([NotNull] TSqlParser.Create_index_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.create_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCreate_index_options([NotNull] TSqlParser.Create_index_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.relational_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRelational_index_option([NotNull] TSqlParser.Relational_index_optionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.relational_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRelational_index_option([NotNull] TSqlParser.Relational_index_optionContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.alter_index"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -3196,6 +3218,83 @@ public interface ITSqlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitAlter_index([NotNull] TSqlParser.Alter_indexContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.resumable_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterResumable_index_options([NotNull] TSqlParser.Resumable_index_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.resumable_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitResumable_index_options([NotNull] TSqlParser.Resumable_index_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.resumable_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterResumable_index_option([NotNull] TSqlParser.Resumable_index_optionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.resumable_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitResumable_index_option([NotNull] TSqlParser.Resumable_index_optionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.reorganize_partition"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterReorganize_partition([NotNull] TSqlParser.Reorganize_partitionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.reorganize_partition"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitReorganize_partition([NotNull] TSqlParser.Reorganize_partitionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.reorganize_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterReorganize_options([NotNull] TSqlParser.Reorganize_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.reorganize_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitReorganize_options([NotNull] TSqlParser.Reorganize_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.reorganize_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterReorganize_option([NotNull] TSqlParser.Reorganize_optionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.reorganize_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitReorganize_option([NotNull] TSqlParser.Reorganize_optionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.set_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSet_index_options([NotNull] TSqlParser.Set_index_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.set_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSet_index_options([NotNull] TSqlParser.Set_index_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.set_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSet_index_option([NotNull] TSqlParser.Set_index_optionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.set_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSet_index_option([NotNull] TSqlParser.Set_index_optionContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.rebuild_partition"/>.
@@ -3209,6 +3308,61 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitRebuild_partition([NotNull] TSqlParser.Rebuild_partitionContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.rebuild_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRebuild_index_options([NotNull] TSqlParser.Rebuild_index_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.rebuild_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRebuild_index_options([NotNull] TSqlParser.Rebuild_index_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.rebuild_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRebuild_index_option([NotNull] TSqlParser.Rebuild_index_optionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.rebuild_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRebuild_index_option([NotNull] TSqlParser.Rebuild_index_optionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.single_partition_rebuild_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSingle_partition_rebuild_index_options([NotNull] TSqlParser.Single_partition_rebuild_index_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.single_partition_rebuild_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSingle_partition_rebuild_index_options([NotNull] TSqlParser.Single_partition_rebuild_index_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.single_partition_rebuild_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSingle_partition_rebuild_index_option([NotNull] TSqlParser.Single_partition_rebuild_index_optionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.single_partition_rebuild_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSingle_partition_rebuild_index_option([NotNull] TSqlParser.Single_partition_rebuild_index_optionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.on_partitions"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterOn_partitions([NotNull] TSqlParser.On_partitionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.on_partitions"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitOn_partitions([NotNull] TSqlParser.On_partitionsContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_columnstore_index"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -3218,6 +3372,28 @@ public interface ITSqlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitCreate_columnstore_index([NotNull] TSqlParser.Create_columnstore_indexContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.create_columnstore_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCreate_columnstore_index_options([NotNull] TSqlParser.Create_columnstore_index_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.create_columnstore_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCreate_columnstore_index_options([NotNull] TSqlParser.Create_columnstore_index_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.columnstore_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterColumnstore_index_option([NotNull] TSqlParser.Columnstore_index_optionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.columnstore_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitColumnstore_index_option([NotNull] TSqlParser.Columnstore_index_optionContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_nonclustered_columnstore_index"/>.
@@ -3240,6 +3416,28 @@ public interface ITSqlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitCreate_xml_index([NotNull] TSqlParser.Create_xml_indexContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.xml_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterXml_index_options([NotNull] TSqlParser.Xml_index_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.xml_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitXml_index_options([NotNull] TSqlParser.Xml_index_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.xml_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterXml_index_option([NotNull] TSqlParser.Xml_index_optionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.xml_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitXml_index_option([NotNull] TSqlParser.Xml_index_optionContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_or_alter_procedure"/>.
@@ -3374,6 +3572,17 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitFunc_body_returns_scalar([NotNull] TSqlParser.Func_body_returns_scalarContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.procedure_param_default_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterProcedure_param_default_value([NotNull] TSqlParser.Procedure_param_default_valueContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.procedure_param_default_value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitProcedure_param_default_value([NotNull] TSqlParser.Procedure_param_default_valueContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.procedure_param"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -3440,6 +3649,28 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitUpdate_statistics([NotNull] TSqlParser.Update_statisticsContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.update_statistics_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterUpdate_statistics_options([NotNull] TSqlParser.Update_statistics_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.update_statistics_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitUpdate_statistics_options([NotNull] TSqlParser.Update_statistics_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.update_statistics_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterUpdate_statistics_option([NotNull] TSqlParser.Update_statistics_optionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.update_statistics_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitUpdate_statistics_option([NotNull] TSqlParser.Update_statistics_optionContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_table"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -3471,6 +3702,39 @@ public interface ITSqlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitTable_options([NotNull] TSqlParser.Table_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.table_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterTable_option([NotNull] TSqlParser.Table_optionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.table_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitTable_option([NotNull] TSqlParser.Table_optionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.create_table_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCreate_table_index_options([NotNull] TSqlParser.Create_table_index_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.create_table_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCreate_table_index_options([NotNull] TSqlParser.Create_table_index_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.create_table_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCreate_table_index_option([NotNull] TSqlParser.Create_table_index_optionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.create_table_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCreate_table_index_option([NotNull] TSqlParser.Create_table_index_optionContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_view"/>.
@@ -5013,6 +5277,28 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitColumn_constraint([NotNull] TSqlParser.Column_constraintContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.column_index"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterColumn_index([NotNull] TSqlParser.Column_indexContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.column_index"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitColumn_index([NotNull] TSqlParser.Column_indexContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.on_partition_or_filegroup"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterOn_partition_or_filegroup([NotNull] TSqlParser.On_partition_or_filegroupContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.on_partition_or_filegroup"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitOn_partition_or_filegroup([NotNull] TSqlParser.On_partition_or_filegroupContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.table_constraint"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -5033,6 +5319,50 @@ public interface ITSqlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitDefault_value_columns([NotNull] TSqlParser.Default_value_columnsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.connection_node"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterConnection_node([NotNull] TSqlParser.Connection_nodeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.connection_node"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitConnection_node([NotNull] TSqlParser.Connection_nodeContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.primary_key_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPrimary_key_options([NotNull] TSqlParser.Primary_key_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.primary_key_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPrimary_key_options([NotNull] TSqlParser.Primary_key_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.foreign_key_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterForeign_key_options([NotNull] TSqlParser.Foreign_key_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.foreign_key_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitForeign_key_options([NotNull] TSqlParser.Foreign_key_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.check_constraint"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCheck_constraint([NotNull] TSqlParser.Check_constraintContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.check_constraint"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCheck_constraint([NotNull] TSqlParser.Check_constraintContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.on_delete"/>.
@@ -5057,6 +5387,17 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitOn_update([NotNull] TSqlParser.On_updateContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.alter_table_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAlter_table_index_options([NotNull] TSqlParser.Alter_table_index_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.alter_table_index_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAlter_table_index_options([NotNull] TSqlParser.Alter_table_index_optionsContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.index_options"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -5077,6 +5418,17 @@ public interface ITSqlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitIndex_option([NotNull] TSqlParser.Index_optionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.alter_table_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAlter_table_index_option([NotNull] TSqlParser.Alter_table_index_optionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.alter_table_index_option"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAlter_table_index_option([NotNull] TSqlParser.Alter_table_index_optionContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.declare_cursor"/>.
@@ -5165,6 +5517,17 @@ public interface ITSqlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitExpression([NotNull] TSqlParser.ExpressionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.parameter"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterParameter([NotNull] TSqlParser.ParameterContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.parameter"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitParameter([NotNull] TSqlParser.ParameterContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.time_zone"/>.
@@ -6025,6 +6388,28 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitModify_call([NotNull] TSqlParser.Modify_callContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.hierarchyid_call"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterHierarchyid_call([NotNull] TSqlParser.Hierarchyid_callContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.hierarchyid_call"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitHierarchyid_call([NotNull] TSqlParser.Hierarchyid_callContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.hierarchyid_static_method"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterHierarchyid_static_method([NotNull] TSqlParser.Hierarchyid_static_methodContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.hierarchyid_static_method"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitHierarchyid_static_method([NotNull] TSqlParser.Hierarchyid_static_methodContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.nodes_method"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -6111,6 +6496,28 @@ public interface ITSqlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitDeprecated_table_hint([NotNull] TSqlParser.Deprecated_table_hintContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.sybase_legacy_hints"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSybase_legacy_hints([NotNull] TSqlParser.Sybase_legacy_hintsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.sybase_legacy_hints"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSybase_legacy_hints([NotNull] TSqlParser.Sybase_legacy_hintsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.sybase_legacy_hint"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSybase_legacy_hint([NotNull] TSqlParser.Sybase_legacy_hintContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.sybase_legacy_hint"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSybase_legacy_hint([NotNull] TSqlParser.Sybase_legacy_hintContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.insert_with_table_hints"/>.
@@ -6727,6 +7134,17 @@ public interface ITSqlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitSign([NotNull] TSqlParser.SignContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.primitive_constant"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPrimitive_constant([NotNull] TSqlParser.Primitive_constantContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.primitive_constant"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPrimitive_constant([NotNull] TSqlParser.Primitive_constantContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.keyword"/>.
