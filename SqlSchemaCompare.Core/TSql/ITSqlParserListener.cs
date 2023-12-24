@@ -123,6 +123,19 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitPARTITION_FUNC([NotNull] TSqlParser.PARTITION_FUNCContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by the <c>HIERARCHYID_METHOD</c>
+	/// labeled alternative in <see cref="TSqlParser.function_call"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterHIERARCHYID_METHOD([NotNull] TSqlParser.HIERARCHYID_METHODContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>HIERARCHYID_METHOD</c>
+	/// labeled alternative in <see cref="TSqlParser.function_call"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitHIERARCHYID_METHOD([NotNull] TSqlParser.HIERARCHYID_METHODContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by the <c>BINARY_CHECKSUM</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// </summary>
@@ -5253,6 +5266,28 @@ public interface ITSqlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitColumn_definition([NotNull] TSqlParser.Column_definitionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.column_definition_element"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterColumn_definition_element([NotNull] TSqlParser.Column_definition_elementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.column_definition_element"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitColumn_definition_element([NotNull] TSqlParser.Column_definition_elementContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.column_modifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterColumn_modifier([NotNull] TSqlParser.Column_modifierContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.column_modifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitColumn_modifier([NotNull] TSqlParser.Column_modifierContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.materialized_column_definition"/>.
