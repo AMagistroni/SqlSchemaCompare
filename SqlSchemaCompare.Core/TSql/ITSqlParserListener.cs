@@ -3189,6 +3189,28 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitCreate_database([NotNull] TSqlParser.Create_databaseContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.create_database_azure"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCreate_database_azure([NotNull] TSqlParser.Create_database_azureContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.create_database_azure"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCreate_database_azure([NotNull] TSqlParser.Create_database_azureContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.create_database_azure_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCreate_database_azure_options([NotNull] TSqlParser.Create_database_azure_optionsContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.create_database_azure_options"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCreate_database_azure_options([NotNull] TSqlParser.Create_database_azure_optionsContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_index"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -3880,6 +3902,28 @@ public interface ITSqlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitQuery_store_options([NotNull] TSqlParser.Query_store_optionsContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.query_store_options_Azure"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterQuery_store_options_Azure([NotNull] TSqlParser.Query_store_options_AzureContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.query_store_options_Azure"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitQuery_store_options_Azure([NotNull] TSqlParser.Query_store_options_AzureContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.query_store_option_Azure"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterQuery_store_option_Azure([NotNull] TSqlParser.Query_store_option_AzureContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.query_store_option_Azure"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitQuery_store_option_Azure([NotNull] TSqlParser.Query_store_option_AzureContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.auto_option"/>.

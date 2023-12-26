@@ -3755,6 +3755,32 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitCreate_database([NotNull] TSqlParser.Create_databaseContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.create_database_azure"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCreate_database_azure([NotNull] TSqlParser.Create_database_azureContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.create_database_azure"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCreate_database_azure([NotNull] TSqlParser.Create_database_azureContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.create_database_azure_options"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCreate_database_azure_options([NotNull] TSqlParser.Create_database_azure_optionsContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.create_database_azure_options"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCreate_database_azure_options([NotNull] TSqlParser.Create_database_azure_optionsContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_index"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -4572,6 +4598,32 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitQuery_store_options([NotNull] TSqlParser.Query_store_optionsContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.query_store_options_Azure"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterQuery_store_options_Azure([NotNull] TSqlParser.Query_store_options_AzureContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.query_store_options_Azure"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitQuery_store_options_Azure([NotNull] TSqlParser.Query_store_options_AzureContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.query_store_option_Azure"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterQuery_store_option_Azure([NotNull] TSqlParser.Query_store_option_AzureContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.query_store_option_Azure"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitQuery_store_option_Azure([NotNull] TSqlParser.Query_store_option_AzureContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.auto_option"/>.
