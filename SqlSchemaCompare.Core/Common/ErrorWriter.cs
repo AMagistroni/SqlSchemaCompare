@@ -26,8 +26,8 @@ namespace SqlSchemaCompare.Core.Common
                 errors.ToList()
                     .ForEach(x => errorSchemaStringBuild
                                     .AppendLine("----------------------------------------")
-                                    .AppendLine($"Offending token: {x.OffendingToken}")
-                                    .AppendLine($"Line: {x.Line}, CharPosition: {x.CharPositionInLine}")
+                                    .Append("Offending token: ").AppendLine(x.OffendingToken)
+                                    .Append("Line: ").Append(x.Line).Append(", CharPosition: ").Append(x.CharPositionInLine).AppendLine()
                                     .AppendLine(x.Message));
             }
 

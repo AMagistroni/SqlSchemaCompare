@@ -5,24 +5,17 @@ using System.Collections.Generic;
 
 namespace SqlSchemaCompare.Core.Common
 {
-    public class ErrorParser
+    public class ErrorParser(string offendingToken, string msg, int line, int charPositionInLine)
     {
-        public string OffendingToken { get; private set; }
-        public string Message { get; private set; }
-        public int Line { get; private set; }
-        public int CharPositionInLine { get; private set; }
-        public ErrorParser(string offendingToken, string msg, int line, int charPositionInLine)
-        {
-            OffendingToken = offendingToken;
-            Message = msg;
-            Line = line;
-            CharPositionInLine = charPositionInLine;
-        }
+        public string OffendingToken { get; } = offendingToken;
+        public string Message { get; } = msg;
+        public int Line { get; } = line;
+        public int CharPositionInLine { get; } = charPositionInLine;
     }
     public class ErrorListener: BaseErrorListener
     {
-        public IList<ErrorParser> Errors { get; private set; } = new List<ErrorParser>();
-        public override void SyntaxError([NotNull] IRecognizer recognizer, [Nullable] IToken offendingSymbol, int line, int charPositionInLine, [NotNull] string msg, [Nullable] RecognitionException e) 
+        public IList<ErrorParser> Errors { get; } = new List<ErrorParser>();
+        public override void SyntaxError([NotNull] IRecognizer recognizer, [Nullable] IToken offendingSymbol, int line, int charPositionInLine, [NotNull] string msg, [Nullable] RecognitionException e)
         {
             Errors.Add(new ErrorParser(offendingSymbol.Text, msg, line, charPositionInLine));
         }

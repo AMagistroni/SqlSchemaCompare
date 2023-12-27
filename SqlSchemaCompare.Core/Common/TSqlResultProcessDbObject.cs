@@ -12,7 +12,7 @@ namespace SqlSchemaCompare.Core.Common
             public Operation Operation { get; init; }
             public string Parameter { get; init; }
         }
-        public List<OperationOnDbObject> OperationsOnDbObject { get; } = new();
+        public List<OperationOnDbObject> OperationsOnDbObject { get; } = [];
         public void AddOperation<T>(DbObject dbObjects, Operation operation, string parameter = null) where T : DbObject
         {
             OperationsOnDbObject.Add(new OperationOnDbObject { DbObject = dbObjects, Operation = operation, Parameter = parameter } );

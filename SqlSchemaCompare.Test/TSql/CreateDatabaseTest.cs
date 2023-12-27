@@ -11,8 +11,7 @@ namespace SqlSchemaCompare.Test.TSql
         private readonly IList<DbObjectType> SelectedObjects;
         public CreateDatabaseTest()
         {
-            RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
-            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.StoreProcedure);
+            SelectedObjects = RelatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.StoreProcedure);
         }
 
         [Fact]

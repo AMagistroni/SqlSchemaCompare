@@ -98,7 +98,7 @@ namespace SqlSchemaCompare.Core.TSql
 
         public override void ExitEnable_trigger([NotNull] TSqlParser.Enable_triggerContext context)
         {
-            var enabled = _triggerFactory.CreateEnable(context, _stream);
+            var enabled = TSqlTriggerFactory.CreateEnable(context, _stream);
             var trigger = DbObjects.OfType<Trigger>().Single(x => x.Name == enabled.Name);
             trigger.SetEnabled(enabled);
             DbObjects.Add(enabled);
@@ -106,7 +106,7 @@ namespace SqlSchemaCompare.Core.TSql
 
         public override void ExitDisable_trigger([NotNull] TSqlParser.Disable_triggerContext context)
         {
-            var enabled = _triggerFactory.CreateDisable(context, _stream);
+            var enabled = TSqlTriggerFactory.CreateDisable(context, _stream);
             var trigger = DbObjects.OfType<Trigger>().Single(x => x.Name == enabled.Name);
             trigger.SetEnabled(enabled);
             DbObjects.Add(enabled);
@@ -145,7 +145,7 @@ namespace SqlSchemaCompare.Core.TSql
         {
             if (!ObjectInsideDDL(context))
             {
-                var index = _indexFactory.CreateAlter(context, _stream);
+                var index = TSqlIndexFactory.CreateAlter(context, _stream);
                 var table = DbObjects.OfType<Table>().SingleOrDefault(x => x.Identifier == index.ParentName);
                 table.AddIndex(index as DbStructures.Index);
                 DbObjects.Add(index);
@@ -156,7 +156,7 @@ namespace SqlSchemaCompare.Core.TSql
         {
             if (!ObjectInsideDDL(context))
             {
-                var dbObject = _tableFactory.CreateAlterTable(context);
+                var dbObject = TSqlTableFactory.CreateAlterTable(context);
                 var table = DbObjects.OfType<Table>().Single(x => x.Identifier == dbObject.ParentName);
                 if (dbObject is TableConstraint)
                 {

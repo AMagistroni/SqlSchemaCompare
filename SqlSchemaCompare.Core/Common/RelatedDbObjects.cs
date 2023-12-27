@@ -4,22 +4,22 @@ using System.Linq;
 
 namespace SqlSchemaCompare.Core.Common
 {
-    public class RelatedDbObjectsConfiguration
+    public static class RelatedDbObjectsConfiguration
     {
-        private static List<List<DbObjectType>> RelatedDbObjects = new()
-        {
-            new List<DbObjectType> { DbObjectType.Function },
-            new List<DbObjectType> { DbObjectType.StoreProcedure },
-            new List<DbObjectType> { DbObjectType.Table, DbObjectType.TableDefaultContraint, DbObjectType.TableForeignKeyContraint, DbObjectType.TablePrimaryKeyContraint, DbObjectType.Column, DbObjectType.Index, DbObjectType.TableSet },
-            new List<DbObjectType> { DbObjectType.User, DbObjectType.Role, DbObjectType.Member },
-            new List<DbObjectType> { DbObjectType.View, DbObjectType.Index },
-            new List<DbObjectType> { DbObjectType.Schema },
-            new List<DbObjectType> { DbObjectType.Trigger, DbObjectType.EnableTrigger },
-            new List<DbObjectType> { DbObjectType.Type },
-            new List<DbObjectType> { DbObjectType.Other},
-        };
+        private static readonly List<List<DbObjectType>> RelatedDbObjects =
+        [
+            [DbObjectType.Function],
+            [DbObjectType.StoreProcedure],
+            [DbObjectType.Table, DbObjectType.TableDefaultContraint, DbObjectType.TableForeignKeyContraint, DbObjectType.TablePrimaryKeyContraint, DbObjectType.Column, DbObjectType.Index, DbObjectType.TableSet],
+            [DbObjectType.User, DbObjectType.Role, DbObjectType.Member],
+            [DbObjectType.View, DbObjectType.Index],
+            [DbObjectType.Schema],
+            [DbObjectType.Trigger, DbObjectType.EnableTrigger],
+            [DbObjectType.Type],
+            [DbObjectType.Other],
+        ];
 
-        public List<DbObjectType> GetRelatedDbObjects(DbObjectType dbObject)
+        public static List<DbObjectType> GetRelatedDbObjects(DbObjectType dbObject)
         {
             return RelatedDbObjects.Single(x => x.Contains(dbObject));
         }

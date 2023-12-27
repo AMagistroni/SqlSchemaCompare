@@ -13,8 +13,7 @@ namespace SqlSchemaCompare.Test.TSql
         private readonly IList<DbObjectType> SelectedObjects;
         public TSqlFunctionTest()
         {
-            RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
-            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Function);
+            SelectedObjects = RelatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Function);
         }
         [Fact]
         public void CreateFunction()

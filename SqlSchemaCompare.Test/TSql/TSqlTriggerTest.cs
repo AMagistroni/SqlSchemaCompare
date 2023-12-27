@@ -13,8 +13,7 @@ namespace SqlSchemaCompare.Test.TSql
         private readonly IList<DbObjectType> SelectedObjects;
         public TSqlTriggerTest()
         {
-            RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
-            SelectedObjects = relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Trigger);
+            SelectedObjects = RelatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Trigger);
         }
         [Fact]
         public void CreateTrigger()

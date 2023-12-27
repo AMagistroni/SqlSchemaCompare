@@ -5,7 +5,7 @@
         Table,
         View,
         StoreProcedure,
-        Function, 
+        Function,
         Schema,
         Trigger,
         User,

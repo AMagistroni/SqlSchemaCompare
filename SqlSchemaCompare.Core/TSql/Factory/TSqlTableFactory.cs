@@ -39,7 +39,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             return table;
         }
 
-        private Column CreateColumn(TSqlParser.Column_def_table_constraintContext columnTree, Table table)
+        private static Column CreateColumn(TSqlParser.Column_def_table_constraintContext columnTree, Table table)
         {
             var columnDefinition = columnTree.column_definition();
 
@@ -52,7 +52,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             };
         }
 
-        private TablePrimaryKeyConstraint CreatePrimaryKeyConstraint(TSqlParser.Table_constraintContext constraintContext, ICharStream stream, Table table)
+        private static TablePrimaryKeyConstraint CreatePrimaryKeyConstraint(TSqlParser.Table_constraintContext constraintContext, ICharStream stream, Table table)
         {
             return new TablePrimaryKeyConstraint
             {
@@ -64,7 +64,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             };
         }
 
-        internal DbObject CreateAlterTable(ParserRuleContext context)
+        internal static DbObject CreateAlterTable(ParserRuleContext context)
         {
             var alterTableContext = context as TSqlParser.Alter_tableContext;
 
@@ -88,7 +88,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             throw new NotSupportedException();
         }
 
-        private TableForeignKeyConstraint CreateForeignKeyConstraint(TSqlParser.Alter_tableContext alterTableContext)
+        private static TableForeignKeyConstraint CreateForeignKeyConstraint(TSqlParser.Alter_tableContext alterTableContext)
         {
             return new TableForeignKeyConstraint
             {
@@ -100,7 +100,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             };
         }
 
-        private TableDefaultConstraint CreateDefaultConstraint(TSqlParser.Alter_tableContext alterTableContext)
+        private static TableDefaultConstraint CreateDefaultConstraint(TSqlParser.Alter_tableContext alterTableContext)
         {
             if (alterTableContext.column_def_table_constraints() is not null)
             {

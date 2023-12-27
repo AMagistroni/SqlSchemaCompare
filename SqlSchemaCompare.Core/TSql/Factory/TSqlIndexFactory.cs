@@ -24,7 +24,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             };
         }
 
-        public DbObject CreateAlter(ParserRuleContext context, ICharStream stream)
+        public static DbObject CreateAlter(ParserRuleContext context, ICharStream stream)
         {
             var indexContext = context as TSqlParser.Alter_indexContext;
             return new Index

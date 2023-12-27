@@ -109,7 +109,7 @@ GO
 
             var configuration = new Core.Common.Configuration()
             {
-                DiscardSchemas = new List<string> { "[test]" }
+                DiscardSchemas = ["[test]"]
             };
 
             var (file1, file2, errors) = UtilityTest.Compare(sql1, string.Empty, configuration, new DbObjectType[] { DbObjectType.Table });
@@ -128,7 +128,7 @@ GO
 
             var configuration = new Core.Common.Configuration()
             {
-                DiscardObjects = new List<string> { "[dbo].[only_file_1]" }
+                DiscardObjects = ["[dbo].[only_file_1]"]
             };
 
             var (file1, file2, errors) = UtilityTest.Compare(sql1, string.Empty, configuration, new DbObjectType[] { DbObjectType.Table });
@@ -150,7 +150,7 @@ GO
 
             var configuration = new Core.Common.Configuration()
             {
-                DiscardSchemas = new List<string> { "[schema]" }
+                DiscardSchemas = ["[schema]"]
             };
 
             var (file1, file2, errors) = UtilityTest.Compare(sql1, string.Empty, configuration, new DbObjectType[] { DbObjectType.Table });

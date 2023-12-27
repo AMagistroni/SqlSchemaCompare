@@ -7,7 +7,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
 {
     public abstract class FactoryBase
     {
-        protected Operation GetOperation(string operation)
+        protected static Operation GetOperation(string operation)
         {
             operation = operation.ToUpper();
             if (operation == "CREATE")
@@ -17,7 +17,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             else throw new NotSupportedException();
         }
 
-        protected string GetSqlWithoutGOStatement(ParserRuleContext context, ICharStream stream)
+        protected static string GetSqlWithoutGOStatement(ParserRuleContext context, ICharStream stream)
         {
             var sql = stream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)).Trim();
             if (sql.EndsWith("GO", StringComparison.OrdinalIgnoreCase))

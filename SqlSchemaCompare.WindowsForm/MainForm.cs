@@ -27,7 +27,6 @@ namespace SqlSchemaCompare.WindowsForm
 
         private IEnumerable<DbObject> currentOriginDbObjects;
         private IEnumerable<DbObject> currentDestinationDbObjects;
-        private readonly RelatedDbObjectsConfiguration relatedDbObjectsConfiguration = new();
         public MainForm()
         {
             InitializeComponent();
@@ -327,23 +326,23 @@ namespace SqlSchemaCompare.WindowsForm
         {
             var selectedObjectType = new List<DbObjectType>();
             if (ChkFunction.Checked)
-                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Function));
+                selectedObjectType.AddRange(RelatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Function));
             if (ChkStoreProcedure.Checked)
-                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.StoreProcedure));
+                selectedObjectType.AddRange(RelatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.StoreProcedure));
             if (ChkTable.Checked)
-                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Table));
+                selectedObjectType.AddRange(RelatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Table));
             if (ChkUser.Checked)
-                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.User));
+                selectedObjectType.AddRange(RelatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.User));
             if (ChkView.Checked)
-                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.View));
+                selectedObjectType.AddRange(RelatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.View));
             if (ChkSchema.Checked)
-                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Schema));
+                selectedObjectType.AddRange(RelatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Schema));
             if (ChkTrigger.Checked)
-                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Trigger));
+                selectedObjectType.AddRange(RelatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Trigger));
             if (ChkTableType.Checked)
-                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Type));
+                selectedObjectType.AddRange(RelatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Type));
             if (ChkOther.Checked)
-                selectedObjectType.AddRange(relatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Other));
+                selectedObjectType.AddRange(RelatedDbObjectsConfiguration.GetRelatedDbObjects(DbObjectType.Other));
 
             return selectedObjectType;
         }

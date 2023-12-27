@@ -18,7 +18,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 Operation = GetOperation(triggerContext.GetChild(0).GetChild(0).GetText())
             };
         }
-        public Trigger.EnabledDbObject CreateEnable(ParserRuleContext context, ICharStream stream)
+        public static Trigger.EnabledDbObject CreateEnable(ParserRuleContext context, ICharStream stream)
         {
             var triggerContext = context as TSqlParser.Enable_triggerContext;
             return new Trigger.EnabledDbObject()
@@ -28,7 +28,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 Enabled = true
             };
         }
-        public Trigger.EnabledDbObject CreateDisable(ParserRuleContext context, ICharStream stream)
+        public static Trigger.EnabledDbObject CreateDisable(ParserRuleContext context, ICharStream stream)
         {
             var triggerContext = context as TSqlParser.Disable_triggerContext;
             return new Trigger.EnabledDbObject()

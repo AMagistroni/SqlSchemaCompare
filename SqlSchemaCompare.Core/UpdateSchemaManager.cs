@@ -115,15 +115,6 @@ namespace SqlSchemaCompare.Core
             return updateSchemaStringBuild.ToString();
         }
 
-        private IEnumerable<DbObject> FilterByConfiguration(IEnumerable<DbObject> dbObjects)
-        {
-            return dbObjects
-                .Except(dbObjects.Where(x => configuration.DiscardSchemas.Contains(x.Schema)))
-                .Except(dbObjects.Where(x => x.ParentName.StartsWithAny(configuration.DiscardSchemas)))
-                .Except(dbObjects.Where(x => configuration.DiscardObjects.Contains(x.Identifier)))
-                .Except(dbObjects.Where(x => configuration.DiscardObjects.Contains(x.ParentName)))
-                .Except(dbObjects.Where(x => configuration.DiscardSchemas.Contains(x.Name)));
-        }
         private static void ProcessView(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
         {
             ProcessGenericDbObject<View>(sourceObjects, destinationObjects, resultProcessDbObject);
