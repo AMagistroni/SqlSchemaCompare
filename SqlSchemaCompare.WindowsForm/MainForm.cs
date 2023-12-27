@@ -246,7 +246,7 @@ namespace SqlSchemaCompare.WindowsForm
                 var (origin, destination) = GetSchema();
 
                 TSqlSchemaBuilder schemaBuilder = new();
-                UpdateSchemaManager updateSchemaManager = new(schemaBuilder);
+                UpdateSchemaManager updateSchemaManager = new(GetConfiguration(), schemaBuilder);
                 var updateSchema = updateSchemaManager.UpdateSchema(currentOriginDbObjects, currentDestinationDbObjects, SelectedObjectType());
 
                 StringBuilder stringResult = new();

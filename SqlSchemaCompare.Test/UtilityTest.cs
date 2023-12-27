@@ -33,7 +33,7 @@ namespace SqlSchemaCompare.Test
             var loadSchemaManager = new LoadSchemaManager(dbObjectFactory, errorWriter);
             var (originDbObjects, destinationDbObjects, errors) = loadSchemaManager.LoadSchema(originSchema, destinationSchema);
 
-            UpdateSchemaManager updateSchemaManager = new(schemaBuilder);
+            UpdateSchemaManager updateSchemaManager = new(new Configuration(), schemaBuilder);
             string updateSchema= updateSchemaManager.UpdateSchema(originDbObjects, destinationDbObjects, dbObjectTypes);
 
             return (updateSchema, errors);

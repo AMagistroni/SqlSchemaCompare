@@ -13,8 +13,8 @@ namespace SqlSchemaCompare.Core
             var sourceObjectsFilteredSelected = sourceObjects.Where(x => selectedObjectType.Contains(x.DbObjectType));
             var destinationObjectsFilteredSelected = destinationObjects.Where(x => selectedObjectType.Contains(x.DbObjectType));
 
-            var sourceFilteredByConfiguration = FilterByConfiguration(sourceObjectsFilteredSelected);
-            var destinationFilteredByConfiguration = FilterByConfiguration(destinationObjectsFilteredSelected);
+            var sourceFilteredByConfiguration = ConfigurationFilter.FilterByConfiguration(configuration, sourceObjectsFilteredSelected);
+            var destinationFilteredByConfiguration = ConfigurationFilter.FilterByConfiguration(configuration, destinationObjectsFilteredSelected);
 
             var objectsSchemaResult1 = sourceFilteredByConfiguration.Select(x => x.Sql).ToList();
             var objectsSchemaResult2 = destinationFilteredByConfiguration.Select(x => x.Sql).ToList();
@@ -23,16 +23,6 @@ namespace SqlSchemaCompare.Core
             StringBuilder stringBuilder2 = BuildStringBuilder(objectsSchemaResult2, objectsSchemaResult1);
 
             return (stringBuilder1.ToString().Trim(), stringBuilder2.ToString().Trim());
-        }
-
-        private IEnumerable<DbObject> FilterByConfiguration(IEnumerable<DbObject> dbObjects)
-        {
-            return dbObjects
-                .Except(dbObjects.Where(x => configuration.DiscardSchemas.Contains(x.Schema)))
-                .Except(dbObjects.Where(x => x.ParentName.StartsWithAny(configuration.DiscardSchemas)))
-                .Except(dbObjects.Where(x => configuration.DiscardObjects.Contains(x.Identifier)))
-                .Except(dbObjects.Where(x => configuration.DiscardObjects.Contains(x.ParentName)))
-                .Except(dbObjects.Where(x => configuration.DiscardSchemas.Contains(x.Name)));
         }
 
         private StringBuilder BuildStringBuilder(List<string> objectsSchema1, List<string> objectsSchema2)

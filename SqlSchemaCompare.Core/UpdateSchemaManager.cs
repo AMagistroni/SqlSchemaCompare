@@ -8,7 +8,7 @@ using static SqlSchemaCompare.Core.DbStructures.Table;
 
 namespace SqlSchemaCompare.Core
 {
-    public class UpdateSchemaManager(ISchemaBuilder schemaBuilder)
+    public class UpdateSchemaManager(Configuration configuration, ISchemaBuilder schemaBuilder)
     {
         private static List<(DbObjectType DbObjectType, Operation Operation)> OrderItemSchema => new()
         {
@@ -69,6 +69,9 @@ namespace SqlSchemaCompare.Core
         {
             ResultProcessDbObject resultProcessDbObject = new();
 
+            sourceObjects = ConfigurationFilter.FilterByConfiguration(configuration, sourceObjects);
+            destinationObjects = ConfigurationFilter.FilterByConfiguration(configuration, destinationObjects);
+
             ProcessUser(sourceObjects, destinationObjects, resultProcessDbObject);
             ProcessRole(sourceObjects, destinationObjects, resultProcessDbObject);
             ProcessMember(sourceObjects, destinationObjects, resultProcessDbObject);
@@ -112,6 +115,15 @@ namespace SqlSchemaCompare.Core
             return updateSchemaStringBuild.ToString();
         }
 
+        private IEnumerable<DbObject> FilterByConfiguration(IEnumerable<DbObject> dbObjects)
+        {
+            return dbObjects
+                .Except(dbObjects.Where(x => configuration.DiscardSchemas.Contains(x.Schema)))
+                .Except(dbObjects.Where(x => x.ParentName.StartsWithAny(configuration.DiscardSchemas)))
+                .Except(dbObjects.Where(x => configuration.DiscardObjects.Contains(x.Identifier)))
+                .Except(dbObjects.Where(x => configuration.DiscardObjects.Contains(x.ParentName)))
+                .Except(dbObjects.Where(x => configuration.DiscardSchemas.Contains(x.Name)));
+        }
         private static void ProcessView(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, ResultProcessDbObject resultProcessDbObject)
         {
             ProcessGenericDbObject<View>(sourceObjects, destinationObjects, resultProcessDbObject);
