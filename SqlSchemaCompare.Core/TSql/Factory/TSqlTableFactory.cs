@@ -46,7 +46,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             return new Column()
             {
                 Sql = columnTree.Start.InputStream.GetText(new Interval(columnTree.start.StartIndex, columnTree.stop.StopIndex)),
-                Name = columnDefinition.id_()[0].GetText(),
+                Name = columnDefinition.id_().GetText(),
                 ParentName = table.Identifier,
                 Table = table
             };
