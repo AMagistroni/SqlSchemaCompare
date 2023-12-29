@@ -5664,17 +5664,6 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitBracket_expression([NotNull] TSqlParser.Bracket_expressionContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.constant_expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterConstant_expression([NotNull] TSqlParser.Constant_expressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.constant_expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitConstant_expression([NotNull] TSqlParser.Constant_expressionContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.subquery"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -7050,17 +7039,6 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitNull_notnull([NotNull] TSqlParser.Null_notnullContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.null_or_default"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterNull_or_default([NotNull] TSqlParser.Null_or_defaultContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.null_or_default"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitNull_or_default([NotNull] TSqlParser.Null_or_defaultContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.scalar_function_name"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -7202,17 +7180,6 @@ public interface ITSqlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitConstant([NotNull] TSqlParser.ConstantContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.sign"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterSign([NotNull] TSqlParser.SignContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.sign"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitSign([NotNull] TSqlParser.SignContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.primitive_constant"/>.

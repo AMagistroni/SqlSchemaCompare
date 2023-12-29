@@ -6680,19 +6680,6 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitBracket_expression([NotNull] TSqlParser.Bracket_expressionContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.constant_expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterConstant_expression([NotNull] TSqlParser.Constant_expressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.constant_expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitConstant_expression([NotNull] TSqlParser.Constant_expressionContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.subquery"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -8318,19 +8305,6 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitNull_notnull([NotNull] TSqlParser.Null_notnullContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.null_or_default"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterNull_or_default([NotNull] TSqlParser.Null_or_defaultContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.null_or_default"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitNull_or_default([NotNull] TSqlParser.Null_or_defaultContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.scalar_function_name"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -8498,19 +8472,6 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitConstant([NotNull] TSqlParser.ConstantContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.sign"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSign([NotNull] TSqlParser.SignContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.sign"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSign([NotNull] TSqlParser.SignContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.primitive_constant"/>.
