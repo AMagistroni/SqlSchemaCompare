@@ -156,6 +156,1056 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitHIERARCHYID_METHOD([NotNull] TSqlParser.HIERARCHYID_METHODContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by the <c>APP_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAPP_NAME([NotNull] TSqlParser.APP_NAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>APP_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAPP_NAME([NotNull] TSqlParser.APP_NAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>APPLOCK_MODE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAPPLOCK_MODE([NotNull] TSqlParser.APPLOCK_MODEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>APPLOCK_MODE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAPPLOCK_MODE([NotNull] TSqlParser.APPLOCK_MODEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>APPLOCK_TEST</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAPPLOCK_TEST([NotNull] TSqlParser.APPLOCK_TESTContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>APPLOCK_TEST</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAPPLOCK_TEST([NotNull] TSqlParser.APPLOCK_TESTContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ASSEMBLYPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterASSEMBLYPROPERTY([NotNull] TSqlParser.ASSEMBLYPROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ASSEMBLYPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitASSEMBLYPROPERTY([NotNull] TSqlParser.ASSEMBLYPROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>COL_LENGTH</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCOL_LENGTH([NotNull] TSqlParser.COL_LENGTHContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>COL_LENGTH</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCOL_LENGTH([NotNull] TSqlParser.COL_LENGTHContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>COL_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCOL_NAME([NotNull] TSqlParser.COL_NAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>COL_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCOL_NAME([NotNull] TSqlParser.COL_NAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>COLUMNPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCOLUMNPROPERTY([NotNull] TSqlParser.COLUMNPROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>COLUMNPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCOLUMNPROPERTY([NotNull] TSqlParser.COLUMNPROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DATABASEPROPERTYEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDATABASEPROPERTYEX([NotNull] TSqlParser.DATABASEPROPERTYEXContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DATABASEPROPERTYEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDATABASEPROPERTYEX([NotNull] TSqlParser.DATABASEPROPERTYEXContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DB_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDB_ID([NotNull] TSqlParser.DB_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DB_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDB_ID([NotNull] TSqlParser.DB_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DB_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDB_NAME([NotNull] TSqlParser.DB_NAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DB_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDB_NAME([NotNull] TSqlParser.DB_NAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FILE_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFILE_ID([NotNull] TSqlParser.FILE_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FILE_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFILE_ID([NotNull] TSqlParser.FILE_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FILE_IDEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFILE_IDEX([NotNull] TSqlParser.FILE_IDEXContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FILE_IDEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFILE_IDEX([NotNull] TSqlParser.FILE_IDEXContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FILE_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFILE_NAME([NotNull] TSqlParser.FILE_NAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FILE_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFILE_NAME([NotNull] TSqlParser.FILE_NAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FILEGROUP_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFILEGROUP_ID([NotNull] TSqlParser.FILEGROUP_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FILEGROUP_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFILEGROUP_ID([NotNull] TSqlParser.FILEGROUP_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FILEGROUP_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFILEGROUP_NAME([NotNull] TSqlParser.FILEGROUP_NAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FILEGROUP_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFILEGROUP_NAME([NotNull] TSqlParser.FILEGROUP_NAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FILEGROUPPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFILEGROUPPROPERTY([NotNull] TSqlParser.FILEGROUPPROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FILEGROUPPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFILEGROUPPROPERTY([NotNull] TSqlParser.FILEGROUPPROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FILEPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFILEPROPERTY([NotNull] TSqlParser.FILEPROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FILEPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFILEPROPERTY([NotNull] TSqlParser.FILEPROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FILEPROPERTYEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFILEPROPERTYEX([NotNull] TSqlParser.FILEPROPERTYEXContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FILEPROPERTYEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFILEPROPERTYEX([NotNull] TSqlParser.FILEPROPERTYEXContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FULLTEXTCATALOGPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFULLTEXTCATALOGPROPERTY([NotNull] TSqlParser.FULLTEXTCATALOGPROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FULLTEXTCATALOGPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFULLTEXTCATALOGPROPERTY([NotNull] TSqlParser.FULLTEXTCATALOGPROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FULLTEXTSERVICEPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFULLTEXTSERVICEPROPERTY([NotNull] TSqlParser.FULLTEXTSERVICEPROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FULLTEXTSERVICEPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFULLTEXTSERVICEPROPERTY([NotNull] TSqlParser.FULLTEXTSERVICEPROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>INDEX_COL</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterINDEX_COL([NotNull] TSqlParser.INDEX_COLContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>INDEX_COL</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitINDEX_COL([NotNull] TSqlParser.INDEX_COLContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>INDEXKEY_PROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterINDEXKEY_PROPERTY([NotNull] TSqlParser.INDEXKEY_PROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>INDEXKEY_PROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitINDEXKEY_PROPERTY([NotNull] TSqlParser.INDEXKEY_PROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>INDEXPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterINDEXPROPERTY([NotNull] TSqlParser.INDEXPROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>INDEXPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitINDEXPROPERTY([NotNull] TSqlParser.INDEXPROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>NEXT_VALUE_FOR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNEXT_VALUE_FOR([NotNull] TSqlParser.NEXT_VALUE_FORContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>NEXT_VALUE_FOR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNEXT_VALUE_FOR([NotNull] TSqlParser.NEXT_VALUE_FORContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>OBJECT_DEFINITION</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterOBJECT_DEFINITION([NotNull] TSqlParser.OBJECT_DEFINITIONContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>OBJECT_DEFINITION</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitOBJECT_DEFINITION([NotNull] TSqlParser.OBJECT_DEFINITIONContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>OBJECT_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterOBJECT_ID([NotNull] TSqlParser.OBJECT_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>OBJECT_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitOBJECT_ID([NotNull] TSqlParser.OBJECT_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>OBJECT_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterOBJECT_NAME([NotNull] TSqlParser.OBJECT_NAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>OBJECT_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitOBJECT_NAME([NotNull] TSqlParser.OBJECT_NAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>OBJECT_SCHEMA_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterOBJECT_SCHEMA_NAME([NotNull] TSqlParser.OBJECT_SCHEMA_NAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>OBJECT_SCHEMA_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitOBJECT_SCHEMA_NAME([NotNull] TSqlParser.OBJECT_SCHEMA_NAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>OBJECTPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterOBJECTPROPERTY([NotNull] TSqlParser.OBJECTPROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>OBJECTPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitOBJECTPROPERTY([NotNull] TSqlParser.OBJECTPROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>OBJECTPROPERTYEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterOBJECTPROPERTYEX([NotNull] TSqlParser.OBJECTPROPERTYEXContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>OBJECTPROPERTYEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitOBJECTPROPERTYEX([NotNull] TSqlParser.OBJECTPROPERTYEXContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ORIGINAL_DB_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterORIGINAL_DB_NAME([NotNull] TSqlParser.ORIGINAL_DB_NAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ORIGINAL_DB_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitORIGINAL_DB_NAME([NotNull] TSqlParser.ORIGINAL_DB_NAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>PARSENAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPARSENAME([NotNull] TSqlParser.PARSENAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>PARSENAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPARSENAME([NotNull] TSqlParser.PARSENAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SCHEMA_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSCHEMA_ID([NotNull] TSqlParser.SCHEMA_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SCHEMA_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSCHEMA_ID([NotNull] TSqlParser.SCHEMA_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SCHEMA_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSCHEMA_NAME([NotNull] TSqlParser.SCHEMA_NAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SCHEMA_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSCHEMA_NAME([NotNull] TSqlParser.SCHEMA_NAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SCOPE_IDENTITY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSCOPE_IDENTITY([NotNull] TSqlParser.SCOPE_IDENTITYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SCOPE_IDENTITY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSCOPE_IDENTITY([NotNull] TSqlParser.SCOPE_IDENTITYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SERVERPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSERVERPROPERTY([NotNull] TSqlParser.SERVERPROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SERVERPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSERVERPROPERTY([NotNull] TSqlParser.SERVERPROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>STATS_DATE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSTATS_DATE([NotNull] TSqlParser.STATS_DATEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>STATS_DATE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSTATS_DATE([NotNull] TSqlParser.STATS_DATEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>TYPE_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTYPE_ID([NotNull] TSqlParser.TYPE_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>TYPE_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTYPE_ID([NotNull] TSqlParser.TYPE_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>TYPE_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTYPE_NAME([NotNull] TSqlParser.TYPE_NAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>TYPE_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTYPE_NAME([NotNull] TSqlParser.TYPE_NAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>TYPEPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTYPEPROPERTY([NotNull] TSqlParser.TYPEPROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>TYPEPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTYPEPROPERTY([NotNull] TSqlParser.TYPEPROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ASCII</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterASCII([NotNull] TSqlParser.ASCIIContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ASCII</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitASCII([NotNull] TSqlParser.ASCIIContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CHAR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCHAR([NotNull] TSqlParser.CHARContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CHAR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCHAR([NotNull] TSqlParser.CHARContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CHARINDEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCHARINDEX([NotNull] TSqlParser.CHARINDEXContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CHARINDEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCHARINDEX([NotNull] TSqlParser.CHARINDEXContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CONCAT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCONCAT([NotNull] TSqlParser.CONCATContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CONCAT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCONCAT([NotNull] TSqlParser.CONCATContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CONCAT_WS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCONCAT_WS([NotNull] TSqlParser.CONCAT_WSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CONCAT_WS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCONCAT_WS([NotNull] TSqlParser.CONCAT_WSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DIFFERENCE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDIFFERENCE([NotNull] TSqlParser.DIFFERENCEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DIFFERENCE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDIFFERENCE([NotNull] TSqlParser.DIFFERENCEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FORMAT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFORMAT([NotNull] TSqlParser.FORMATContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FORMAT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFORMAT([NotNull] TSqlParser.FORMATContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>LEFT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLEFT([NotNull] TSqlParser.LEFTContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>LEFT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLEFT([NotNull] TSqlParser.LEFTContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>LEN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLEN([NotNull] TSqlParser.LENContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>LEN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLEN([NotNull] TSqlParser.LENContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>LOWER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLOWER([NotNull] TSqlParser.LOWERContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>LOWER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLOWER([NotNull] TSqlParser.LOWERContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>LTRIM</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLTRIM([NotNull] TSqlParser.LTRIMContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>LTRIM</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLTRIM([NotNull] TSqlParser.LTRIMContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>NCHAR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNCHAR([NotNull] TSqlParser.NCHARContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>NCHAR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNCHAR([NotNull] TSqlParser.NCHARContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>PATINDEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPATINDEX([NotNull] TSqlParser.PATINDEXContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>PATINDEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPATINDEX([NotNull] TSqlParser.PATINDEXContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>QUOTENAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterQUOTENAME([NotNull] TSqlParser.QUOTENAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>QUOTENAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitQUOTENAME([NotNull] TSqlParser.QUOTENAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>REPLACE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterREPLACE([NotNull] TSqlParser.REPLACEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>REPLACE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitREPLACE([NotNull] TSqlParser.REPLACEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>REPLICATE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterREPLICATE([NotNull] TSqlParser.REPLICATEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>REPLICATE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitREPLICATE([NotNull] TSqlParser.REPLICATEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>REVERSE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterREVERSE([NotNull] TSqlParser.REVERSEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>REVERSE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitREVERSE([NotNull] TSqlParser.REVERSEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>RIGHT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRIGHT([NotNull] TSqlParser.RIGHTContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>RIGHT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRIGHT([NotNull] TSqlParser.RIGHTContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>RTRIM</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRTRIM([NotNull] TSqlParser.RTRIMContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>RTRIM</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRTRIM([NotNull] TSqlParser.RTRIMContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SOUNDEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSOUNDEX([NotNull] TSqlParser.SOUNDEXContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SOUNDEX</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSOUNDEX([NotNull] TSqlParser.SOUNDEXContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SPACE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSPACE([NotNull] TSqlParser.SPACEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SPACE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSPACE([NotNull] TSqlParser.SPACEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>STR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSTR([NotNull] TSqlParser.STRContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>STR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSTR([NotNull] TSqlParser.STRContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>STRINGAGG</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSTRINGAGG([NotNull] TSqlParser.STRINGAGGContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>STRINGAGG</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSTRINGAGG([NotNull] TSqlParser.STRINGAGGContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>STRING_ESCAPE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSTRING_ESCAPE([NotNull] TSqlParser.STRING_ESCAPEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>STRING_ESCAPE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSTRING_ESCAPE([NotNull] TSqlParser.STRING_ESCAPEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>STUFF</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSTUFF([NotNull] TSqlParser.STUFFContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>STUFF</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSTUFF([NotNull] TSqlParser.STUFFContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SUBSTRING</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSUBSTRING([NotNull] TSqlParser.SUBSTRINGContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SUBSTRING</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSUBSTRING([NotNull] TSqlParser.SUBSTRINGContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>TRANSLATE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTRANSLATE([NotNull] TSqlParser.TRANSLATEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>TRANSLATE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTRANSLATE([NotNull] TSqlParser.TRANSLATEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>TRIM</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTRIM([NotNull] TSqlParser.TRIMContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>TRIM</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTRIM([NotNull] TSqlParser.TRIMContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>UNICODE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterUNICODE([NotNull] TSqlParser.UNICODEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>UNICODE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitUNICODE([NotNull] TSqlParser.UNICODEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>UPPER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterUPPER([NotNull] TSqlParser.UPPERContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>UPPER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitUPPER([NotNull] TSqlParser.UPPERContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by the <c>BINARY_CHECKSUM</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -169,6 +1219,396 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitBINARY_CHECKSUM([NotNull] TSqlParser.BINARY_CHECKSUMContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CHECKSUM</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCHECKSUM([NotNull] TSqlParser.CHECKSUMContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CHECKSUM</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCHECKSUM([NotNull] TSqlParser.CHECKSUMContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>COMPRESS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCOMPRESS([NotNull] TSqlParser.COMPRESSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>COMPRESS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCOMPRESS([NotNull] TSqlParser.COMPRESSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CONNECTIONPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCONNECTIONPROPERTY([NotNull] TSqlParser.CONNECTIONPROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CONNECTIONPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCONNECTIONPROPERTY([NotNull] TSqlParser.CONNECTIONPROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CONTEXT_INFO</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCONTEXT_INFO([NotNull] TSqlParser.CONTEXT_INFOContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CONTEXT_INFO</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCONTEXT_INFO([NotNull] TSqlParser.CONTEXT_INFOContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CURRENT_REQUEST_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCURRENT_REQUEST_ID([NotNull] TSqlParser.CURRENT_REQUEST_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CURRENT_REQUEST_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCURRENT_REQUEST_ID([NotNull] TSqlParser.CURRENT_REQUEST_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CURRENT_TRANSACTION_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCURRENT_TRANSACTION_ID([NotNull] TSqlParser.CURRENT_TRANSACTION_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CURRENT_TRANSACTION_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCURRENT_TRANSACTION_ID([NotNull] TSqlParser.CURRENT_TRANSACTION_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DECOMPRESS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDECOMPRESS([NotNull] TSqlParser.DECOMPRESSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DECOMPRESS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDECOMPRESS([NotNull] TSqlParser.DECOMPRESSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ERROR_LINE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterERROR_LINE([NotNull] TSqlParser.ERROR_LINEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ERROR_LINE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitERROR_LINE([NotNull] TSqlParser.ERROR_LINEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ERROR_MESSAGE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterERROR_MESSAGE([NotNull] TSqlParser.ERROR_MESSAGEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ERROR_MESSAGE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitERROR_MESSAGE([NotNull] TSqlParser.ERROR_MESSAGEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ERROR_NUMBER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterERROR_NUMBER([NotNull] TSqlParser.ERROR_NUMBERContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ERROR_NUMBER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitERROR_NUMBER([NotNull] TSqlParser.ERROR_NUMBERContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ERROR_PROCEDURE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterERROR_PROCEDURE([NotNull] TSqlParser.ERROR_PROCEDUREContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ERROR_PROCEDURE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitERROR_PROCEDURE([NotNull] TSqlParser.ERROR_PROCEDUREContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ERROR_SEVERITY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterERROR_SEVERITY([NotNull] TSqlParser.ERROR_SEVERITYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ERROR_SEVERITY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitERROR_SEVERITY([NotNull] TSqlParser.ERROR_SEVERITYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ERROR_STATE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterERROR_STATE([NotNull] TSqlParser.ERROR_STATEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ERROR_STATE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitERROR_STATE([NotNull] TSqlParser.ERROR_STATEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FORMATMESSAGE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFORMATMESSAGE([NotNull] TSqlParser.FORMATMESSAGEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FORMATMESSAGE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFORMATMESSAGE([NotNull] TSqlParser.FORMATMESSAGEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>GET_FILESTREAM_TRANSACTION_CONTEXT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterGET_FILESTREAM_TRANSACTION_CONTEXT([NotNull] TSqlParser.GET_FILESTREAM_TRANSACTION_CONTEXTContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>GET_FILESTREAM_TRANSACTION_CONTEXT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitGET_FILESTREAM_TRANSACTION_CONTEXT([NotNull] TSqlParser.GET_FILESTREAM_TRANSACTION_CONTEXTContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>GETANSINULL</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterGETANSINULL([NotNull] TSqlParser.GETANSINULLContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>GETANSINULL</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitGETANSINULL([NotNull] TSqlParser.GETANSINULLContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>HOST_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterHOST_ID([NotNull] TSqlParser.HOST_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>HOST_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitHOST_ID([NotNull] TSqlParser.HOST_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>HOST_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterHOST_NAME([NotNull] TSqlParser.HOST_NAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>HOST_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitHOST_NAME([NotNull] TSqlParser.HOST_NAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ISNULL</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterISNULL([NotNull] TSqlParser.ISNULLContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ISNULL</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitISNULL([NotNull] TSqlParser.ISNULLContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ISNUMERIC</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterISNUMERIC([NotNull] TSqlParser.ISNUMERICContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ISNUMERIC</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitISNUMERIC([NotNull] TSqlParser.ISNUMERICContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>MIN_ACTIVE_ROWVERSION</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMIN_ACTIVE_ROWVERSION([NotNull] TSqlParser.MIN_ACTIVE_ROWVERSIONContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>MIN_ACTIVE_ROWVERSION</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMIN_ACTIVE_ROWVERSION([NotNull] TSqlParser.MIN_ACTIVE_ROWVERSIONContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>NEWID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNEWID([NotNull] TSqlParser.NEWIDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>NEWID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNEWID([NotNull] TSqlParser.NEWIDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>NEWSEQUENTIALID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNEWSEQUENTIALID([NotNull] TSqlParser.NEWSEQUENTIALIDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>NEWSEQUENTIALID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNEWSEQUENTIALID([NotNull] TSqlParser.NEWSEQUENTIALIDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ROWCOUNT_BIG</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterROWCOUNT_BIG([NotNull] TSqlParser.ROWCOUNT_BIGContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ROWCOUNT_BIG</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitROWCOUNT_BIG([NotNull] TSqlParser.ROWCOUNT_BIGContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SESSION_CONTEXT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSESSION_CONTEXT([NotNull] TSqlParser.SESSION_CONTEXTContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SESSION_CONTEXT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSESSION_CONTEXT([NotNull] TSqlParser.SESSION_CONTEXTContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>XACT_STATE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterXACT_STATE([NotNull] TSqlParser.XACT_STATEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>XACT_STATE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitXACT_STATE([NotNull] TSqlParser.XACT_STATEContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>CAST</c>
@@ -216,21 +1656,6 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitCONVERT([NotNull] TSqlParser.CONVERTContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by the <c>CHECKSUM</c>
-	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterCHECKSUM([NotNull] TSqlParser.CHECKSUMContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>CHECKSUM</c>
-	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitCHECKSUM([NotNull] TSqlParser.CHECKSUMContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by the <c>COALESCE</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -244,6 +1669,171 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitCOALESCE([NotNull] TSqlParser.COALESCEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CURSOR_ROWS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCURSOR_ROWS([NotNull] TSqlParser.CURSOR_ROWSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CURSOR_ROWS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCURSOR_ROWS([NotNull] TSqlParser.CURSOR_ROWSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FETCH_STATUS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFETCH_STATUS([NotNull] TSqlParser.FETCH_STATUSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FETCH_STATUS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFETCH_STATUS([NotNull] TSqlParser.FETCH_STATUSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CURSOR_STATUS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCURSOR_STATUS([NotNull] TSqlParser.CURSOR_STATUSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CURSOR_STATUS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCURSOR_STATUS([NotNull] TSqlParser.CURSOR_STATUSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CERT_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCERT_ID([NotNull] TSqlParser.CERT_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CERT_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCERT_ID([NotNull] TSqlParser.CERT_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DATALENGTH</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDATALENGTH([NotNull] TSqlParser.DATALENGTHContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DATALENGTH</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDATALENGTH([NotNull] TSqlParser.DATALENGTHContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>IDENT_CURRENT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIDENT_CURRENT([NotNull] TSqlParser.IDENT_CURRENTContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>IDENT_CURRENT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIDENT_CURRENT([NotNull] TSqlParser.IDENT_CURRENTContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>IDENT_INCR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIDENT_INCR([NotNull] TSqlParser.IDENT_INCRContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>IDENT_INCR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIDENT_INCR([NotNull] TSqlParser.IDENT_INCRContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>IDENT_SEED</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIDENT_SEED([NotNull] TSqlParser.IDENT_SEEDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>IDENT_SEED</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIDENT_SEED([NotNull] TSqlParser.IDENT_SEEDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>IDENTITY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIDENTITY([NotNull] TSqlParser.IDENTITYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>IDENTITY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIDENTITY([NotNull] TSqlParser.IDENTITYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SQL_VARIANT_PROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSQL_VARIANT_PROPERTY([NotNull] TSqlParser.SQL_VARIANT_PROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SQL_VARIANT_PROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSQL_VARIANT_PROPERTY([NotNull] TSqlParser.SQL_VARIANT_PROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CURRENT_DATE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCURRENT_DATE([NotNull] TSqlParser.CURRENT_DATEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CURRENT_DATE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCURRENT_DATE([NotNull] TSqlParser.CURRENT_DATEContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>CURRENT_TIMESTAMP</c>
@@ -261,19 +1851,49 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitCURRENT_TIMESTAMP([NotNull] TSqlParser.CURRENT_TIMESTAMPContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by the <c>CURRENT_USER</c>
+	/// Enter a parse tree produced by the <c>CURRENT_TIMEZONE</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterCURRENT_USER([NotNull] TSqlParser.CURRENT_USERContext context) { }
+	public virtual void EnterCURRENT_TIMEZONE([NotNull] TSqlParser.CURRENT_TIMEZONEContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>CURRENT_USER</c>
+	/// Exit a parse tree produced by the <c>CURRENT_TIMEZONE</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitCURRENT_USER([NotNull] TSqlParser.CURRENT_USERContext context) { }
+	public virtual void ExitCURRENT_TIMEZONE([NotNull] TSqlParser.CURRENT_TIMEZONEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CURRENT_TIMEZONE_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCURRENT_TIMEZONE_ID([NotNull] TSqlParser.CURRENT_TIMEZONE_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CURRENT_TIMEZONE_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCURRENT_TIMEZONE_ID([NotNull] TSqlParser.CURRENT_TIMEZONE_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DATE_BUCKET</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDATE_BUCKET([NotNull] TSqlParser.DATE_BUCKETContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DATE_BUCKET</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDATE_BUCKET([NotNull] TSqlParser.DATE_BUCKETContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>DATEADD</c>
@@ -306,6 +1926,36 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitDATEDIFF([NotNull] TSqlParser.DATEDIFFContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by the <c>DATEDIFF_BIG</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDATEDIFF_BIG([NotNull] TSqlParser.DATEDIFF_BIGContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DATEDIFF_BIG</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDATEDIFF_BIG([NotNull] TSqlParser.DATEDIFF_BIGContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DATEFROMPARTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDATEFROMPARTS([NotNull] TSqlParser.DATEFROMPARTSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DATEFROMPARTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDATEFROMPARTS([NotNull] TSqlParser.DATEFROMPARTSContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by the <c>DATENAME</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -334,6 +1984,96 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitDATEPART([NotNull] TSqlParser.DATEPARTContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DATETIME2FROMPARTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDATETIME2FROMPARTS([NotNull] TSqlParser.DATETIME2FROMPARTSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DATETIME2FROMPARTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDATETIME2FROMPARTS([NotNull] TSqlParser.DATETIME2FROMPARTSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DATETIMEFROMPARTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDATETIMEFROMPARTS([NotNull] TSqlParser.DATETIMEFROMPARTSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DATETIMEFROMPARTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDATETIMEFROMPARTS([NotNull] TSqlParser.DATETIMEFROMPARTSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DATETIMEOFFSETFROMPARTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDATETIMEOFFSETFROMPARTS([NotNull] TSqlParser.DATETIMEOFFSETFROMPARTSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DATETIMEOFFSETFROMPARTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDATETIMEOFFSETFROMPARTS([NotNull] TSqlParser.DATETIMEOFFSETFROMPARTSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DATETRUNC</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDATETRUNC([NotNull] TSqlParser.DATETRUNCContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DATETRUNC</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDATETRUNC([NotNull] TSqlParser.DATETRUNCContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DAY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDAY([NotNull] TSqlParser.DAYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DAY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDAY([NotNull] TSqlParser.DAYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>EOMONTH</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEOMONTH([NotNull] TSqlParser.EOMONTHContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>EOMONTH</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEOMONTH([NotNull] TSqlParser.EOMONTHContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>GETDATE</c>
@@ -366,34 +2106,154 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitGETUTCDATE([NotNull] TSqlParser.GETUTCDATEContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by the <c>IDENTITY</c>
+	/// Enter a parse tree produced by the <c>ISDATE</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterIDENTITY([NotNull] TSqlParser.IDENTITYContext context) { }
+	public virtual void EnterISDATE([NotNull] TSqlParser.ISDATEContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>IDENTITY</c>
+	/// Exit a parse tree produced by the <c>ISDATE</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitIDENTITY([NotNull] TSqlParser.IDENTITYContext context) { }
+	public virtual void ExitISDATE([NotNull] TSqlParser.ISDATEContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by the <c>MIN_ACTIVE_ROWVERSION</c>
+	/// Enter a parse tree produced by the <c>MONTH</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMIN_ACTIVE_ROWVERSION([NotNull] TSqlParser.MIN_ACTIVE_ROWVERSIONContext context) { }
+	public virtual void EnterMONTH([NotNull] TSqlParser.MONTHContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>MIN_ACTIVE_ROWVERSION</c>
+	/// Exit a parse tree produced by the <c>MONTH</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMIN_ACTIVE_ROWVERSION([NotNull] TSqlParser.MIN_ACTIVE_ROWVERSIONContext context) { }
+	public virtual void ExitMONTH([NotNull] TSqlParser.MONTHContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SMALLDATETIMEFROMPARTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSMALLDATETIMEFROMPARTS([NotNull] TSqlParser.SMALLDATETIMEFROMPARTSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SMALLDATETIMEFROMPARTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSMALLDATETIMEFROMPARTS([NotNull] TSqlParser.SMALLDATETIMEFROMPARTSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SWITCHOFFSET</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSWITCHOFFSET([NotNull] TSqlParser.SWITCHOFFSETContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SWITCHOFFSET</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSWITCHOFFSET([NotNull] TSqlParser.SWITCHOFFSETContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SYSDATETIME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSYSDATETIME([NotNull] TSqlParser.SYSDATETIMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SYSDATETIME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSYSDATETIME([NotNull] TSqlParser.SYSDATETIMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SYSDATETIMEOFFSET</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSYSDATETIMEOFFSET([NotNull] TSqlParser.SYSDATETIMEOFFSETContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SYSDATETIMEOFFSET</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSYSDATETIMEOFFSET([NotNull] TSqlParser.SYSDATETIMEOFFSETContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SYSUTCDATETIME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSYSUTCDATETIME([NotNull] TSqlParser.SYSUTCDATETIMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SYSUTCDATETIME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSYSUTCDATETIME([NotNull] TSqlParser.SYSUTCDATETIMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>TIMEFROMPARTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTIMEFROMPARTS([NotNull] TSqlParser.TIMEFROMPARTSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>TIMEFROMPARTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTIMEFROMPARTS([NotNull] TSqlParser.TIMEFROMPARTSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>TODATETIMEOFFSET</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTODATETIMEOFFSET([NotNull] TSqlParser.TODATETIMEOFFSETContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>TODATETIMEOFFSET</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTODATETIMEOFFSET([NotNull] TSqlParser.TODATETIMEOFFSETContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>YEAR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterYEAR([NotNull] TSqlParser.YEARContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>YEAR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitYEAR([NotNull] TSqlParser.YEARContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>NULLIF</c>
@@ -411,79 +2271,19 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitNULLIF([NotNull] TSqlParser.NULLIFContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by the <c>STUFF</c>
+	/// Enter a parse tree produced by the <c>PARSE</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSTUFF([NotNull] TSqlParser.STUFFContext context) { }
+	public virtual void EnterPARSE([NotNull] TSqlParser.PARSEContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>STUFF</c>
+	/// Exit a parse tree produced by the <c>PARSE</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSTUFF([NotNull] TSqlParser.STUFFContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>SESSION_USER</c>
-	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSESSION_USER([NotNull] TSqlParser.SESSION_USERContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>SESSION_USER</c>
-	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSESSION_USER([NotNull] TSqlParser.SESSION_USERContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>SYSTEM_USER</c>
-	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSYSTEM_USER([NotNull] TSqlParser.SYSTEM_USERContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>SYSTEM_USER</c>
-	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSYSTEM_USER([NotNull] TSqlParser.SYSTEM_USERContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>USER</c>
-	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterUSER([NotNull] TSqlParser.USERContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>USER</c>
-	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitUSER([NotNull] TSqlParser.USERContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>ISNULL</c>
-	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterISNULL([NotNull] TSqlParser.ISNULLContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>ISNULL</c>
-	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitISNULL([NotNull] TSqlParser.ISNULLContext context) { }
+	public virtual void ExitPARSE([NotNull] TSqlParser.PARSEContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>XML_DATA_TYPE_FUNC</c>
@@ -516,19 +2316,829 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitIIF([NotNull] TSqlParser.IIFContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by the <c>STRINGAGG</c>
+	/// Enter a parse tree produced by the <c>ISJSON</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSTRINGAGG([NotNull] TSqlParser.STRINGAGGContext context) { }
+	public virtual void EnterISJSON([NotNull] TSqlParser.ISJSONContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>STRINGAGG</c>
+	/// Exit a parse tree produced by the <c>ISJSON</c>
 	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSTRINGAGG([NotNull] TSqlParser.STRINGAGGContext context) { }
+	public virtual void ExitISJSON([NotNull] TSqlParser.ISJSONContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>JSON_OBJECT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterJSON_OBJECT([NotNull] TSqlParser.JSON_OBJECTContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>JSON_OBJECT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitJSON_OBJECT([NotNull] TSqlParser.JSON_OBJECTContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>JSON_ARRAY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterJSON_ARRAY([NotNull] TSqlParser.JSON_ARRAYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>JSON_ARRAY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitJSON_ARRAY([NotNull] TSqlParser.JSON_ARRAYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>JSON_VALUE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterJSON_VALUE([NotNull] TSqlParser.JSON_VALUEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>JSON_VALUE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitJSON_VALUE([NotNull] TSqlParser.JSON_VALUEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>JSON_QUERY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterJSON_QUERY([NotNull] TSqlParser.JSON_QUERYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>JSON_QUERY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitJSON_QUERY([NotNull] TSqlParser.JSON_QUERYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>JSON_MODIFY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterJSON_MODIFY([NotNull] TSqlParser.JSON_MODIFYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>JSON_MODIFY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitJSON_MODIFY([NotNull] TSqlParser.JSON_MODIFYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>JSON_PATH_EXISTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterJSON_PATH_EXISTS([NotNull] TSqlParser.JSON_PATH_EXISTSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>JSON_PATH_EXISTS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitJSON_PATH_EXISTS([NotNull] TSqlParser.JSON_PATH_EXISTSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ABS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterABS([NotNull] TSqlParser.ABSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ABS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitABS([NotNull] TSqlParser.ABSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ACOS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterACOS([NotNull] TSqlParser.ACOSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ACOS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitACOS([NotNull] TSqlParser.ACOSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ASIN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterASIN([NotNull] TSqlParser.ASINContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ASIN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitASIN([NotNull] TSqlParser.ASINContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ATAN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterATAN([NotNull] TSqlParser.ATANContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ATAN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitATAN([NotNull] TSqlParser.ATANContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ATN2</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterATN2([NotNull] TSqlParser.ATN2Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ATN2</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitATN2([NotNull] TSqlParser.ATN2Context context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CEILING</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCEILING([NotNull] TSqlParser.CEILINGContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CEILING</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCEILING([NotNull] TSqlParser.CEILINGContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>COS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCOS([NotNull] TSqlParser.COSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>COS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCOS([NotNull] TSqlParser.COSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>COT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCOT([NotNull] TSqlParser.COTContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>COT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCOT([NotNull] TSqlParser.COTContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DEGREES</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDEGREES([NotNull] TSqlParser.DEGREESContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DEGREES</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDEGREES([NotNull] TSqlParser.DEGREESContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>EXP</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEXP([NotNull] TSqlParser.EXPContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>EXP</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEXP([NotNull] TSqlParser.EXPContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>FLOOR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFLOOR([NotNull] TSqlParser.FLOORContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>FLOOR</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFLOOR([NotNull] TSqlParser.FLOORContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>LOG</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLOG([NotNull] TSqlParser.LOGContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>LOG</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLOG([NotNull] TSqlParser.LOGContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>LOG10</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLOG10([NotNull] TSqlParser.LOG10Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>LOG10</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLOG10([NotNull] TSqlParser.LOG10Context context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>PI</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPI([NotNull] TSqlParser.PIContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>PI</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPI([NotNull] TSqlParser.PIContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>POWER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPOWER([NotNull] TSqlParser.POWERContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>POWER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPOWER([NotNull] TSqlParser.POWERContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>RADIANS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRADIANS([NotNull] TSqlParser.RADIANSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>RADIANS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRADIANS([NotNull] TSqlParser.RADIANSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>RAND</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRAND([NotNull] TSqlParser.RANDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>RAND</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRAND([NotNull] TSqlParser.RANDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ROUND</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterROUND([NotNull] TSqlParser.ROUNDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ROUND</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitROUND([NotNull] TSqlParser.ROUNDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>MATH_SIGN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMATH_SIGN([NotNull] TSqlParser.MATH_SIGNContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>MATH_SIGN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMATH_SIGN([NotNull] TSqlParser.MATH_SIGNContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SIN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSIN([NotNull] TSqlParser.SINContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SIN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSIN([NotNull] TSqlParser.SINContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SQRT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSQRT([NotNull] TSqlParser.SQRTContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SQRT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSQRT([NotNull] TSqlParser.SQRTContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SQUARE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSQUARE([NotNull] TSqlParser.SQUAREContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SQUARE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSQUARE([NotNull] TSqlParser.SQUAREContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>TAN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTAN([NotNull] TSqlParser.TANContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>TAN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTAN([NotNull] TSqlParser.TANContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>GREATEST</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterGREATEST([NotNull] TSqlParser.GREATESTContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>GREATEST</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitGREATEST([NotNull] TSqlParser.GREATESTContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>LEAST</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLEAST([NotNull] TSqlParser.LEASTContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>LEAST</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLEAST([NotNull] TSqlParser.LEASTContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CERTENCODED</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCERTENCODED([NotNull] TSqlParser.CERTENCODEDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CERTENCODED</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCERTENCODED([NotNull] TSqlParser.CERTENCODEDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CERTPRIVATEKEY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCERTPRIVATEKEY([NotNull] TSqlParser.CERTPRIVATEKEYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CERTPRIVATEKEY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCERTPRIVATEKEY([NotNull] TSqlParser.CERTPRIVATEKEYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CURRENT_USER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCURRENT_USER([NotNull] TSqlParser.CURRENT_USERContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CURRENT_USER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCURRENT_USER([NotNull] TSqlParser.CURRENT_USERContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>DATABASE_PRINCIPAL_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDATABASE_PRINCIPAL_ID([NotNull] TSqlParser.DATABASE_PRINCIPAL_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>DATABASE_PRINCIPAL_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDATABASE_PRINCIPAL_ID([NotNull] TSqlParser.DATABASE_PRINCIPAL_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>HAS_DBACCESS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterHAS_DBACCESS([NotNull] TSqlParser.HAS_DBACCESSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>HAS_DBACCESS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitHAS_DBACCESS([NotNull] TSqlParser.HAS_DBACCESSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>HAS_PERMS_BY_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterHAS_PERMS_BY_NAME([NotNull] TSqlParser.HAS_PERMS_BY_NAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>HAS_PERMS_BY_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitHAS_PERMS_BY_NAME([NotNull] TSqlParser.HAS_PERMS_BY_NAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>IS_MEMBER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIS_MEMBER([NotNull] TSqlParser.IS_MEMBERContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>IS_MEMBER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIS_MEMBER([NotNull] TSqlParser.IS_MEMBERContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>IS_ROLEMEMBER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIS_ROLEMEMBER([NotNull] TSqlParser.IS_ROLEMEMBERContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>IS_ROLEMEMBER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIS_ROLEMEMBER([NotNull] TSqlParser.IS_ROLEMEMBERContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>IS_SRVROLEMEMBER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIS_SRVROLEMEMBER([NotNull] TSqlParser.IS_SRVROLEMEMBERContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>IS_SRVROLEMEMBER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIS_SRVROLEMEMBER([NotNull] TSqlParser.IS_SRVROLEMEMBERContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>LOGINPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLOGINPROPERTY([NotNull] TSqlParser.LOGINPROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>LOGINPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLOGINPROPERTY([NotNull] TSqlParser.LOGINPROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ORIGINAL_LOGIN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterORIGINAL_LOGIN([NotNull] TSqlParser.ORIGINAL_LOGINContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ORIGINAL_LOGIN</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitORIGINAL_LOGIN([NotNull] TSqlParser.ORIGINAL_LOGINContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>PERMISSIONS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPERMISSIONS([NotNull] TSqlParser.PERMISSIONSContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>PERMISSIONS</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPERMISSIONS([NotNull] TSqlParser.PERMISSIONSContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>PWDENCRYPT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPWDENCRYPT([NotNull] TSqlParser.PWDENCRYPTContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>PWDENCRYPT</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPWDENCRYPT([NotNull] TSqlParser.PWDENCRYPTContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>PWDCOMPARE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPWDCOMPARE([NotNull] TSqlParser.PWDCOMPAREContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>PWDCOMPARE</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPWDCOMPARE([NotNull] TSqlParser.PWDCOMPAREContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SESSION_USER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSESSION_USER([NotNull] TSqlParser.SESSION_USERContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SESSION_USER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSESSION_USER([NotNull] TSqlParser.SESSION_USERContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SESSIONPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSESSIONPROPERTY([NotNull] TSqlParser.SESSIONPROPERTYContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SESSIONPROPERTY</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSESSIONPROPERTY([NotNull] TSqlParser.SESSIONPROPERTYContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SUSER_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSUSER_ID([NotNull] TSqlParser.SUSER_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SUSER_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSUSER_ID([NotNull] TSqlParser.SUSER_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SUSER_SNAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSUSER_SNAME([NotNull] TSqlParser.SUSER_SNAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SUSER_SNAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSUSER_SNAME([NotNull] TSqlParser.SUSER_SNAMEContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SUSER_SID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSUSER_SID([NotNull] TSqlParser.SUSER_SIDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SUSER_SID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSUSER_SID([NotNull] TSqlParser.SUSER_SIDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>SYSTEM_USER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSYSTEM_USER([NotNull] TSqlParser.SYSTEM_USERContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>SYSTEM_USER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSYSTEM_USER([NotNull] TSqlParser.SYSTEM_USERContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>USER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterUSER([NotNull] TSqlParser.USERContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>USER</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitUSER([NotNull] TSqlParser.USERContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>USER_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterUSER_ID([NotNull] TSqlParser.USER_IDContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>USER_ID</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitUSER_ID([NotNull] TSqlParser.USER_IDContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>USER_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterUSER_NAME([NotNull] TSqlParser.USER_NAMEContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>USER_NAME</c>
+	/// labeled alternative in <see cref="TSqlParser.built_in_functions"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitUSER_NAME([NotNull] TSqlParser.USER_NAMEContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.tsql_file"/>.
@@ -7432,6 +10042,32 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitFreetext_predicate([NotNull] TSqlParser.Freetext_predicateContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.json_key_value"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterJson_key_value([NotNull] TSqlParser.Json_key_valueContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.json_key_value"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitJson_key_value([NotNull] TSqlParser.Json_key_valueContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.json_null_clause"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterJson_null_clause([NotNull] TSqlParser.Json_null_clauseContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.json_null_clause"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitJson_null_clause([NotNull] TSqlParser.Json_null_clauseContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.built_in_functions"/>.
