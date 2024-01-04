@@ -6911,19 +6911,6 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitFunction_option([NotNull] TSqlParser.Function_optionContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.partition_with"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterPartition_with([NotNull] TSqlParser.Partition_withContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.partition_with"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitPartition_with([NotNull] TSqlParser.Partition_withContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.create_statistics"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -9472,6 +9459,19 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitOrder_by_clause([NotNull] TSqlParser.Order_by_clauseContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.select_order_by_clause"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSelect_order_by_clause([NotNull] TSqlParser.Select_order_by_clauseContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.select_order_by_clause"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSelect_order_by_clause([NotNull] TSqlParser.Select_order_by_clauseContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.for_clause"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -9509,6 +9509,19 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitOrder_by_expression([NotNull] TSqlParser.Order_by_expressionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.grouping_sets_item"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterGrouping_sets_item([NotNull] TSqlParser.Grouping_sets_itemContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.grouping_sets_item"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitGrouping_sets_item([NotNull] TSqlParser.Grouping_sets_itemContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.group_by_item"/>.
@@ -9600,19 +9613,6 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitAsterisk([NotNull] TSqlParser.AsteriskContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.column_elem"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterColumn_elem([NotNull] TSqlParser.Column_elemContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.column_elem"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitColumn_elem([NotNull] TSqlParser.Column_elemContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.udt_elem"/>.
@@ -11082,19 +11082,6 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitData_type([NotNull] TSqlParser.Data_typeContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.default_value"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterDefault_value([NotNull] TSqlParser.Default_valueContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.default_value"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitDefault_value([NotNull] TSqlParser.Default_valueContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.constant"/>.
