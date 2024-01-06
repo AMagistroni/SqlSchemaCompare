@@ -8476,17 +8476,6 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitFull_column_name_list([NotNull] TSqlParser.Full_column_name_listContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.table_name_with_hint"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterTable_name_with_hint([NotNull] TSqlParser.Table_name_with_hintContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.table_name_with_hint"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitTable_name_with_hint([NotNull] TSqlParser.Table_name_with_hintContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.rowset_function"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -8870,17 +8859,6 @@ public interface ITSqlParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitSybase_legacy_hint([NotNull] TSqlParser.Sybase_legacy_hintContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.insert_with_table_hints"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterInsert_with_table_hints([NotNull] TSqlParser.Insert_with_table_hintsContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.insert_with_table_hints"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitInsert_with_table_hints([NotNull] TSqlParser.Insert_with_table_hintsContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.table_hint"/>.
