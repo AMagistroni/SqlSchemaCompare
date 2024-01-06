@@ -9030,32 +9030,6 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitAlter_table_index_options([NotNull] TSqlParser.Alter_table_index_optionsContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.index_options"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterIndex_options([NotNull] TSqlParser.Index_optionsContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.index_options"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitIndex_options([NotNull] TSqlParser.Index_optionsContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.index_option"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterIndex_option([NotNull] TSqlParser.Index_optionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.index_option"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitIndex_option([NotNull] TSqlParser.Index_optionContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.alter_table_index_option"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

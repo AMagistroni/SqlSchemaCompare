@@ -7706,28 +7706,6 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitAlter_table_index_options([NotNull] TSqlParser.Alter_table_index_optionsContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.index_options"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterIndex_options([NotNull] TSqlParser.Index_optionsContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.index_options"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitIndex_options([NotNull] TSqlParser.Index_optionsContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.index_option"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterIndex_option([NotNull] TSqlParser.Index_optionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.index_option"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitIndex_option([NotNull] TSqlParser.Index_optionContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.alter_table_index_option"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
