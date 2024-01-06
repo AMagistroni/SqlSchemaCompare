@@ -8367,19 +8367,6 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitTransaction_statement([NotNull] TSqlParser.Transaction_statementContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.go_batch_statement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterGo_batch_statement([NotNull] TSqlParser.Go_batch_statementContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.go_batch_statement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitGo_batch_statement([NotNull] TSqlParser.Go_batch_statementContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.go_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

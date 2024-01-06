@@ -7145,17 +7145,6 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitTransaction_statement([NotNull] TSqlParser.Transaction_statementContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.go_batch_statement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterGo_batch_statement([NotNull] TSqlParser.Go_batch_statementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.go_batch_statement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitGo_batch_statement([NotNull] TSqlParser.Go_batch_statementContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.go_statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
