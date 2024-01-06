@@ -8939,19 +8939,6 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitTable_constraint([NotNull] TSqlParser.Table_constraintContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.default_value_columns"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterDefault_value_columns([NotNull] TSqlParser.Default_value_columnsContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.default_value_columns"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitDefault_value_columns([NotNull] TSqlParser.Default_value_columnsContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.connection_node"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

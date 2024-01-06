@@ -7629,17 +7629,6 @@ public interface ITSqlParserListener : IParseTreeListener {
 	void ExitTable_constraint([NotNull] TSqlParser.Table_constraintContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.default_value_columns"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterDefault_value_columns([NotNull] TSqlParser.Default_value_columnsContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.default_value_columns"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitDefault_value_columns([NotNull] TSqlParser.Default_value_columnsContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.connection_node"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

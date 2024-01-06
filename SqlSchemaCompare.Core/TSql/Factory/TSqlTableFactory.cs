@@ -110,8 +110,8 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                     Sql = alterTableContext.Start.InputStream.GetText(new Interval(alterTableContext.start.StartIndex, alterTableContext.stop.StopIndex)),
                     Name = constraint.CONSTRAINT() != null ? constraint.id_()[0].GetText() : string.Empty,
                     ParentName = alterTableContext.children[2].GetText(),
-                    ColumnNames = new List<string> { constraint.forColumn.GetText() },
-                    Value = constraint.DEFAULT() != null ? constraint.default_value_column.GetText() : string.Empty
+                    ColumnNames = new List<string> { constraint.column.GetText() },
+                    Value = constraint.DEFAULT() != null ? constraint.constant_expr.GetText() : string.Empty
                 };
             }
             else
