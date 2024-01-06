@@ -9667,6 +9667,19 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	public virtual void ExitTable_sources([NotNull] TSqlParser.Table_sourcesContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TSqlParser.non_ansi_join"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNon_ansi_join([NotNull] TSqlParser.Non_ansi_joinContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TSqlParser.non_ansi_join"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNon_ansi_join([NotNull] TSqlParser.Non_ansi_joinContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.table_source"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -9678,19 +9691,6 @@ public partial class TSqlParserBaseListener : ITSqlParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitTable_source([NotNull] TSqlParser.Table_sourceContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TSqlParser.table_source_item_joined"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterTable_source_item_joined([NotNull] TSqlParser.Table_source_item_joinedContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TSqlParser.table_source_item_joined"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitTable_source_item_joined([NotNull] TSqlParser.Table_source_item_joinedContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TSqlParser.table_source_item"/>.
