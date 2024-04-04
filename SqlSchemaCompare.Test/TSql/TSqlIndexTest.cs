@@ -2,6 +2,7 @@
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using SqlSchemaCompare.Test.Builder;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -28,7 +29,7 @@ CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
 ) INCLUDE ([col1]) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
 GO";
 
-            var objectFactory = new TSqlObjectFactory();
+            var objectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration());
             (var objects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
             var table = objects.First() as Table;
 
@@ -51,7 +52,7 @@ GO";
         {
             const string sql = "CREATE CLUSTERED COLUMNSTORE INDEX [indexName] ON [dbo].[table] WITH (DROP_EXISTING = OFF) ON [PRIMARY]";
 
-            var objectFactory = new TSqlObjectFactory();
+            var objectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration());
             (var objects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
 
             objects.Single().DbObjectType.ShouldBe(DbObjectType.Other);

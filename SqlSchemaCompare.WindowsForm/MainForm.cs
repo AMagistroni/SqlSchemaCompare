@@ -137,10 +137,11 @@ namespace SqlSchemaCompare.WindowsForm
                 if (File.Exists(errorFile))
                     File.Delete(errorFile);
 
+                var configuration = GetConfiguration();
                 ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
-                IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
+                IDbObjectFactory dbObjectFactory = new TSqlObjectFactory(configuration);
 
-                CompareSchemaManager schemaCompare = new(GetConfiguration(), schemaBuilder);
+                CompareSchemaManager schemaCompare = new(configuration, schemaBuilder);
                 (var file1, var file2) = schemaCompare.Compare(currentOriginDbObjects, currentDestinationDbObjects, SelectedObjectType());
 
                 File.WriteAllText(fileNameDiffOrigin, file1);
@@ -294,7 +295,7 @@ namespace SqlSchemaCompare.WindowsForm
         private void LoadSchema(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             ParametersLoad parameters = e.Argument as ParametersLoad;
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
+            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory(GetConfiguration());
             var loadSchemaManager = new LoadSchemaManager(dbObjectFactory, errorWriter);
 
             string errors;
@@ -368,6 +369,10 @@ namespace SqlSchemaCompare.WindowsForm
             {
                 DiscardObjects = ["[schema].[table to discard]"],
                 DiscardSchemas = ["[schema to discard]"],
+                TableConfiguration = new TableConfiguration
+                {
+                    DiscardWithOnPrimary = true
+                }
             };
             Clipboard.SetText(JsonConvert.SerializeObject(conf));
             lblInfo.Text = "Configuration copied into clipboard";

@@ -2,6 +2,7 @@
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using SqlSchemaCompare.Test.Builder;
 using System.Collections.Generic;
 
 namespace SqlSchemaCompare.Test
@@ -12,7 +13,7 @@ namespace SqlSchemaCompare.Test
             Compare(string originSchema, string destinationSchema, Configuration configuration, IEnumerable<DbObjectType> dbObjectTypes)
         {
             var schemaBuilder = new TSqlSchemaBuilder();
-            var dbObjectFactory = new TSqlObjectFactory();
+            var dbObjectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration());
             IErrorWriter errorWriter = new ErrorWriter();
 
             var loadSchemaManager = new LoadSchemaManager(dbObjectFactory, errorWriter);
@@ -26,7 +27,7 @@ namespace SqlSchemaCompare.Test
 
         public static (string updateFile, string errors) UpdateSchema(string originSchema, string destinationSchema, IEnumerable<DbObjectType> dbObjectTypes)
         {
-            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory();
+            IDbObjectFactory dbObjectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration());
             ISchemaBuilder schemaBuilder = new TSqlSchemaBuilder();
             IErrorWriter errorWriter = new ErrorWriter();
 

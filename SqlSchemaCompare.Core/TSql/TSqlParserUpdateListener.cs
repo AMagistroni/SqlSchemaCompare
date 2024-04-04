@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
+using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql.Factory;
 using System;
@@ -10,10 +11,10 @@ using static SqlSchemaCompare.Core.TSql.TSqlParser;
 
 namespace SqlSchemaCompare.Core.TSql
 {
-    public sealed class TSqlParserUpdateListener(ICharStream stream) : TSqlParserBaseListener
+    public sealed class TSqlParserUpdateListener(ICharStream stream, Configuration configuration) : TSqlParserBaseListener
     {
         private readonly ICharStream _stream = stream;
-        private readonly TSqlTableFactory _tableFactory = new();
+        private readonly TSqlTableFactory _tableFactory = new(configuration);
         private readonly TSqlViewFactory _viewFactory = new();
         private readonly TSqlFunctionFactory _functionFactory = new();
         private readonly TSqlStoreProcedureFactory _storeProcedureFactory = new();

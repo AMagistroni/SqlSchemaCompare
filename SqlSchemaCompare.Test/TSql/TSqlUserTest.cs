@@ -2,6 +2,7 @@
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using SqlSchemaCompare.Test.Builder;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -21,7 +22,7 @@ namespace SqlSchemaCompare.Test.TSql
         {
             const string sql = "CREATE USER [user] FOR LOGIN [user_login] WITH DEFAULT_SCHEMA=[dbo]";
 
-            var objectFactory = new TSqlObjectFactory();
+            var objectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration());
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
             var dbobject = dbObjects.Single() as User;
 
@@ -37,7 +38,7 @@ namespace SqlSchemaCompare.Test.TSql
         {
             const string sql = "CREATE USER [user] FOR LOGIN [login]";
 
-            var objectFactory = new TSqlObjectFactory();
+            var objectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration());
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
             var dbobject = dbObjects.Single() as User;
 

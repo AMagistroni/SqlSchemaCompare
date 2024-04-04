@@ -2,6 +2,7 @@
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using SqlSchemaCompare.Test.Builder;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -25,7 +26,7 @@ BEGIN
     select * from [dbo].[table1]
 END";
 
-            var objectFactory = new TSqlObjectFactory();
+            var objectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration());
             (var objects, var error) = objectFactory.CreateObjectsForUpdateOperation(storeSql);
             var dbobject = objects.Single() as StoreProcedure;
 
@@ -174,7 +175,7 @@ BEGIN
 END
 GO";
 
-            var objectFactory = new TSqlObjectFactory();
+            var objectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration());
             (var objects, var error) = objectFactory.CreateObjectsForUpdateOperation(storeSql);
             objects.Count().ShouldBe(1);
 

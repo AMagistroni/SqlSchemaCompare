@@ -3,21 +3,27 @@ using Antlr4.Runtime.Misc;
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using static SqlSchemaCompare.Core.DbStructures.Table;
 
 namespace SqlSchemaCompare.Core.TSql.Factory
 {
-    public class TSqlTableFactory: FactoryBase, IFactory
+    public partial class TSqlTableFactory(Configuration configuration) : FactoryBase, IFactory
     {
+        private readonly Configuration _configuration = configuration;
+
         public DbObject Create(ParserRuleContext context, ICharStream stream)
         {
             var contextTable = context as TSqlParser.Create_tableContext;
-
+            var sql = stream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex));
+            if (_configuration.TableConfiguration.DiscardWithOnPrimary)
+            {
+                sql = RegexWithOnPrimary().Replace(sql, "");
+            }
             var table = new Table
             {
-                Sql = stream.GetText(new Interval(context.start.StartIndex, context.stop.StopIndex)),
+                Sql = sql,
                 Name = contextTable.table_name().table.GetText(),
                 Schema = contextTable.table_name().schema.GetText(),
                 Operation = GetOperation(contextTable.GetChild(0).GetText())
@@ -124,5 +130,8 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 };
             }
         }
+
+        [GeneratedRegex(@"WITH\s*\([^)]*\)\s*ON\s*\[PRIMARY\]")]
+        private static partial Regex RegexWithOnPrimary();
     }
 }

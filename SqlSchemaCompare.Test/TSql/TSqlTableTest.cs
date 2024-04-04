@@ -2,6 +2,7 @@ using Shouldly;
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using SqlSchemaCompare.Test.Builder;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -45,7 +46,7 @@ GO
             var sql = $@"{sqlTable}
                         GO";
 
-            var objectFactory = new TSqlObjectFactory();
+            var objectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration());
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
             var table = dbObjects.First() as Table;
 
@@ -60,6 +61,65 @@ GO
                         (
                             [Id] ASC
                         ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [db1]
+) ON [db1]");
+
+            var column1 = table.Columns[0];
+            column1.Name.ShouldBe("[Id]");
+            column1.Sql.ShouldBe("[Id] [int] IDENTITY(1,1) NOT NULL");
+
+            var column2 = table.Columns[1];
+            column2.Name.ShouldBe("[col1]");
+            column2.Sql.ShouldBe("[col1] [char](8) NULL");
+
+            table.Constraints[0].Sql.ShouldBe(constraint);
+            table.Constraints[1].Table.ShouldBe(table);
+            table.Constraints[2].Table.ShouldBe(table);
+            errors.Count().ShouldBe(0);
+        }
+        [Fact]
+        public void CreateTable_Without_WithOnPrimary()
+        {
+            const string constraint = @"CONSTRAINT [PK_TableName_Id] PRIMARY KEY CLUSTERED 
+                        (
+                            [Id] ASC
+                        ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]";
+
+            string sqlTable =
+$@"CREATE TABLE [schema].[TableName](
+    [Id] [int] IDENTITY(1,1) NOT NULL,
+    [col1] [char](8) NULL,
+    [col2] [DateTime] NOT NULL,
+    {constraint}
+) ON [db1]
+GO
+
+ALTER TABLE [schema].[TableName]  WITH NOCHECK ADD  CONSTRAINT [FK_Name1] FOREIGN KEY([col1])
+    REFERENCES [dbo].[TBL2] ([ID])
+    ON DELETE CASCADE
+GO
+
+ALTER TABLE [schema].[TableName] ADD  CONSTRAINT [constraintName]  DEFAULT (getdate()) FOR [column1]
+GO
+";
+
+            var sql = $@"{sqlTable}
+                        GO";
+
+            var objectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration(discardWithOnPrimary: true));
+            (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
+            var table = dbObjects.First() as Table;
+
+            table.Name.ShouldBe("[TableName]");
+            table.Schema.ShouldBe("[schema]");
+            table.Sql.ShouldBe(
+@"CREATE TABLE [schema].[TableName](
+    [Id] [int] IDENTITY(1,1) NOT NULL,
+    [col1] [char](8) NULL,
+    [col2] [DateTime] NOT NULL,
+    CONSTRAINT [PK_TableName_Id] PRIMARY KEY CLUSTERED 
+                        (
+                            [Id] ASC
+                        ) 
 ) ON [db1]");
 
             var column1 = table.Columns[0];
@@ -360,7 +420,7 @@ ALTER TABLE [dbo].[TBL] ADD  CONSTRAINT [constraintName]  DEFAULT (getdate()) FO
 GO
 ";
 
-            var objectFactory = new TSqlObjectFactory();
+            var objectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration());
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(origin);
             var table = dbObjects.First() as Table;
 

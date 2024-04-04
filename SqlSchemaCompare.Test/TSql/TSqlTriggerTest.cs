@@ -2,6 +2,7 @@
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using SqlSchemaCompare.Test.Builder;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -34,7 +35,7 @@ end";
 
             const string enableSql = "ENABLE TRIGGER [trg1] ON DATABASE";
 
-            var objectFactory = new TSqlObjectFactory();
+            var objectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration());
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(
 @$"{triggerSql}
 GO

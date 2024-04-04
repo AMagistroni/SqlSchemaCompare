@@ -10,7 +10,7 @@ namespace SqlSchemaCompare.Core.TSql
         Update,
         Compare
     }
-    public class TSqlObjectFactory: IDbObjectFactory
+    public class TSqlObjectFactory(Configuration configuration): IDbObjectFactory
     {
         public (IEnumerable<DbObject> dbObjects, IEnumerable<ErrorParser> errors) CreateObjectsForUpdateOperation(string schema)
         {
@@ -21,7 +21,7 @@ namespace SqlSchemaCompare.Core.TSql
             var token = new CommonTokenStream(lexer);
 
             var parser = new TSqlParser(token);
-            TSqlParserUpdateListener listener  = new(stream);
+            TSqlParserUpdateListener listener  = new(stream, configuration);
             var errorListener = new ErrorListener();
             parser.AddErrorListener(errorListener);
             parser.AddParseListener(listener);

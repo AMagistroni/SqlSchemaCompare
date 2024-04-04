@@ -2,6 +2,7 @@
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using SqlSchemaCompare.Test.Builder;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -20,7 +21,7 @@ namespace SqlSchemaCompare.Test.TSql
         {
             const string schemaSql = "CREATE ROLE [role]";
 
-            var objectFactory = new TSqlObjectFactory();
+            var objectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration());
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(schemaSql);
             var dbobject = dbObjects.Single() as Role;
 

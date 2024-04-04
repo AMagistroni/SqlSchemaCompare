@@ -2,6 +2,7 @@
 using SqlSchemaCompare.Core.Common;
 using SqlSchemaCompare.Core.DbStructures;
 using SqlSchemaCompare.Core.TSql;
+using SqlSchemaCompare.Test.Builder;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -25,7 +26,7 @@ namespace SqlSchemaCompare.Test.TSql
             var sql = $@"{sqlTable}
                         GO";
 
-            var objectFactory = new TSqlObjectFactory();
+            var objectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration());
             (var dbObjects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
             var typeDbObject = dbObjects.Single() as TypeDbObject;
 
