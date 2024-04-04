@@ -114,7 +114,7 @@ END";
                 case Operation.Drop:
                     return $"ALTER TABLE {column.ParentName} DROP COLUMN {column.Name}";
                 case Operation.Rename:
-                    var dbObject = resultProcessDbObject.OperationsOnDbObject.Single(x => x.Operation == Operation.Rename && x.DbObject.ParentName == column.ParentName);
+                    var dbObject = resultProcessDbObject.OperationsOnDbObject.Single(x => x.Operation == Operation.Rename && x.DbObject.ParentName == column.ParentName && column.Name == x.DbObject.Name);
                     return $"sp_rename '{column.ParentName}.{dbObject.Parameter}', '{GetStringWithoutBracket(column.Name)}', 'COLUMN'";
                 default:
                     throw new NotSupportedException("Alter not supported on schema");

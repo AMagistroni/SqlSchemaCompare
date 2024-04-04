@@ -712,17 +712,20 @@ GO
         public void ColumnsDifferentCase()
         {
             const string origin =
-@"CREATE TABLE [schema].[tbl] ([col1] INT not null)
+@"CREATE TABLE [schema].[tbl] ([col1] INT not null, [col2] INT not null)
 GO";
 
             const string destination =
-@"CREATE TABLE [schema].[tbl] ([COL1] INT not null)
+@"CREATE TABLE [schema].[tbl] ([COL1] INT not null, [COL2] INT not null)
 GO";
 
             (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, SelectedObjects);
 
             updateSchema.ShouldBe(
 @"sp_rename '[schema].[tbl].[COL1]', 'col1', 'COLUMN'
+GO
+
+sp_rename '[schema].[tbl].[COL2]', 'col2', 'COLUMN'
 GO
 
 ");
