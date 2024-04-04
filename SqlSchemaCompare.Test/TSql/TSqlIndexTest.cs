@@ -230,7 +230,7 @@ CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
 GO";
             string destination = string.Empty;
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, [dbObjectTypes]);
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }

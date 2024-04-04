@@ -136,7 +136,7 @@ ALTER TABLE [dbo].[TBL] SET (LOCK_ESCALATION = DISABLE)
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, [DbObjectType.Table]);
 
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -226,7 +226,7 @@ ALTER TABLE [schema].[table] CHECK CONSTRAINT [FK_Name1]
 GO
 ";
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { DbObjectType.Table, DbObjectType.Schema });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, [DbObjectType.Table, DbObjectType.Schema]);
 
             updateSchema.ShouldBe(
 @"DROP TABLE [schema].[table]
@@ -776,7 +776,7 @@ GO
 
             string destination = string.Empty;
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, [dbObjectTypes]);
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }

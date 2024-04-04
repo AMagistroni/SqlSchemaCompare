@@ -14,7 +14,7 @@ namespace SqlSchemaCompare.Core.Common
     }
     public class ErrorListener: BaseErrorListener
     {
-        public IList<ErrorParser> Errors { get; } = new List<ErrorParser>();
+        public IList<ErrorParser> Errors { get; } = [];
         public override void SyntaxError([NotNull] IRecognizer recognizer, [Nullable] IToken offendingSymbol, int line, int charPositionInLine, [NotNull] string msg, [Nullable] RecognitionException e)
         {
             Errors.Add(new ErrorParser(offendingSymbol.Text, msg, line, charPositionInLine));

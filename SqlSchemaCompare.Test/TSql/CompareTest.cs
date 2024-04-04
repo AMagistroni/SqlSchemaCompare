@@ -1,7 +1,5 @@
 ﻿using Shouldly;
 using SqlSchemaCompare.Core.DbStructures;
-using System.Collections.Generic;
-using System.Data;
 using Xunit;
 
 namespace SqlSchemaCompare.Test.TSql
@@ -18,7 +16,7 @@ GO
 CREATE TABLE [dbo].[tbl_A]([ID] [int] IDENTITY(0,1) NOT NULL)
 GO
 ";
-            var (file1, file2, errors) = UtilityTest.Compare(sql, "", new Core.Common.Configuration(), new DbObjectType[] { DbObjectType.Table });
+            var (file1, file2, errors) = UtilityTest.Compare(sql, "", new Core.Common.Configuration(), [DbObjectType.Table]);
 
             file1.ShouldBe(
 @"CREATE TABLE [dbo].[tbl_A]([ID] [int] IDENTITY(0,1) NOT NULL)
@@ -41,7 +39,7 @@ GO
 CREATE TABLE [dbo].[tbl_Z]([ID] [int] IDENTITY(0,1) NOT NULL)
 GO
 ";
-            var (file1, file2, errors) = UtilityTest.Compare(sql, sql, new Core.Common.Configuration(), new DbObjectType[] { DbObjectType.Table });
+            var (file1, file2, errors) = UtilityTest.Compare(sql, sql, new Core.Common.Configuration(), [DbObjectType.Table]);
 
             file1.ShouldBeEmpty();
             file2.ShouldBeEmpty();
@@ -59,7 +57,7 @@ GO
 ";
 
             //SET QUOTED_IDENTIFIER ON
-            var (file1, _, errors) = UtilityTest.Compare(sql, "", new Core.Common.Configuration(), new DbObjectType[] { DbObjectType.Table });
+            var (file1, _, errors) = UtilityTest.Compare(sql, "", new Core.Common.Configuration(), [DbObjectType.Table]);
 
             file1.ShouldBeEmpty();
             errors.ShouldBeEmpty();
@@ -83,7 +81,7 @@ GO
 CREATE TABLE [dbo].[only_file_2]([ID] [int] IDENTITY(0,1) NOT NULL)
 GO
 ";
-            var (file1, file2, errors) = UtilityTest.Compare(sql1, sql2, new Core.Common.Configuration(), new DbObjectType[] { DbObjectType.Table });
+            var (file1, file2, errors) = UtilityTest.Compare(sql1, sql2, new Core.Common.Configuration(), [DbObjectType.Table]);
 
             file1.ShouldBe(
 @"CREATE TABLE [dbo].[only_file_1]([ID] [int] IDENTITY(0,1) NOT NULL)
@@ -112,7 +110,7 @@ GO
                 DiscardSchemas = ["[test]"]
             };
 
-            var (file1, file2, errors) = UtilityTest.Compare(sql1, string.Empty, configuration, new DbObjectType[] { DbObjectType.Table });
+            var (file1, file2, errors) = UtilityTest.Compare(sql1, string.Empty, configuration, [DbObjectType.Table]);
 
             file1.ShouldBeEmpty();
             file2.ShouldBeEmpty();
@@ -131,7 +129,7 @@ GO
                 DiscardObjects = ["[dbo].[only_file_1]"]
             };
 
-            var (file1, file2, errors) = UtilityTest.Compare(sql1, string.Empty, configuration, new DbObjectType[] { DbObjectType.Table });
+            var (file1, file2, errors) = UtilityTest.Compare(sql1, string.Empty, configuration, [DbObjectType.Table]);
 
             file1.ShouldBeEmpty();
             file2.ShouldBeEmpty();
@@ -153,7 +151,7 @@ GO
                 DiscardSchemas = ["[schema]"]
             };
 
-            var (file1, file2, errors) = UtilityTest.Compare(sql1, string.Empty, configuration, new DbObjectType[] { DbObjectType.Table });
+            var (file1, file2, errors) = UtilityTest.Compare(sql1, string.Empty, configuration, [DbObjectType.Table]);
 
             file1.ShouldBeEmpty();
             file2.ShouldBeEmpty();

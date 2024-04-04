@@ -10,8 +10,8 @@ namespace SqlSchemaCompare.Core
 {
     public class UpdateSchemaManager(Configuration configuration, ISchemaBuilder schemaBuilder)
     {
-        private static List<(DbObjectType DbObjectType, Operation Operation)> OrderItemSchema => new()
-        {
+        private static List<(DbObjectType DbObjectType, Operation Operation)> OrderItemSchema =>
+        [
             (DbObjectType.User, Operation.Create),
             (DbObjectType.User, Operation.Drop),
             (DbObjectType.User, Operation.Alter),
@@ -63,7 +63,7 @@ namespace SqlSchemaCompare.Core
             (DbObjectType.Index, Operation.Create),
 
             (DbObjectType.Schema, Operation.Drop),
-        };
+        ];
 
         public string UpdateSchema(IEnumerable<DbObject> sourceObjects, IEnumerable<DbObject> destinationObjects, IEnumerable<DbObjectType> selectedObjectType)
         {

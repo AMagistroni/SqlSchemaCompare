@@ -93,7 +93,7 @@ GO
             const string origin = "ALTER ROLE [role] ADD MEMBER [member1]";
             string destination = string.Empty;
 
-            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, new DbObjectType[] { dbObjectTypes });
+            (string updateSchema, string errors) = UtilityTest.UpdateSchema(origin, destination, [dbObjectTypes]);
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }

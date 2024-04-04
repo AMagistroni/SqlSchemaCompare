@@ -1,5 +1,4 @@
-﻿using SqlSchemaCompare.Core.DbStructures;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SqlSchemaCompare.Core.DbStructures
 {
@@ -8,7 +7,7 @@ namespace SqlSchemaCompare.Core.DbStructures
         public override DbObjectType DbObjectType => DbObjectType.Table;
         public class Column : DbObject {
             public override DbObjectType DbObjectType => DbObjectType.Column;
-            public IList<TableConstraint> Constraints { get; } = new List<TableConstraint>();
+            public IList<TableConstraint> Constraints { get; } = [];
             public Table Table { get; init; }
         }
 
@@ -34,10 +33,10 @@ namespace SqlSchemaCompare.Core.DbStructures
             public override DbObjectType DbObjectType => DbObjectType.TableSet;
         }
 
-        public IList<Column> Columns { get; } = new List<Column>();
-        public IList<TableConstraint> Constraints { get; } = new List<TableConstraint>();
-        public IList<TableSet> TableSetList { get; } = new List<TableSet>();
-        public IList<Index> Indexes { get; } = new List<Index>();
+        public IList<Column> Columns { get; } = [];
+        public IList<TableConstraint> Constraints { get; } = [];
+        public IList<TableSet> TableSetList { get; } = [];
+        public IList<Index> Indexes { get; } = [];
         public void AdColumns(Column Colum) => Columns.Add(Colum);
         public void AddConstraint(TableConstraint tableConstraint) => Constraints.Add(tableConstraint);
         public void AddSet(TableSet tableSet) => TableSetList.Add(tableSet);

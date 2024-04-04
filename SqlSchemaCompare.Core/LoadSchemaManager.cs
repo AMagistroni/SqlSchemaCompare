@@ -4,15 +4,10 @@ using System.Collections.Generic;
 
 namespace SqlSchemaCompare.Core
 {
-    public class LoadSchemaManager
+    public class LoadSchemaManager(IDbObjectFactory dbObjectFactory, IErrorWriter errorWriter)
     {
-        private readonly IDbObjectFactory _dbObjectFactory;
-        private readonly IErrorWriter _errorWriter;
-        public LoadSchemaManager(IDbObjectFactory dbObjectFactory, IErrorWriter errorWriter)
-        {
-            _dbObjectFactory = dbObjectFactory;
-            _errorWriter = errorWriter;
-        }
+        private readonly IDbObjectFactory _dbObjectFactory = dbObjectFactory;
+        private readonly IErrorWriter _errorWriter = errorWriter;
 
         public (IEnumerable<DbObject> originObjects, IEnumerable<DbObject> destinationObjects, string errors) LoadSchema(string origin, string destination)
         {

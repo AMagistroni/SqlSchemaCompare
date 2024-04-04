@@ -10,43 +10,26 @@ using static SqlSchemaCompare.Core.TSql.TSqlParser;
 
 namespace SqlSchemaCompare.Core.TSql
 {
-    public sealed class TSqlParserUpdateListener : TSqlParserBaseListener
+    public sealed class TSqlParserUpdateListener(ICharStream stream) : TSqlParserBaseListener
     {
-        private readonly ICharStream _stream;
-        private readonly TSqlTableFactory _tableFactory;
-        private readonly TSqlViewFactory _viewFactory;
-        private readonly TSqlFunctionFactory _functionFactory;
-        private readonly TSqlStoreProcedureFactory _storeProcedureFactory;
-        private readonly TSqlSchemaFactory _schemaFactory;
-        private readonly TSqlTriggerFactory _triggerFactory;
-        private readonly TSqlUserFactory _userFactory;
-        private readonly TSqlRoleFactory _roleFactory;
-        private readonly TSqlTypeCreator _typeFactory;
-        private readonly TSqlIndexFactory _indexFactory;
-        private readonly TSqlMemberFactory _memberFactory;
-        private readonly TSqlSimpleDbObjectFactory _simpleDbObjectFactory;
-        private readonly TSqlDatabaseFactory _databaseFactory;
+        private readonly ICharStream _stream = stream;
+        private readonly TSqlTableFactory _tableFactory = new();
+        private readonly TSqlViewFactory _viewFactory = new();
+        private readonly TSqlFunctionFactory _functionFactory = new();
+        private readonly TSqlStoreProcedureFactory _storeProcedureFactory = new();
+        private readonly TSqlSchemaFactory _schemaFactory = new();
+        private readonly TSqlTriggerFactory _triggerFactory = new();
+        private readonly TSqlUserFactory _userFactory = new();
+        private readonly TSqlRoleFactory _roleFactory = new();
+        private readonly TSqlTypeCreator _typeFactory = new();
+        private readonly TSqlIndexFactory _indexFactory = new();
+        private readonly TSqlMemberFactory _memberFactory = new();
+        private readonly TSqlSimpleDbObjectFactory _simpleDbObjectFactory = new();
+        private readonly TSqlDatabaseFactory _databaseFactory = new();
 
-        private readonly IList<Type> DDLParserRule = new List<Type>()
-            { typeof(Cfl_statementContext), typeof(Create_or_alter_procedureContext) };
-        public TSqlParserUpdateListener(ICharStream stream)
-        {
-            _stream = stream;
-            _tableFactory = new TSqlTableFactory();
-            _viewFactory = new TSqlViewFactory();
-            _functionFactory = new TSqlFunctionFactory();
-            _storeProcedureFactory = new TSqlStoreProcedureFactory();
-            _schemaFactory = new TSqlSchemaFactory();
-            _triggerFactory = new TSqlTriggerFactory();
-            _userFactory = new TSqlUserFactory();
-            _roleFactory = new TSqlRoleFactory();
-            _typeFactory = new TSqlTypeCreator();
-            _indexFactory = new TSqlIndexFactory();
-            _memberFactory = new TSqlMemberFactory();
-            _simpleDbObjectFactory = new TSqlSimpleDbObjectFactory();
-            _databaseFactory = new TSqlDatabaseFactory();
-        }
-        public List<DbObject> DbObjects { get; } = new();
+        private readonly IList<Type> DDLParserRule = [typeof(Cfl_statementContext), typeof(Create_or_alter_procedureContext)];
+
+        public List<DbObject> DbObjects { get; } = [];
         public override void ExitAlter_database([NotNull] Alter_databaseContext context)
         {
             DbObjects.Add(_simpleDbObjectFactory.Create(context, _stream));
@@ -56,47 +39,47 @@ namespace SqlSchemaCompare.Core.TSql
         {
             DbObjects.Add(_simpleDbObjectFactory.Create(context, _stream));
         }
-        public override void ExitCreate_table([NotNull] TSqlParser.Create_tableContext context)
+        public override void ExitCreate_table([NotNull] Create_tableContext context)
         {
             if (!ObjectInsideDDL(context))
                 DbObjects.Add(_tableFactory.Create(context, _stream));
         }
 
-        public override void ExitCreate_view([NotNull] TSqlParser.Create_viewContext context)
+        public override void ExitCreate_view([NotNull] Create_viewContext context)
         {
             DbObjects.Add(_viewFactory.Create(context, _stream));
         }
 
-        public override void ExitCreate_or_alter_function([NotNull] TSqlParser.Create_or_alter_functionContext context)
+        public override void ExitCreate_or_alter_function([NotNull] Create_or_alter_functionContext context)
         {
             DbObjects.Add(_functionFactory.Create(context, _stream));
         }
 
-        public override void ExitCreate_or_alter_procedure([NotNull] TSqlParser.Create_or_alter_procedureContext context)
+        public override void ExitCreate_or_alter_procedure([NotNull] Create_or_alter_procedureContext context)
         {
             DbObjects.Add(_storeProcedureFactory.Create(context, _stream));
         }
 
-        public override void ExitCreate_schema([NotNull] TSqlParser.Create_schemaContext context)
+        public override void ExitCreate_schema([NotNull] Create_schemaContext context)
         {
             DbObjects.Add(_schemaFactory.Create(context, _stream));
         }
 
-        public override void ExitCreate_or_alter_trigger([NotNull] TSqlParser.Create_or_alter_triggerContext context)
+        public override void ExitCreate_or_alter_trigger([NotNull] Create_or_alter_triggerContext context)
         {
             DbObjects.Add(_triggerFactory.Create(context, _stream));
         }
 
-        public override void ExitCreate_user([NotNull] TSqlParser.Create_userContext context)
+        public override void ExitCreate_user([NotNull] Create_userContext context)
         {
             DbObjects.Add(_userFactory.Create(context, _stream));
         }
-        public override void ExitCreate_db_role([NotNull] TSqlParser.Create_db_roleContext context)
+        public override void ExitCreate_db_role([NotNull] Create_db_roleContext context)
         {
             DbObjects.Add(_roleFactory.Create(context, _stream));
         }
 
-        public override void ExitEnable_trigger([NotNull] TSqlParser.Enable_triggerContext context)
+        public override void ExitEnable_trigger([NotNull] Enable_triggerContext context)
         {
             var enabled = TSqlTriggerFactory.CreateEnable(context, _stream);
             var trigger = DbObjects.OfType<Trigger>().Single(x => x.Name == enabled.Name);
@@ -104,25 +87,25 @@ namespace SqlSchemaCompare.Core.TSql
             DbObjects.Add(enabled);
         }
 
-        public override void ExitDisable_trigger([NotNull] TSqlParser.Disable_triggerContext context)
+        public override void ExitDisable_trigger([NotNull] Disable_triggerContext context)
         {
             var enabled = TSqlTriggerFactory.CreateDisable(context, _stream);
             var trigger = DbObjects.OfType<Trigger>().Single(x => x.Name == enabled.Name);
             trigger.SetEnabled(enabled);
             DbObjects.Add(enabled);
         }
-        public override void ExitAlter_db_role([NotNull] TSqlParser.Alter_db_roleContext context)
+        public override void ExitAlter_db_role([NotNull] Alter_db_roleContext context)
         {
             DbObjects.Add(_memberFactory.Create(context, _stream));
         }
 
-        public override void ExitCreate_type([NotNull] TSqlParser.Create_typeContext context)
+        public override void ExitCreate_type([NotNull] Create_typeContext context)
         {
             if (!ObjectInsideDDL(context))
                 DbObjects.Add(_typeFactory.Create(context, _stream));
         }
 
-        public override void ExitCreate_index([NotNull] TSqlParser.Create_indexContext context)
+        public override void ExitCreate_index([NotNull] Create_indexContext context)
         {
             if (!ObjectInsideDDL(context))
             {
@@ -141,7 +124,7 @@ namespace SqlSchemaCompare.Core.TSql
             }
         }
 
-        public override void ExitAlter_index([NotNull] TSqlParser.Alter_indexContext context)
+        public override void ExitAlter_index([NotNull] Alter_indexContext context)
         {
             if (!ObjectInsideDDL(context))
             {
@@ -152,7 +135,7 @@ namespace SqlSchemaCompare.Core.TSql
             }
         }
 
-        public override void ExitAlter_table([NotNull] TSqlParser.Alter_tableContext context)
+        public override void ExitAlter_table([NotNull] Alter_tableContext context)
         {
             if (!ObjectInsideDDL(context))
             {
@@ -181,7 +164,7 @@ namespace SqlSchemaCompare.Core.TSql
         {
             DbObjects.Add(_simpleDbObjectFactory.Create(context, _stream));
         }
-        public override void ExitCreate_database([NotNull] TSqlParser.Create_databaseContext context)
+        public override void ExitCreate_database([NotNull] Create_databaseContext context)
         {
             DbObjects.Add(_databaseFactory.Create(context, _stream));
         }

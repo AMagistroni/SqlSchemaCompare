@@ -95,7 +95,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                 Sql = alterTableContext.Start.InputStream.GetText(new Interval(alterTableContext.start.StartIndex, alterTableContext.stop.StopIndex)),
                 Name = (alterTableContext.constraint?.GetText()),
                 ParentName = alterTableContext.children[2].GetText(),
-                ColumnNames = new List<string> { alterTableContext.fk?.GetText() },
+                ColumnNames = [alterTableContext.fk?.GetText()],
                 TableIdentifierPrimaryKey = alterTableContext.REFERENCES() != null ? alterTableContext.table_name()[1].GetText() : string.Empty
             };
         }
@@ -110,7 +110,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
                     Sql = alterTableContext.Start.InputStream.GetText(new Interval(alterTableContext.start.StartIndex, alterTableContext.stop.StopIndex)),
                     Name = constraint.CONSTRAINT() != null ? constraint.id_()[0].GetText() : string.Empty,
                     ParentName = alterTableContext.children[2].GetText(),
-                    ColumnNames = new List<string> { constraint.column.GetText() },
+                    ColumnNames = [constraint.column.GetText()],
                     Value = constraint.DEFAULT() != null ? constraint.constant_expr.GetText() : string.Empty
                 };
             }

@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Windows.Forms;
 
 namespace SqlSchemaCompare.WindowsForm
