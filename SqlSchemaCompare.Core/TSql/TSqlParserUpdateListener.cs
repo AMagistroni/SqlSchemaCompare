@@ -23,7 +23,7 @@ namespace SqlSchemaCompare.Core.TSql
         private readonly TSqlUserFactory _userFactory = new();
         private readonly TSqlRoleFactory _roleFactory = new();
         private readonly TSqlTypeCreator _typeFactory = new();
-        private readonly TSqlIndexFactory _indexFactory = new();
+        private readonly TSqlIndexFactory _indexFactory = new(configuration);
         private readonly TSqlMemberFactory _memberFactory = new();
         private readonly TSqlSimpleDbObjectFactory _simpleDbObjectFactory = new();
         private readonly TSqlDatabaseFactory _databaseFactory = new();

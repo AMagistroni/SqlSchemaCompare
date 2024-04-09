@@ -131,7 +131,7 @@ namespace SqlSchemaCompare.Core.TSql.Factory
             }
         }
 
-        [GeneratedRegex(@"WITH\s*\([^)]*\)\s*ON\s*\[PRIMARY\]")]
+        [GeneratedRegex(@"WITH\s*\([^)]*\)\s*ON\s*\[\w+\]")]
         private static partial Regex RegexWithOnPrimary();
     }
 }

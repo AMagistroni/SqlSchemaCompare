@@ -90,6 +90,36 @@ GO";
             updateSchema.ShouldBeEmpty();
             errors.ShouldBeEmpty();
         }
+        [Fact]
+        public void CreateIndex_WithOnPrimary()
+        {
+            const string sql =
+@"CREATE TABLE [dbo].[table] ([ID] [INT] NOT NULL, [col1] int )
+GO
+
+CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
+(
+    [ID] ASC
+) INCLUDE ([col1]) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [indexTable]
+GO";
+
+            var objectFactory = new TSqlObjectFactory(ConfigurationBuilder.GetConfiguration(true));
+            (var objects, var errors) = objectFactory.CreateObjectsForUpdateOperation(sql);
+            var table = objects.First() as Table;
+
+            table.Indexes.Single().Name.ShouldBe("[indexName]");
+            table.Indexes.Single().Schema.ShouldBeEmpty();
+            table.Indexes.Single().Identifier.ShouldBe("[indexName]");
+            table.Indexes.Single().ColumnNames.ShouldContain("[ID]");
+            table.Indexes.Single().ColumnNames.ShouldContain("[col1]");
+            table.Indexes.Single().ColumnNames.Count().ShouldBe(2);
+            table.Indexes.Single().Sql.ShouldBe(
+@"CREATE NONCLUSTERED INDEX [indexName] ON [dbo].[table]
+(
+    [ID] ASC
+) INCLUDE ([col1]) ");
+            errors.Count().ShouldBe(0);
+        }
 
         [Fact]
         public void UpdateSchemaCreateDbObject()
